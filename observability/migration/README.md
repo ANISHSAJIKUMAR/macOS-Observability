@@ -20,6 +20,7 @@ docker compose up -d
 - Prometheus: http://localhost:9090
 - node_exporter: http://localhost:9100/metrics
 - Loki: http://localhost:3100 (if enabled)
+- tshark live capture: dashboard only (requires root daemon on macOS)
 
 ### 4. Notes
 - Grafana in Docker uses **HTTP** (no HTTPS by default).
@@ -42,8 +43,10 @@ docker compose down
 
 ### 2. Install
 ```bash
-brew install prometheus grafana node_exporter smartmontools loki promtail
+brew install prometheus grafana node_exporter smartmontools loki promtail wireshark
 ```
+
+Note: `wireshark` installs `tshark` (CLI) which is required for the Live Capture dashboard.
 
 ### 3. Copy configs
 Clone the repo and keep it in:
@@ -91,6 +94,7 @@ sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.wdutil_metrics.
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.smart_metrics.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.promtail.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.tshark_metrics.plist
 ```
 
 ### 7. Verify
