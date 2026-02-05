@@ -55,3 +55,21 @@ curl -sf http://localhost:9100/metrics | head -n 5
 curl -sf http://localhost:3100/ready
 curl -skf https://localhost:3000/api/health
 ```
+
+## Useful Commands
+```bash
+# List service status
+brew services list | egrep 'grafana|prometheus|loki|node_exporter'
+
+# Restart core services
+brew services restart node_exporter
+brew services restart prometheus
+brew services restart loki
+brew services restart grafana
+
+# Check LaunchAgent status (user)
+launchctl print gui/$(id -u)/observability.net_connectivity
+
+# Check LaunchDaemon status (root)
+sudo launchctl print system/observability.wdutil_metrics
+```

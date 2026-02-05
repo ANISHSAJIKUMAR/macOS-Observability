@@ -32,6 +32,21 @@ Includes configuration, dashboards, exporters, and demo flow.
 sudo -v
 ```
 
+## Core Service Commands
+```bash
+# Status
+brew services list | egrep 'grafana|prometheus|loki|node_exporter'
+
+# Restart a single service
+brew services restart prometheus
+
+# Restart all core services
+brew services restart node_exporter
+brew services restart prometheus
+brew services restart loki
+brew services restart grafana
+```
+
 ## Service URLs
 - Prometheus: http://localhost:9090
 - Grafana: https://localhost:3000
@@ -117,6 +132,17 @@ Loki keeps **14 days** of logs.
 - `start_all.sh` uses `launchctl bootstrap/bootout` (preferred on modern macOS).
 - Root exporters (Wi‑Fi, SMART, fan/thermal, promtail, tshark) require sudo.
 - Run `sudo -v` once per terminal session before `./start_all.sh` if you want root services to start without prompts.
+
+## Launchd Commands
+```bash
+# User agents (metrics exporters)
+launchctl print gui/$(id -u)/observability.net_connectivity
+launchctl print gui/$(id -u)/observability.mac_system_info
+
+# Root daemons (Wi‑Fi/SMART/fan/promtail/tshark)
+sudo launchctl print system/observability.wdutil_metrics
+sudo launchctl print system/observability.smart_metrics
+```
 
 ## Troubleshooting
 - **No data in Grafana**: check Prometheus and node_exporter are running and `http://localhost:9100/metrics` works.
