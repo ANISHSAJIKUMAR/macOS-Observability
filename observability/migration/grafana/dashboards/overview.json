@@ -14,7 +14,7 @@
       },
       "options": {
         "mode": "markdown",
-        "content": "## Anish Laptop Observability\nThis landing page is your quick map of the system. Use these links to jump into detail.\n\n- **Mac System: Core Health** \u2014 CPU, memory, disks, battery, thermal, SMART\n- **Mac Network: Connectivity & Wi\u2011Fi** \u2014 throughput, drops, Wi\u2011Fi quality\n- **Mac Info: Identity & Status** \u2014 system identity, IPs, launchd services\n- **Executive Summary** \u2014 demo\u2011friendly overview for interviews\n- **Prometheus: Self\u2011Monitoring** \u2014 scrape health, TSDB size, WAL\n- **Mac Logs: System & Apps** \u2014 system and application logs via Loki\n\nTip: Start here, then drill down when a metric looks abnormal."
+        "content": "## Anish Laptop Observability\nThis landing page is your quick map of the system. Use these links to jump into detail.\n\n- **Mac System: Core Health** \u2014 CPU, memory, disks, battery, thermal, SMART\n- **Mac Network: Connectivity & Wi\u2011Fi** \u2014 throughput, drops, Wi\u2011Fi quality\n- **Mac Info: Identity & Status** \u2014 system identity, IPs, launchd services\n- **Executive Summary** \u2014 demo\u2011friendly overview for interviews\n- **Prometheus: Self\u2011Monitoring** \u2014 scrape health, TSDB size, WAL\n- **Mac Logs: System & Apps** \u2014 system and application logs via Loki\n- **Mac Security: Activity & Risk Signals** \u2014 security log signals and user activity\n\nTip: Start here, then drill down when a metric looks abnormal."
       },
       "transparent": true
     },
