@@ -6,6 +6,7 @@ launchctl unload ~/Library/LaunchAgents/com.local.net_connectivity.plist || true
 launchctl unload ~/Library/LaunchAgents/com.local.mac_system_info.plist || true
 launchctl unload ~/Library/LaunchAgents/com.local.launchd_metrics.plist || true
 launchctl unload ~/Library/LaunchAgents/com.local.grafana_health.plist || true
+launchctl unload ~/Library/LaunchAgents/com.local.prom_config_checksum.plist || true
 
 if [ -f /Library/LaunchDaemons/com.local.wdutil_metrics.plist ]; then
   echo "Stopping Wi-Fi LaunchDaemon (root)..."

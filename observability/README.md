@@ -63,6 +63,7 @@ Grafana folder: **Anish Laptop**
 - **All Metrics: Live Explorer** — all active Prometheus metrics (live only)
 - **Executive Summary: Anish Laptop** — high‑level health view for demos/interviews
 - **Anish Laptop: Overview** — navigation hub + quick KPIs
+- **Prometheus: Self‑Monitoring** — scrape health, TSDB, WAL, config checksum
 
 Dashboard exports:
 ```

@@ -11,6 +11,7 @@ launchctl load ~/Library/LaunchAgents/com.local.net_connectivity.plist
 launchctl load ~/Library/LaunchAgents/com.local.mac_system_info.plist
 launchctl load ~/Library/LaunchAgents/com.local.launchd_metrics.plist
 launchctl load ~/Library/LaunchAgents/com.local.grafana_health.plist
+launchctl load ~/Library/LaunchAgents/com.local.prom_config_checksum.plist
 
 if [ -f /Library/LaunchDaemons/com.local.wdutil_metrics.plist ]; then
   echo "Starting Wi-Fi LaunchDaemon (root)..."

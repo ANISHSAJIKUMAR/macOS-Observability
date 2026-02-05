@@ -5,6 +5,7 @@
 - `com.local.mac_system_info.plist`
 - `com.local.launchd_metrics.plist`
 - `com.local.grafana_health.plist`
+- `com.local.prom_config_checksum.plist`
 
 ## LaunchDaemon (root)
 - `com.local.wdutil_metrics.plist`

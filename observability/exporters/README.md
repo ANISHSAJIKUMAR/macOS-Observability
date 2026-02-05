@@ -13,6 +13,8 @@ These scripts emit Prometheus metrics into the textfile directory for node_expor
   - Lists running launchd jobs
 - `grafana_health_metrics.py`
   - Checks Grafana API health (up/down)
+- `prom_config_checksum.py`
+  - Calculates SHA256 checksums of Prometheus config files
 - `wdutil_metrics.py`
   - Wi‑Fi RSSI, noise, SNR, link rate, CCA, MCS, NSS
   - Requires root (LaunchDaemon)

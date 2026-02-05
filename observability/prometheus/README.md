@@ -66,9 +66,20 @@ Current values and meanings:
 ```
 - Limit total storage to 20 GB.
 
+```
+--storage.tsdb.min-block-duration=2h
+```
+- Block compaction lower bound (smaller blocks).
+
+```
+--storage.tsdb.max-block-duration=24h
+```
+- Block compaction upper bound (larger blocks).
+
 ## Safe Changes
 - Add new scrape jobs in `prometheus.yml`
 - Adjust retention time/size in `prometheus.args`
+- Add or edit rules in `rules/recording.yml`
 
 ## Apply Changes
 ```bash

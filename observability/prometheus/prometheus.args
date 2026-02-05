@@ -3,3 +3,5 @@
 --storage.tsdb.path /opt/homebrew/var/prometheus
 --storage.tsdb.retention.time=14d
 --storage.tsdb.retention.size=20GB
+--storage.tsdb.min-block-duration=2h
+--storage.tsdb.max-block-duration=24h
