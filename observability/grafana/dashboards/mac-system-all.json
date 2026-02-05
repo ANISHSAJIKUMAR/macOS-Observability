@@ -442,7 +442,7 @@
       "type": "stat"
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.\n\nIf this shows 0, the volume is likely not mounted.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -458,7 +458,7 @@
       },
       "targets": [
         {
-          "expr": "(node_filesystem_size_bytes{mountpoint=\"/Volumes/AnishSSD\"} - node_filesystem_avail_bytes{mountpoint=\"/Volumes/AnishSSD\"}) / node_filesystem_size_bytes{mountpoint=\"/Volumes/AnishSSD\"} * 100",
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/Volumes/AnishSSD\"} - node_filesystem_avail_bytes{mountpoint=\"/Volumes/AnishSSD\"}) / node_filesystem_size_bytes{mountpoint=\"/Volumes/AnishSSD\"} * 100) or on() vector(0)",
           "legendFormat": ""
         }
       ],
@@ -466,7 +466,7 @@
       "type": "stat"
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.\n\nIf this shows 0, the volume is likely not mounted.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -482,7 +482,7 @@
       },
       "targets": [
         {
-          "expr": "(node_filesystem_size_bytes{mountpoint=\"/Volumes/Time Machine\"} - node_filesystem_avail_bytes{mountpoint=\"/Volumes/Time Machine\"}) / node_filesystem_size_bytes{mountpoint=\"/Volumes/Time Machine\"} * 100",
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/Volumes/Time Machine\"} - node_filesystem_avail_bytes{mountpoint=\"/Volumes/Time Machine\"}) / node_filesystem_size_bytes{mountpoint=\"/Volumes/Time Machine\"} * 100) or on() vector(0)",
           "legendFormat": ""
         }
       ],
