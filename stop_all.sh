@@ -11,13 +11,20 @@ fi
 log() { printf "[stop_all] %s\n" "$*"; }
 
 log "Stopping LaunchAgents..."
-launchctl unload ~/Library/LaunchAgents/observability.net_connectivity.plist || true
-launchctl unload ~/Library/LaunchAgents/observability.mac_system_info.plist || true
-launchctl unload ~/Library/LaunchAgents/observability.launchd_metrics.plist || true
-launchctl unload ~/Library/LaunchAgents/observability.grafana_health.plist || true
-launchctl unload ~/Library/LaunchAgents/observability.prom_config_checksum.plist || true
-launchctl unload ~/Library/LaunchAgents/observability.battery_metrics.plist || true
-launchctl unload ~/Library/LaunchAgents/observability.airport_metrics.plist || true
+USER_DOMAIN="gui/$(id -u)"
+LAUNCH_AGENTS=(
+  "$HOME/Library/LaunchAgents/observability.net_connectivity.plist"
+  "$HOME/Library/LaunchAgents/observability.mac_system_info.plist"
+  "$HOME/Library/LaunchAgents/observability.launchd_metrics.plist"
+  "$HOME/Library/LaunchAgents/observability.grafana_health.plist"
+  "$HOME/Library/LaunchAgents/observability.prom_config_checksum.plist"
+  "$HOME/Library/LaunchAgents/observability.battery_metrics.plist"
+)
+for agent in "${LAUNCH_AGENTS[@]}"; do
+  if [ -f "$agent" ]; then
+    launchctl bootout "$USER_DOMAIN" "$agent" >/dev/null 2>&1 || true
+  fi
+done
 
 log "Stopping Wi‑Fi LaunchDaemon (root) if available..."
 if [ "$CAN_SUDO" -eq 1 ]; then

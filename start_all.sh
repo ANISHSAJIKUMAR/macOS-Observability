@@ -18,13 +18,21 @@ brew services start loki
 brew services start grafana
 
 log "Starting LaunchAgents..."
-launchctl load ~/Library/LaunchAgents/observability.net_connectivity.plist
-launchctl load ~/Library/LaunchAgents/observability.mac_system_info.plist
-launchctl load ~/Library/LaunchAgents/observability.launchd_metrics.plist
-launchctl load ~/Library/LaunchAgents/observability.grafana_health.plist
-launchctl load ~/Library/LaunchAgents/observability.prom_config_checksum.plist
-launchctl load ~/Library/LaunchAgents/observability.battery_metrics.plist
-launchctl load ~/Library/LaunchAgents/observability.airport_metrics.plist
+USER_DOMAIN="gui/$(id -u)"
+LAUNCH_AGENTS=(
+  "$HOME/Library/LaunchAgents/observability.net_connectivity.plist"
+  "$HOME/Library/LaunchAgents/observability.mac_system_info.plist"
+  "$HOME/Library/LaunchAgents/observability.launchd_metrics.plist"
+  "$HOME/Library/LaunchAgents/observability.grafana_health.plist"
+  "$HOME/Library/LaunchAgents/observability.prom_config_checksum.plist"
+  "$HOME/Library/LaunchAgents/observability.battery_metrics.plist"
+)
+for agent in "${LAUNCH_AGENTS[@]}"; do
+  if [ -f "$agent" ]; then
+    launchctl bootout "$USER_DOMAIN" "$agent" >/dev/null 2>&1 || true
+    launchctl bootstrap "$USER_DOMAIN" "$agent"
+  fi
+done
 
 log "Starting Wi‑Fi LaunchDaemon (root) if available..."
 if [ "$CAN_SUDO" -eq 1 ]; then
@@ -56,7 +64,19 @@ log "Status checks..."
 if command -v curl >/dev/null 2>&1; then
   curl -sf http://localhost:9090/-/ready >/dev/null && log "Prometheus ready" || log "Prometheus not ready"
   curl -sf http://localhost:9100/metrics >/dev/null && log "node_exporter OK" || log "node_exporter not responding"
-  curl -sf http://localhost:3100/ready >/dev/null && log "Loki OK" || log "Loki not responding"
+  LOKI_OK=0
+  for _ in {1..10}; do
+    if curl -sf http://localhost:3100/ready >/dev/null; then
+      LOKI_OK=1
+      break
+    fi
+    sleep 1
+  done
+  if [ "$LOKI_OK" -eq 1 ]; then
+    log "Loki OK"
+  else
+    log "Loki not responding"
+  fi
   # Grafana is HTTPS now
   curl -skf https://localhost:3000/api/health >/dev/null && log "Grafana OK" || log "Grafana not responding"
 fi

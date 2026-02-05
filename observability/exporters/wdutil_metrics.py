@@ -28,12 +28,6 @@ def parse_kv(text):
     return data
 
 
-def run_airport():
-    # Hard-disable airport usage on newer macOS where the binary may be missing
-    # or gated. We rely on wdutil and system_profiler instead.
-    return {}
-
-
 def run_system_profiler_wifi():
     try:
         raw = subprocess.check_output(["/usr/sbin/system_profiler", "SPAirPortDataType", "-json"], text=True)
@@ -85,30 +79,7 @@ def main():
     nss = to_float(data.get("NSS", ""))
 
     source = "wdutil"
-    # Some macOS builds report RSSI as 0 via wdutil. Fall back to airport -I.
-    if rssi is None or rssi == 0:
-        airport = run_airport()
-        arssi = to_float(airport.get("agrCtlRSSI"))
-        anoise = to_float(airport.get("agrCtlNoise"))
-        atx = to_float(airport.get("lastTxRate"))
-        amax = to_float(airport.get("maxRate"))
-        amcs = to_float(airport.get("MCS"))
-        anss = to_float(airport.get("NSS"))
-        if arssi is not None:
-            rssi = arssi
-            source = "airport"
-        if anoise is not None:
-            noise = anoise
-        if atx is not None:
-            tx_rate = atx
-        if amax is not None:
-            max_rate = amax
-        if amcs is not None:
-            mcs = amcs
-        if anss is not None:
-            nss = anss
-
-    # Second fallback: system_profiler SPAirPortDataType
+    # Some macOS builds report RSSI as 0 via wdutil. Fall back to system_profiler.
     if rssi is None or rssi == 0:
         sp = run_system_profiler_wifi()
         sig = sp.get("signal_noise", "")
@@ -184,7 +155,7 @@ def main():
     lines.append("# TYPE wifi_metrics_timestamp_seconds gauge")
     lines.append(f"wifi_metrics_timestamp_seconds {time.time()}")
 
-    lines.append("# HELP wifi_metrics_source Wi-Fi metrics source (wdutil or airport)")
+    lines.append("# HELP wifi_metrics_source Wi-Fi metrics source (wdutil or system_profiler)")
     lines.append("# TYPE wifi_metrics_source gauge")
     lines.append(f'wifi_metrics_source{{source="{source}"}} 1')
 

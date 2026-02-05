@@ -840,7 +840,7 @@
       "id": 1,
       "type": "stat",
       "title": "Wi\u2011Fi Metrics Source",
-      "description": "Shows which system command is providing Wi\u2011Fi metrics (wdutil or airport). Helpful for debugging metric availability.",
+      "description": "Shows which system command is providing Wi\u2011Fi metrics (wdutil or system_profiler). Helpful for debugging metric availability.",
       "gridPos": {
         "x": 0,
         "y": 90,
