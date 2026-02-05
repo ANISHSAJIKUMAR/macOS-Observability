@@ -30,7 +30,8 @@
         "current": {
           "text": "All",
           "value": "$__all"
-        }
+        },
+        "allValue": ".*"
       },
       {
         "name": "log_type",
@@ -45,7 +46,8 @@
         "current": {
           "text": "All",
           "value": "$__all"
-        }
+        },
+        "allValue": ".*"
       },
       {
         "name": "filename",
@@ -60,7 +62,8 @@
         "current": {
           "text": "All",
           "value": "$__all"
-        }
+        },
+        "allValue": ".*"
       },
       {
         "name": "search",
