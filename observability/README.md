@@ -93,7 +93,19 @@ Prometheus keeps **14 days** of data with a **20 GB** cap.
 /Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/node_exporter.args
 /Users/anishskumar/Anish-DevOps-Lab/observability/exporters/
 /Users/anishskumar/Anish-DevOps-Lab/observability/launchd/
+/Users/anishskumar/Anish-DevOps-Lab/observability/loki/loki-config.yml
+/Users/anishskumar/Anish-DevOps-Lab/observability/promtail/promtail-config.yml
 ```
+
+## Directory Map
+- `grafana/` — Grafana config + dashboard backups
+- `prometheus/` — Prometheus config + rules
+- `node_exporter/` — node_exporter args + textfile output
+- `exporters/` — custom metric exporters (Python)
+- `launchd/` — LaunchAgents/Daemons for exporters
+- `loki/` — Loki config (log storage)
+- `promtail/` — Promtail config (log collection)
+- `migration/` — Docker + new‑Mac setup files
 
 ## Quick URLs
 - Prometheus: http://localhost:9090
