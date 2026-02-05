@@ -1,0 +1,15 @@
+# Local runtime state
+.DS_Store
+
+# Grafana local config may include secrets if customized
+observability/grafana/grafana.ini
+
+# Local Grafana data/db (not tracked)
+observability/grafana/data/
+
+# Prometheus TSDB data (not tracked)
+observability/prometheus/data/
+
+# Any exported secrets files
+*.env
+*.secret

@@ -1,0 +1,264 @@
+{
+  "folderUid": "cfcclm6jxqvpcd",
+  "id": 6,
+  "panels": [
+    {
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "content": "## Read Me\nThis Grafana workspace monitors Anish's personal Mac with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health \u2014 CPU, memory, disk usage (including AnishSSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi\u2011Fi \u2014 throughput, errors/drops, ping health, Wi\u2011Fi signal/rates\n- Mac Info: Identity & Status \u2014 system identity, key specs, running launchd services\n- All Metrics: Live Explorer \u2014 all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, mac_system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi\u2011Fi metrics\n",
+        "mode": "markdown"
+      },
+      "title": "Read Me",
+      "type": "text"
+    },
+    {
+      "description": "Table view for System Information.",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "targets": [
+        {
+          "expr": "mac_system_kv",
+          "instant": true
+        }
+      ],
+      "title": "System Information",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "value"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "key": 0,
+              "value": 1
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "description": "Current value for Uptime.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 14
+      },
+      "targets": [
+        {
+          "expr": "time() - node_boot_time_seconds",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "description": "Current value for CPU Cores.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 14
+      },
+      "targets": [
+        {
+          "expr": "mac_system_kv{key=\"cpu_cores\"}",
+          "legendFormat": ""
+        }
+      ],
+      "title": "CPU Cores",
+      "type": "stat"
+    },
+    {
+      "description": "Current value for Total Memory.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 14
+      },
+      "targets": [
+        {
+          "expr": "node_memory_total_bytes",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Total Memory",
+      "type": "stat"
+    },
+    {
+      "description": "Current value for Disk Used (/).",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 14
+      },
+      "targets": [
+        {
+          "expr": "(node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Disk Used (/)",
+      "type": "stat"
+    },
+    {
+      "description": "Table view for Disk Usage by Mount (Used Bytes).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "targets": [
+        {
+          "expr": "topk(10, node_filesystem_size_bytes{fstype!~\"autofs\"} - node_filesystem_avail_bytes{fstype!~\"autofs\"})",
+          "instant": true
+        }
+      ],
+      "title": "Disk Usage by Mount (Used Bytes)",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "used_bytes"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "device": 1,
+              "mountpoint": 0,
+              "used_bytes": 2
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "description": "Current value for Launchd Jobs (Total).",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 18
+      },
+      "targets": [
+        {
+          "expr": "launchd_jobs_total",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Launchd Jobs (Total)",
+      "type": "stat"
+    },
+    {
+      "description": "Current value for Launchd Jobs (Running).",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 18
+      },
+      "targets": [
+        {
+          "expr": "sum(launchd_job_running)",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Launchd Jobs (Running)",
+      "type": "stat"
+    },
+    {
+      "description": "Table view for Launchd Jobs (Running).",
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "targets": [
+        {
+          "expr": "launchd_job_pid > 0",
+          "instant": true
+        }
+      ],
+      "title": "Launchd Jobs (Running)",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "pid"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "Value": 1,
+              "label": 0
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 41,
+  "tags": [
+    "system",
+    "network",
+    "summary",
+    "mac"
+  ],
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "Mac Info: Identity & Status",
+  "uid": "mac-info",
+  "version": 8
+}

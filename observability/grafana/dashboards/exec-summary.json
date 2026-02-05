@@ -1,0 +1,308 @@
+{
+  "id": 8,
+  "panels": [
+    {
+      "description": "Overview and purpose for this executive summary dashboard.",
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "content": "This executive summary provides a high\u2011level health view of Anish's personal Mac: system load, memory, storage, network, and Wi\u2011Fi signal quality. Data retention is 14 days (20 GB cap).",
+        "mode": "markdown"
+      },
+      "title": "Read Me",
+      "type": "text"
+    },
+    {
+      "description": "Overall CPU utilization.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 4
+      },
+      "targets": [
+        {
+          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100",
+          "legendFormat": ""
+        }
+      ],
+      "title": "CPU Usage",
+      "type": "stat"
+    },
+    {
+      "description": "Percent of RAM currently in active use.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 4
+      },
+      "targets": [
+        {
+          "expr": "(node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Memory Used",
+      "type": "stat"
+    },
+    {
+      "description": "Used space on the primary system volume (/).",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 4
+      },
+      "targets": [
+        {
+          "expr": "(node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Disk Used (/)",
+      "type": "stat"
+    },
+    {
+      "description": "Wi\u2011Fi signal strength; closer to 0 is stronger.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "dBm"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 4
+      },
+      "targets": [
+        {
+          "expr": "wifi_rssi_dbm",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Wi\u2011Fi Signal (RSSI)",
+      "type": "stat"
+    },
+    {
+      "description": "High\u2011level system load and memory use over time.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "targets": [
+        {
+          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100",
+          "legendFormat": "CPU %"
+        },
+        {
+          "expr": "(node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100",
+          "legendFormat": "Memory %"
+        }
+      ],
+      "title": "CPU & Memory Trends",
+      "type": "timeseries"
+    },
+    {
+      "description": "Total inbound/outbound network bandwidth.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(node_network_receive_bytes_total[5m]))",
+          "legendFormat": "RX"
+        },
+        {
+          "expr": "sum(rate(node_network_transmit_bytes_total[5m]))",
+          "legendFormat": "TX"
+        }
+      ],
+      "title": "Network Throughput (bytes/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Internet latency to public endpoints.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "ms"
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "targets": [
+        {
+          "expr": "net_ping_latency_ms",
+          "legendFormat": "{{target}}"
+        }
+      ],
+      "title": "Ping Latency (ms)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Wi\u2011Fi signal quality and channel congestion.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "targets": [
+        {
+          "expr": "wifi_snr_db",
+          "legendFormat": "SNR"
+        },
+        {
+          "expr": "wifi_cca_percent",
+          "legendFormat": "CCA %"
+        }
+      ],
+      "title": "Wi\u2011Fi Quality (SNR / CCA)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Top disk usage by mounted volume.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "targets": [
+        {
+          "expr": "topk(5, node_filesystem_size_bytes{fstype!~\"autofs\"} - node_filesystem_avail_bytes{fstype!~\"autofs\"})",
+          "instant": true
+        }
+      ],
+      "title": "Disk Usage (Top Mounts)",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "used_bytes"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "device": 1,
+              "mountpoint": 0,
+              "used_bytes": 2
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "description": "Key identity and hardware facts for the laptop.",
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "targets": [
+        {
+          "expr": "mac_system_kv",
+          "instant": true
+        }
+      ],
+      "title": "System Identity",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "value"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "key": 0,
+              "value": 1
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 41,
+  "tags": [
+    "summary",
+    "executive",
+    "mac"
+  ],
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "Executive Summary: Anish Laptop",
+  "uid": "exec-summary",
+  "version": 2
+}

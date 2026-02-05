@@ -1,0 +1,495 @@
+{
+  "description": "Expanded network dashboard with connectivity, interface, and Wi\u2011Fi signal metrics (live).",
+  "folderUid": "cfcclm6jxqvpcd",
+  "id": 3,
+  "panels": [
+    {
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "content": "## Read Me\nThis Grafana workspace monitors Anish's personal Mac with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health \u2014 CPU, memory, disk usage (including AnishSSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi\u2011Fi \u2014 throughput, errors/drops, ping health, Wi\u2011Fi signal/rates\n- Mac Info: Identity & Status \u2014 system identity, key specs, running launchd services\n- All Metrics: Live Explorer \u2014 all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, mac_system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi\u2011Fi metrics\n",
+        "mode": "markdown"
+      },
+      "title": "Read Me",
+      "type": "text"
+    },
+    {
+      "description": "Overview and notes for this dashboard.",
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "options": {
+        "content": "Includes:\n- Throughput RX/TX (all or selected interfaces)\n- Packets RX/TX\n- Errors RX/TX\n- Drops RX/TX\n- Multicast\n- Total bytes\n- Top interfaces by throughput\n- Average packet size\n- Connectivity (ping latency/loss)\n- Interface link state (en0/en1)\n- Wi\u2011Fi signal (RSSI/Noise/SNR), rates, CCA, MCS, NSS",
+        "mode": "markdown"
+      },
+      "title": "What This Dashboard Includes",
+      "type": "text"
+    },
+    {
+      "description": "Time series for Total Throughput (bytes/s).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(node_network_receive_bytes_total[5m]))",
+          "legendFormat": "RX total"
+        },
+        {
+          "expr": "sum(rate(node_network_transmit_bytes_total[5m]))",
+          "legendFormat": "TX total"
+        }
+      ],
+      "title": "Total Throughput (bytes/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Throughput By Interface (bytes/s).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Throughput By Interface (bytes/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Packets (pkts/s).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "pps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_packets_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Packets (pkts/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Average Packet Size (bytes).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 26
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_receive_packets_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Average Packet Size (bytes)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Errors (err/s).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "eps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 34
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_errs_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "RX errs {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_errs_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "TX errs {{device}}"
+        }
+      ],
+      "title": "Errors (err/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Drops (drop/s).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "dps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 34
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_drop_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "RX drop {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_drop_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "TX drop {{device}}"
+        }
+      ],
+      "title": "Drops (drop/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Multicast (pkts/s).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "pps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 42
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_multicast_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "multicast {{device}}"
+        }
+      ],
+      "title": "Multicast (pkts/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Interface Bytes (total).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 42
+      },
+      "targets": [
+        {
+          "expr": "node_network_receive_bytes_total{device=~\"$iface\"}",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "node_network_transmit_bytes_total{device=~\"$iface\"}",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Interface Bytes (total)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Top Interfaces by Throughput (bytes/s).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 50
+      },
+      "targets": [
+        {
+          "expr": "topk(5, rate(node_network_receive_bytes_total[5m]))",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "topk(5, rate(node_network_transmit_bytes_total[5m]))",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Top Interfaces by Throughput (bytes/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Ping Latency (ms).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "ms"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 50
+      },
+      "targets": [
+        {
+          "expr": "net_ping_latency_ms",
+          "legendFormat": "{{target}}"
+        }
+      ],
+      "title": "Ping Latency (ms)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Ping Loss (%).",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 58
+      },
+      "targets": [
+        {
+          "expr": "net_ping_loss_percent",
+          "legendFormat": "{{target}}"
+        }
+      ],
+      "title": "Ping Loss (%)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Current value for Interface Link Up.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "text": "down"
+                },
+                "1": {
+                  "text": "up"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "unit": "short"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 58
+      },
+      "targets": [
+        {
+          "expr": "net_iface_up{iface=\"en0\"}",
+          "legendFormat": "en0"
+        },
+        {
+          "expr": "net_iface_up{iface=\"en1\"}",
+          "legendFormat": "en1"
+        }
+      ],
+      "title": "Interface Link Up",
+      "type": "stat"
+    },
+    {
+      "description": "Time series for Wi\u2011Fi Signal (RSSI dBm).",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "dBm"
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 66
+      },
+      "targets": [
+        {
+          "expr": "wifi_rssi_dbm",
+          "legendFormat": "{{ssid}}"
+        }
+      ],
+      "title": "Wi\u2011Fi Signal (RSSI dBm)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Wi\u2011Fi Noise/SNR.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "dB"
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 66
+      },
+      "targets": [
+        {
+          "expr": "wifi_noise_dbm",
+          "legendFormat": "noise {{ssid}}"
+        },
+        {
+          "expr": "wifi_snr_db",
+          "legendFormat": "snr {{ssid}}"
+        }
+      ],
+      "title": "Wi\u2011Fi Noise/SNR",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Wi\u2011Fi Rates (Mbps).",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Mbps"
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 73
+      },
+      "targets": [
+        {
+          "expr": "wifi_tx_rate_mbps",
+          "legendFormat": "tx {{ssid}}"
+        }
+      ],
+      "title": "Wi\u2011Fi Rates (Mbps)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Wi\u2011Fi Quality (CCA%, MCS, NSS).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 73
+      },
+      "targets": [
+        {
+          "expr": "wifi_cca_percent",
+          "legendFormat": "CCA {{ssid}}"
+        },
+        {
+          "expr": "wifi_mcs",
+          "legendFormat": "MCS {{ssid}}"
+        },
+        {
+          "expr": "wifi_nss",
+          "legendFormat": "NSS {{ssid}}"
+        }
+      ],
+      "title": "Wi\u2011Fi Quality (CCA%, MCS, NSS)",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 41,
+  "tags": [
+    "network",
+    "mac",
+    "node_exporter"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": ".*",
+        "current": {
+          "text": "en0",
+          "value": "en0"
+        },
+        "datasource": "Prometheus",
+        "includeAll": true,
+        "label": "Interface",
+        "multi": true,
+        "name": "iface",
+        "query": "label_values(node_network_receive_bytes_total, device)",
+        "refresh": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "Mac Network: Connectivity & Wi\u2011Fi",
+  "uid": "mac-network",
+  "version": 10
+}

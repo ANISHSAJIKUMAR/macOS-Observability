@@ -1,0 +1,509 @@
+{
+  "folderUid": "cfcclm6jxqvpcd",
+  "id": 2,
+  "panels": [
+    {
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "content": "## Read Me\nThis Grafana workspace monitors Anish's personal Mac with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health \u2014 CPU, memory, disk usage (including AnishSSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi\u2011Fi \u2014 throughput, errors/drops, ping health, Wi\u2011Fi signal/rates\n- Mac Info: Identity & Status \u2014 system identity, key specs, running launchd services\n- All Metrics: Live Explorer \u2014 all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, mac_system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi\u2011Fi metrics\n",
+        "mode": "markdown"
+      },
+      "title": "Read Me",
+      "type": "text"
+    },
+    {
+      "description": "Current value for Uptime.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 6
+      },
+      "targets": [
+        {
+          "expr": "time() - node_boot_time_seconds",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "description": "Current value for CPU Cores.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 6
+      },
+      "targets": [
+        {
+          "expr": "mac_system_kv{key=\"cpu_cores\"}",
+          "legendFormat": ""
+        }
+      ],
+      "title": "CPU Cores",
+      "type": "stat"
+    },
+    {
+      "description": "Current value for Total Memory.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 6
+      },
+      "targets": [
+        {
+          "expr": "node_memory_total_bytes",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Total Memory",
+      "type": "stat"
+    },
+    {
+      "description": "Current value for Disk Used (/).",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 6
+      },
+      "targets": [
+        {
+          "expr": "(node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Disk Used (/)",
+      "type": "stat"
+    },
+    {
+      "description": "Current value for AnishSSD Used (%).",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 10
+      },
+      "targets": [
+        {
+          "expr": "(node_filesystem_size_bytes{mountpoint=\"/Volumes/AnishSSD\"} - node_filesystem_avail_bytes{mountpoint=\"/Volumes/AnishSSD\"}) / node_filesystem_size_bytes{mountpoint=\"/Volumes/AnishSSD\"} * 100",
+          "legendFormat": ""
+        }
+      ],
+      "title": "AnishSSD Used (%)",
+      "type": "stat"
+    },
+    {
+      "description": "Current value for Time Machine Used (%).",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 10
+      },
+      "targets": [
+        {
+          "expr": "(node_filesystem_size_bytes{mountpoint=\"/Volumes/Time Machine\"} - node_filesystem_avail_bytes{mountpoint=\"/Volumes/Time Machine\"}) / node_filesystem_size_bytes{mountpoint=\"/Volumes/Time Machine\"} * 100",
+          "legendFormat": ""
+        }
+      ],
+      "title": "Time Machine Used (%)",
+      "type": "stat"
+    },
+    {
+      "description": "Table view for Disk Usage by Mount (Top Used %).",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "targets": [
+        {
+          "expr": "topk(10, (1 - node_filesystem_avail_bytes{fstype!~\"autofs\"} / node_filesystem_size_bytes{fstype!~\"autofs\"}) * 100)",
+          "instant": true
+        }
+      ],
+      "title": "Disk Usage by Mount (Top Used %)",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "used_percent"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "device": 1,
+              "mountpoint": 0,
+              "used_percent": 2
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "description": "Table view for Disk Usage by Mount (Used Bytes).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "targets": [
+        {
+          "expr": "topk(10, node_filesystem_size_bytes{fstype!~\"autofs\"} - node_filesystem_avail_bytes{fstype!~\"autofs\"})",
+          "instant": true
+        }
+      ],
+      "title": "Disk Usage by Mount (Used Bytes)",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "used_bytes"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "device": 1,
+              "mountpoint": 0,
+              "used_bytes": 2
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "description": "Time series for CPU Usage (%).",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "targets": [
+        {
+          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "title": "CPU Usage (%)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for CPU By Mode (%).",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
+      "targets": [
+        {
+          "expr": "sum by (mode) (rate(node_cpu_seconds_total[5m])) / scalar(sum(rate(node_cpu_seconds_total[5m]))) * 100",
+          "legendFormat": "{{mode}}"
+        }
+      ],
+      "title": "CPU By Mode (%)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Load (1m / 5m / 15m).",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 26
+      },
+      "targets": [
+        {
+          "expr": "node_load1",
+          "legendFormat": "1m"
+        },
+        {
+          "expr": "node_load5",
+          "legendFormat": "5m"
+        },
+        {
+          "expr": "node_load15",
+          "legendFormat": "15m"
+        }
+      ],
+      "title": "Load (1m / 5m / 15m)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Memory Usage (%).",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 34
+      },
+      "targets": [
+        {
+          "expr": "(node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100",
+          "legendFormat": "used"
+        }
+      ],
+      "title": "Memory Usage (%)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Memory Breakdown.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 34
+      },
+      "targets": [
+        {
+          "expr": "node_memory_active_bytes",
+          "legendFormat": "active"
+        },
+        {
+          "expr": "node_memory_wired_bytes",
+          "legendFormat": "wired"
+        },
+        {
+          "expr": "node_memory_compressed_bytes",
+          "legendFormat": "compressed"
+        }
+      ],
+      "title": "Memory Breakdown",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Swap Used.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 42
+      },
+      "targets": [
+        {
+          "expr": "node_memory_swap_used_bytes",
+          "legendFormat": "swap used"
+        }
+      ],
+      "title": "Swap Used",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Disk I/O (bytes/s).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 42
+      },
+      "targets": [
+        {
+          "expr": "rate(node_disk_read_bytes_total[5m])",
+          "legendFormat": "read {{device}}"
+        },
+        {
+          "expr": "rate(node_disk_written_bytes_total[5m])",
+          "legendFormat": "write {{device}}"
+        }
+      ],
+      "title": "Disk I/O (bytes/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Disk IOPS (ops/s).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "ops"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 50
+      },
+      "targets": [
+        {
+          "expr": "rate(node_disk_reads_completed_total[5m])",
+          "legendFormat": "reads {{device}}"
+        },
+        {
+          "expr": "rate(node_disk_writes_completed_total[5m])",
+          "legendFormat": "writes {{device}}"
+        }
+      ],
+      "title": "Disk IOPS (ops/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Network (bytes/s).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 50
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_bytes_total{device=~\"en.*\"}[5m])",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_bytes_total{device=~\"en.*\"}[5m])",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Network (bytes/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Time series for Network Packets (pkts/s).",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "pps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 58
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_packets_total{device=~\"en.*\"}[5m])",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_packets_total{device=~\"en.*\"}[5m])",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Network Packets (pkts/s)",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 41,
+  "tags": [
+    "system",
+    "mac",
+    "node_exporter",
+    "complete"
+  ],
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "Mac System: Core Health",
+  "uid": "mac-system-all",
+  "version": 10
+}
