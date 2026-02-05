@@ -1,5 +1,7 @@
 # Local runtime state
 .DS_Store
+__pycache__/
+*.pyc
 
 # Grafana local config may include secrets if customized
 observability/grafana/grafana.ini
@@ -9,6 +11,9 @@ observability/grafana/data/
 
 # Prometheus TSDB data (not tracked)
 observability/prometheus/data/
+
+# node_exporter textfile output (generated)
+observability/node_exporter/textfile/*.prom
 
 # Any exported secrets files
 *.env
