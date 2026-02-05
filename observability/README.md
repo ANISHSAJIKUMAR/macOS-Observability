@@ -9,7 +9,7 @@ It includes configuration, dashboards, and custom exporters.
 - Loki (log storage)
 - Promtail (log collector)
 - node_exporter (system metrics)
-- Custom Python exporters (network, system info, launchd, Wi‑Fi, battery, thermal, SMART, Grafana health)
+- Custom Python exporters (network, system info, launchd, Wi‑Fi, battery, thermal, SMART, Grafana health, tshark)
 - launchd / LaunchDaemon (scheduling & background services)
 
 ## UI & Performance Tuning
@@ -22,22 +22,14 @@ It includes configuration, dashboards, and custom exporters.
 
 ## Quick Start
 ```bash
-# Start/Restart all core services
-brew services restart prometheus
-brew services restart grafana
-brew services restart node_exporter
+# Start everything (services + exporters)
+./start_all.sh
 
-# Reload custom exporters (user)
-launchctl unload ~/Library/LaunchAgents/observability.net_connectivity.plist
-launchctl unload ~/Library/LaunchAgents/observability.mac_system_info.plist
-launchctl unload ~/Library/LaunchAgents/observability.launchd_metrics.plist
-launchctl load ~/Library/LaunchAgents/observability.net_connectivity.plist
-launchctl load ~/Library/LaunchAgents/observability.mac_system_info.plist
-launchctl load ~/Library/LaunchAgents/observability.launchd_metrics.plist
+# Stop everything
+./stop_all.sh
 
-# Reload Wi‑Fi exporter (root)
-sudo launchctl bootout system /Library/LaunchDaemons/observability.wdutil_metrics.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/observability.wdutil_metrics.plist
+# If you need root LaunchDaemons to start, run once per terminal session:
+sudo -v
 ```
 
 ## High‑Level Architecture
@@ -51,7 +43,7 @@ graph TD
   C --> E
   E --> F["Grafana (https://localhost:3000)"]
   G["launchd (user agents)"] --> C
-  H["LaunchDaemon (root) for Wi‑Fi"] --> C
+  H["LaunchDaemons (root) for Wi‑Fi/SMART/Fan/Promtail/tshark"] --> C
   E --> I["Retention: 14 days / 20 GB cap"]
   F --> J["Dashboards: System / Network / Info / Executive"]
   A --> K["Promtail (log collector)"]
@@ -82,6 +74,7 @@ Dashboard exports:
 
 ## Retention Policy
 Prometheus keeps **14 days** of data with a **20 GB** cap.
+Loki keeps **14 days** of logs.
 
 ## Secrets and Git Safety
 - No actual secrets were found in this folder (only commented examples in `grafana.ini`).
@@ -116,9 +109,14 @@ Prometheus keeps **14 days** of data with a **20 GB** cap.
 - node_exporter: http://localhost:9100/metrics
 - Loki: http://localhost:3100
 
+## Permissions & Launchd
+- `start_all.sh` uses `launchctl bootstrap/bootout` (preferred on modern macOS).
+- Root exporters (Wi‑Fi, SMART, fan/thermal, promtail, tshark) require sudo.
+- Run `sudo -v` once per terminal session before `./start_all.sh` if you want root services to start without prompts.
+
 ## Troubleshooting
 - **No data in Grafana**: check Prometheus and node_exporter are running and `http://localhost:9100/metrics` works.
-- **Wi‑Fi panels empty**: ensure the root LaunchDaemon is loaded and `wdutil_metrics.py` runs with sudo.
+- **Wi‑Fi panels empty**: ensure the root LaunchDaemon is loaded and `wdutil_metrics.py` runs with sudo. Wi‑Fi metrics use `wdutil` and `system_profiler` (airport is not used).
 - **Exporter metrics missing**: verify the textfile directory is correct and readable.
 
 ## Common Changes

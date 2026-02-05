@@ -24,8 +24,13 @@ What it contains:
 - Dashboard backups and documentation
 
 Docs:
-- Full setup and architecture are documented in:
+- Full setup, architecture, and demo flow:
   `/Users/anishskumar/Anish-DevOps-Lab/observability/README.md`
+
+## Notes
+- Grafana runs on HTTPS with a self‑signed certificate.
+- Root LaunchDaemons (Wi‑Fi, SMART, fan/thermal, promtail, tshark) require sudo.
+- Use `sudo -v` once per session if you want root exporters to start from `start_all.sh`.
 
 ## Folder Structure (Top Level)
 - `observability/` — full monitoring stack (metrics + logs)

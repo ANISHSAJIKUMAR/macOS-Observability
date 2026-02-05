@@ -29,11 +29,16 @@ def main():
             data = {}
 
     lines = []
+    has_powermetrics = 1 if data else 0
+
+    lines.append("# HELP powermetrics_available powermetrics plist available (1=yes, 0=no)")
+    lines.append("# TYPE powermetrics_available gauge")
+    lines.append(f"powermetrics_available {has_powermetrics}")
     cpu_temp = None
     fan_rpm = None
 
     # Thermal pressure (Nominal, Moderate, Heavy, Critical)
-    thermal = data.get("thermal_pressure")
+    thermal = data.get("thermal_pressure") if data else None
     if thermal:
         state = str(thermal)
         mapping = {"Nominal": 0, "Moderate": 1, "Heavy": 2, "Critical": 3}
