@@ -2,7 +2,7 @@
   "id": 9,
   "panels": [
     {
-      "description": "Quick guidance on interpreting key health signals.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "gridPos": {
         "h": 4,
         "w": 24,
@@ -17,7 +17,7 @@
       "type": "text"
     },
     {
-      "description": "Navigation hub for all dashboards.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "gridPos": {
         "h": 6,
         "w": 24,
@@ -32,7 +32,7 @@
       "type": "text"
     },
     {
-      "description": "Current CPU utilization.",
+      "description": "Shows how busy your computer\u2019s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -82,7 +82,7 @@
       "type": "stat"
     },
     {
-      "description": "RAM usage percentage.",
+      "description": "Shows how much RAM is in use. Higher values mean less free memory for new apps. Sustained high memory usage can cause slowdowns and app switching delays.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -132,7 +132,7 @@
       "type": "stat"
     },
     {
-      "description": "Primary disk usage.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -182,7 +182,7 @@
       "type": "stat"
     },
     {
-      "description": "Packet loss to public targets.",
+      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -232,7 +232,7 @@
       "type": "stat"
     },
     {
-      "description": "Total inbound/outbound bandwidth.",
+      "description": "Shows total internet traffic in and out. Spikes indicate downloads/uploads. Helpful to see if network use is causing slow browsing.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -259,7 +259,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Wi\u2011Fi signal strength trend.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "fieldConfig": {
         "defaults": {
           "unit": "dBm"
@@ -281,7 +281,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Seconds since last scrape; higher means data is stale.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -352,5 +352,5 @@
   "timezone": "browser",
   "title": "Anish Laptop: Overview",
   "uid": "overview",
-  "version": 2
+  "version": 3
 }

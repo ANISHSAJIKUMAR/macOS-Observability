@@ -3,7 +3,7 @@
   "id": 6,
   "panels": [
     {
-      "description": "Quick guidance on interpreting key health signals.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "gridPos": {
         "h": 4,
         "w": 24,
@@ -18,7 +18,7 @@
       "type": "text"
     },
     {
-      "description": "High\u2011level KPIs for quick health status.",
+      "description": "High\u2011level summary panel for quick health checks. Use this to see if anything needs attention at a glance.",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -33,7 +33,7 @@
       "type": "text"
     },
     {
-      "description": "Current CPU utilization.",
+      "description": "Shows how busy your computer\u2019s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -85,7 +85,7 @@
       "type": "stat"
     },
     {
-      "description": "RAM usage percentage.",
+      "description": "Shows how much RAM is in use. Higher values mean less free memory for new apps. Sustained high memory usage can cause slowdowns and app switching delays.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -137,7 +137,7 @@
       "type": "stat"
     },
     {
-      "description": "Primary disk usage.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -189,7 +189,7 @@
       "type": "stat"
     },
     {
-      "description": "Inbound bandwidth.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -223,7 +223,7 @@
       "type": "stat"
     },
     {
-      "description": "Outbound bandwidth.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -257,7 +257,7 @@
       "type": "stat"
     },
     {
-      "description": "Wi\u2011Fi signal strength.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "unit": "dBm"
@@ -290,7 +290,7 @@
       "type": "stat"
     },
     {
-      "description": "Packet loss to public targets.",
+      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -342,6 +342,7 @@
       "type": "stat"
     },
     {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "gridPos": {
         "h": 6,
         "w": 24,
@@ -356,7 +357,7 @@
       "type": "text"
     },
     {
-      "description": "Table view for System Information.",
+      "description": "Shows key identity facts like OS version, hardware model, CPU, memory, IP address, and Wi\u2011Fi name. Helpful for quick system overview without digging into system settings.",
       "gridPos": {
         "h": 8,
         "w": 24,
@@ -390,7 +391,7 @@
       "type": "table"
     },
     {
-      "description": "Current value for Uptime.",
+      "description": "Shows how long the Mac has been running since the last restart. Useful for troubleshooting and confirming restarts.",
       "fieldConfig": {
         "defaults": {
           "unit": "s"
@@ -412,7 +413,7 @@
       "type": "stat"
     },
     {
-      "description": "Current value for CPU Cores.",
+      "description": "Shows how busy your computer\u2019s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks.",
       "gridPos": {
         "h": 4,
         "w": 6,
@@ -429,7 +430,7 @@
       "type": "stat"
     },
     {
-      "description": "Current value for Total Memory.",
+      "description": "Shows how much RAM is in use. Higher values mean less free memory for new apps. Sustained high memory usage can cause slowdowns and app switching delays.",
       "fieldConfig": {
         "defaults": {
           "unit": "bytes"
@@ -451,7 +452,7 @@
       "type": "stat"
     },
     {
-      "description": "Current value for Disk Used (/).",
+      "description": "Shows how full a disk is. When storage is near full (>85%), the Mac may slow down and updates can fail. Helps decide when to delete files or move data.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -475,7 +476,7 @@
       "type": "stat"
     },
     {
-      "description": "Table view for Disk Usage by Mount (Used Bytes).",
+      "description": "Shows how full a disk is. When storage is near full (>85%), the Mac may slow down and updates can fail. Helps decide when to delete files or move data.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -516,7 +517,7 @@
       "type": "table"
     },
     {
-      "description": "Current value for Launchd Jobs (Total).",
+      "description": "Shows background services running on the Mac. Helpful to see if expected services are active. Too many running services can impact performance.",
       "gridPos": {
         "h": 4,
         "w": 6,
@@ -533,7 +534,7 @@
       "type": "stat"
     },
     {
-      "description": "Current value for Launchd Jobs (Running).",
+      "description": "Shows background services running on the Mac. Helpful to see if expected services are active. Too many running services can impact performance.",
       "gridPos": {
         "h": 4,
         "w": 6,
@@ -550,7 +551,7 @@
       "type": "stat"
     },
     {
-      "description": "Table view for Launchd Jobs (Running).",
+      "description": "Shows background services running on the Mac. Helpful to see if expected services are active. Too many running services can impact performance.",
       "gridPos": {
         "h": 10,
         "w": 24,
@@ -584,7 +585,7 @@
       "type": "table"
     },
     {
-      "description": "Seconds since last scrape; higher means data is stale.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -657,5 +658,5 @@
   "timezone": "browser",
   "title": "Mac Info: Identity & Status",
   "uid": "mac-info",
-  "version": 11
+  "version": 12
 }

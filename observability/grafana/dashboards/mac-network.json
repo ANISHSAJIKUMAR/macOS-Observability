@@ -4,7 +4,7 @@
   "id": 3,
   "panels": [
     {
-      "description": "Quick guidance on interpreting key health signals.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "gridPos": {
         "h": 4,
         "w": 24,
@@ -19,7 +19,7 @@
       "type": "text"
     },
     {
-      "description": "High\u2011level KPIs for quick health status.",
+      "description": "High\u2011level summary panel for quick health checks. Use this to see if anything needs attention at a glance.",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -34,7 +34,7 @@
       "type": "text"
     },
     {
-      "description": "Current CPU utilization.",
+      "description": "Shows how busy your computer\u2019s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -86,7 +86,7 @@
       "type": "stat"
     },
     {
-      "description": "RAM usage percentage.",
+      "description": "Shows how much RAM is in use. Higher values mean less free memory for new apps. Sustained high memory usage can cause slowdowns and app switching delays.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -138,7 +138,7 @@
       "type": "stat"
     },
     {
-      "description": "Primary disk usage.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -190,7 +190,7 @@
       "type": "stat"
     },
     {
-      "description": "Inbound bandwidth.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -224,7 +224,7 @@
       "type": "stat"
     },
     {
-      "description": "Outbound bandwidth.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -258,7 +258,7 @@
       "type": "stat"
     },
     {
-      "description": "Wi\u2011Fi signal strength.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "unit": "dBm"
@@ -291,7 +291,7 @@
       "type": "stat"
     },
     {
-      "description": "Packet loss to public targets.",
+      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -343,6 +343,7 @@
       "type": "stat"
     },
     {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "gridPos": {
         "h": 6,
         "w": 24,
@@ -357,7 +358,7 @@
       "type": "text"
     },
     {
-      "description": "Overview and notes for this dashboard.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "gridPos": {
         "h": 4,
         "w": 24,
@@ -372,7 +373,7 @@
       "type": "text"
     },
     {
-      "description": "Time series for Total Throughput (bytes/s).",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -399,7 +400,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Throughput By Interface (bytes/s).",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -426,7 +427,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Packets (pkts/s).",
+      "description": "Shows how many data packets are moving each second. Many small packets can indicate chatty apps. Useful to understand network behavior beyond raw speed.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -453,7 +454,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Average Packet Size (bytes).",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -480,7 +481,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Errors (err/s).",
+      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi\u2011Fi or router issues.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -507,7 +508,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Drops (drop/s).",
+      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi\u2011Fi or router issues.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -534,7 +535,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Multicast (pkts/s).",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -557,7 +558,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Interface Bytes (total).",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -584,7 +585,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Top Interfaces by Throughput (bytes/s).",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -611,7 +612,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Ping Latency (ms).",
+      "description": "Shows how fast your internet responds. Higher latency feels like lag. Useful for detecting slow or congested connections.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -634,7 +635,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Ping Loss (%).",
+      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -658,7 +659,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Current value for Interface Link Up.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -697,7 +698,7 @@
       "type": "stat"
     },
     {
-      "description": "Time series for Wi\u2011Fi Signal (RSSI dBm).",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "fieldConfig": {
         "defaults": {
           "unit": "dBm"
@@ -719,7 +720,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Wi\u2011Fi Noise/SNR.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "fieldConfig": {
         "defaults": {
           "unit": "dB"
@@ -745,7 +746,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Wi\u2011Fi Rates (Mbps).",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "fieldConfig": {
         "defaults": {
           "unit": "Mbps"
@@ -767,7 +768,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Time series for Wi\u2011Fi Quality (CCA%, MCS, NSS).",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "fieldConfig": {
         "defaults": {
           "min": 0
@@ -797,7 +798,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Seconds since last scrape; higher means data is stale.",
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -888,5 +889,5 @@
   "timezone": "browser",
   "title": "Mac Network: Connectivity & Wi\u2011Fi",
   "uid": "mac-network",
-  "version": 14
+  "version": 15
 }
