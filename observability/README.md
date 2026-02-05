@@ -3,6 +3,13 @@
 This folder is the **single source of truth** for the full local monitoring stack on this Mac.
 It includes configuration, dashboards, and custom exporters.
 
+## Tech Stack
+- Prometheus (metrics storage)
+- Grafana (dashboards + visualization)
+- node_exporter (system metrics)
+- Custom Python exporters (network, system info, launchd, Wi‑Fi)
+- launchd / LaunchDaemon (scheduling & background services)
+
 ## Quick Start
 ```bash
 # Start/Restart all core services
@@ -47,6 +54,7 @@ Grafana folder: **Anish Laptop**
 - **Mac Info: Identity & Status** — system identity, key specs, running launchd jobs
 - **All Metrics: Live Explorer** — all active Prometheus metrics (live only)
 - **Executive Summary: Anish Laptop** — high‑level health view for demos/interviews
+- **Anish Laptop: Overview** — navigation hub + quick KPIs
 
 Dashboard exports:
 ```
@@ -57,7 +65,9 @@ Dashboard exports:
 Prometheus keeps **14 days** of data with a **20 GB** cap.
 
 ## Secrets and Git Safety
-- No actual secrets were found in this folder (only commented examples in `grafana.ini`).\n- A `.gitignore` was added at `/Users/anishskumar/Anish-DevOps-Lab/.gitignore` to prevent accidental commits of sensitive local config.\n- If you ever add credentials (Grafana admin password, OAuth secrets, API tokens), keep them in local files or environment variables and **do not commit** them.
+- No actual secrets were found in this folder (only commented examples in `grafana.ini`).
+- A `.gitignore` was added at `/Users/anishskumar/Anish-DevOps-Lab/.gitignore` to prevent accidental commits of sensitive local config.
+- If you ever add credentials (Grafana admin password, OAuth secrets, API tokens), keep them in local files or environment variables and **do not commit** them.
 
 ## Key Paths
 ```
@@ -78,6 +88,7 @@ Prometheus keeps **14 days** of data with a **20 GB** cap.
 - Change data retention in `prometheus.args`
 - Add scrape targets in `prometheus.yml`
 - Add or remove dashboards in Grafana and re‑export JSON
+- UI improvements: KPI strip, thresholds, sparklines, “What to Watch” panels, Overview dashboard
 
 ---
 

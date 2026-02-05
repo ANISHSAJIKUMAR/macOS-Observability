@@ -3,11 +3,350 @@
   "id": 2,
   "panels": [
     {
+      "description": "Quick guidance on interpreting key health signals.",
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, AnishSSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
+        "mode": "markdown"
+      },
+      "title": "What to Watch",
+      "type": "text"
+    },
+    {
+      "description": "High\u2011level KPIs for quick health status.",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "options": {
+        "content": "",
+        "mode": "markdown"
+      },
+      "title": "KPI Strip",
+      "type": "text"
+    },
+    {
+      "description": "Current CPU utilization.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100"
+        }
+      ],
+      "title": "CPU %",
+      "type": "stat"
+    },
+    {
+      "description": "RAM usage percentage.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "(node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100"
+        }
+      ],
+      "title": "Memory %",
+      "type": "stat"
+    },
+    {
+      "description": "Primary disk usage.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "(node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100"
+        }
+      ],
+      "title": "Disk / %",
+      "type": "stat"
+    },
+    {
+      "description": "Inbound bandwidth.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(node_network_receive_bytes_total[5m]))"
+        }
+      ],
+      "title": "Net RX",
+      "type": "stat"
+    },
+    {
+      "description": "Outbound bandwidth.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(node_network_transmit_bytes_total[5m]))"
+        }
+      ],
+      "title": "Net TX",
+      "type": "stat"
+    },
+    {
+      "description": "Wi\u2011Fi signal strength.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "dBm"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 20,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "wifi_rssi_dbm"
+        }
+      ],
+      "title": "Wi\u2011Fi RSSI",
+      "type": "stat"
+    },
+    {
+      "description": "Packet loss to public targets.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 3
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 22,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "max(net_ping_loss_percent)"
+        }
+      ],
+      "title": "Ping Loss",
+      "type": "stat"
+    },
+    {
       "gridPos": {
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 9
       },
       "options": {
         "content": "## Read Me\nThis Grafana workspace monitors Anish's personal Mac with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health \u2014 CPU, memory, disk usage (including AnishSSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi\u2011Fi \u2014 throughput, errors/drops, ping health, Wi\u2011Fi signal/rates\n- Mac Info: Identity & Status \u2014 system identity, key specs, running launchd services\n- All Metrics: Live Explorer \u2014 all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, mac_system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi\u2011Fi metrics\n",
@@ -27,7 +366,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 6
+        "y": 15
       },
       "targets": [
         {
@@ -44,7 +383,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 6
+        "y": 15
       },
       "targets": [
         {
@@ -66,7 +405,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 6
+        "y": 15
       },
       "targets": [
         {
@@ -90,7 +429,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 6
+        "y": 15
       },
       "targets": [
         {
@@ -114,7 +453,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 10
+        "y": 19
       },
       "targets": [
         {
@@ -138,7 +477,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 10
+        "y": 19
       },
       "targets": [
         {
@@ -162,7 +501,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 10
+        "y": 19
       },
       "targets": [
         {
@@ -203,7 +542,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 18
+        "y": 27
       },
       "targets": [
         {
@@ -245,7 +584,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 18
+        "y": 27
       },
       "targets": [
         {
@@ -269,7 +608,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 26
+        "y": 35
       },
       "targets": [
         {
@@ -286,7 +625,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 26
+        "y": 35
       },
       "targets": [
         {
@@ -318,7 +657,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 34
+        "y": 43
       },
       "targets": [
         {
@@ -340,7 +679,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 34
+        "y": 43
       },
       "targets": [
         {
@@ -370,7 +709,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 42
+        "y": 51
       },
       "targets": [
         {
@@ -393,7 +732,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 42
+        "y": 51
       },
       "targets": [
         {
@@ -420,7 +759,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 50
+        "y": 59
       },
       "targets": [
         {
@@ -447,7 +786,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 50
+        "y": 59
       },
       "targets": [
         {
@@ -474,7 +813,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 58
+        "y": 67
       },
       "targets": [
         {
@@ -488,6 +827,45 @@
       ],
       "title": "Network Packets (pkts/s)",
       "type": "timeseries"
+    },
+    {
+      "description": "Seconds since last scrape; higher means data is stale.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 120
+              }
+            ]
+          },
+          "unit": "s"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 4
+      },
+      "targets": [
+        {
+          "expr": "time() - max(timestamp(node_cpu_seconds_total))"
+        }
+      ],
+      "title": "Data Freshness (sec)",
+      "type": "stat"
     }
   ],
   "refresh": "10s",
@@ -498,12 +876,46 @@
     "node_exporter",
     "complete"
   ],
+  "templating": {
+    "list": [
+      {
+        "allValue": ".*",
+        "datasource": "Prometheus",
+        "includeAll": true,
+        "label": "Mount",
+        "multi": true,
+        "name": "mount",
+        "query": "label_values(node_filesystem_size_bytes, mountpoint)",
+        "refresh": 1,
+        "type": "query"
+      }
+    ]
+  },
   "time": {
     "from": "now-6h",
     "to": "now"
   },
+  "timepicker": {
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h"
+    ],
+    "time_options": [
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "7d",
+      "14d"
+    ]
+  },
   "timezone": "browser",
   "title": "Mac System: Core Health",
   "uid": "mac-system-all",
-  "version": 10
+  "version": 14
 }
