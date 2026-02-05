@@ -27,13 +27,24 @@ def run_tshark_security():
     filters = [
         "tcp.flags.syn==1 && tcp.flags.ack==0",
         "tcp.flags.reset==1",
+        "tcp.flags.fin==1",
         "tcp.analysis.retransmission",
+        "tcp.analysis.fast_retransmission",
+        "tcp.analysis.lost_segment",
+        "tcp.analysis.out_of_order",
+        "tcp.analysis.duplicate_ack",
+        "tcp.analysis.zero_window",
+        "tcp.analysis.zero_window_probe",
+        "tcp.analysis.zero_window_probe_ack",
         "dns",
         "tls",
         "http",
         "ssh",
         "arp",
         "icmp",
+        "udp.port==443",  # QUIC / HTTP3
+        "mdns",
+        "stun",
     ]
     cmd = [
         "/opt/homebrew/bin/tshark",

@@ -599,6 +599,61 @@
           "unit": "none"
         }
       }
+    },
+    {
+      "id": 18,
+      "type": "bargauge",
+      "title": "Live Packet Security Signals (Bytes)",
+      "description": "Byte volume by security filters from live capture (tshark). Helps identify heavy or anomalous traffic types.",
+      "gridPos": {
+        "x": 0,
+        "y": 94,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "tshark_sec_bytes_total",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "displayName": "{{filter}}"
+        }
+      }
+    },
+    {
+      "id": 19,
+      "type": "table",
+      "title": "Top Conversations (Bytes)",
+      "description": "Top IP conversations by bytes from tshark capture. Useful for spotting unusual endpoints.",
+      "gridPos": {
+        "x": 0,
+        "y": 105,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "topk(10, tshark_conv_bytes_total)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showHeader": true
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "displayName": "{{src}} \u2192 {{dst}}"
+        }
+      }
     }
   ]
 }

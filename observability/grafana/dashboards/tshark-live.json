@@ -338,6 +338,29 @@
           "displayName": "{{filter}}"
         }
       }
+    },
+    {
+      "id": 12,
+      "type": "timeseries",
+      "title": "Security Signals Over Time",
+      "description": "Trends of security-related packet signals over time (SYN, RST, retransmissions, DNS, TLS, QUIC).",
+      "gridPos": {
+        "x": 0,
+        "y": 51,
+        "w": 24,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "tshark_sec_frames_total",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      }
     }
   ]
 }
