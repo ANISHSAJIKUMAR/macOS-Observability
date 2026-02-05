@@ -17,7 +17,6 @@ It includes configuration, dashboards, and custom exporters.
 - Remote cache enabled (database)
 - Minimum dashboard refresh interval: 10s
 - Overview dashboard is the default landing page
-- Prometheus alert rules added (CPU/memory/disk/network/Wi‑Fi health)
 
 ## Quick Start
 ```bash

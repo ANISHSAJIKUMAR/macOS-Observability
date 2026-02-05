@@ -80,7 +80,6 @@ Current values and meanings:
 - Add new scrape jobs in `prometheus.yml`
 - Adjust retention time/size in `prometheus.args`
 - Add or edit rules in `rules/recording.yml`
-- Add or edit alerts in `rules/alerts.yml`
 
 ## Apply Changes
 ```bash
@@ -90,4 +89,4 @@ brew services restart prometheus
 ## Troubleshooting
 - Check targets: `http://localhost:9090/targets`
 - Check Prometheus health: `http://localhost:9090/-/healthy`
- - Check active rules: `http://localhost:9090/rules`
+- Check active rules: `http://localhost:9090/rules`
