@@ -3,6 +3,10 @@ set -euo pipefail
 
 # Non-interactive: do not prompt for sudo
 SUDO="sudo -n"
+CAN_SUDO=1
+if ! $SUDO -v >/dev/null 2>&1; then
+  CAN_SUDO=0
+fi
 
 log() { printf "[start_all] %s\n" "$*"; }
 
@@ -21,14 +25,18 @@ launchctl load ~/Library/LaunchAgents/com.local.prom_config_checksum.plist
 launchctl load ~/Library/LaunchAgents/com.local.battery_metrics.plist
 
 log "Starting Wi‑Fi LaunchDaemon (root) if available..."
-if [ -f /Library/LaunchDaemons/com.local.wdutil_metrics.plist ]; then
-  $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.wdutil_metrics.plist || true
-fi
-if [ -f /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist ]; then
-  $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist || true
-fi
-if [ -f /Library/LaunchDaemons/com.local.smart_metrics.plist ]; then
-  $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.smart_metrics.plist || true
+if [ "$CAN_SUDO" -eq 1 ]; then
+  if [ -f /Library/LaunchDaemons/com.local.wdutil_metrics.plist ]; then
+    $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.wdutil_metrics.plist || true
+  fi
+  if [ -f /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist ]; then
+    $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist || true
+  fi
+  if [ -f /Library/LaunchDaemons/com.local.smart_metrics.plist ]; then
+    $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.smart_metrics.plist || true
+  fi
+else
+  log "Skipping root LaunchDaemons (sudo -n not available)."
 fi
 
 log "Reloading Prometheus rules..."
