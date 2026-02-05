@@ -227,7 +227,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"} |= \"$search\"",
+          "expr": "{job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"}",
           "refId": "A"
         }
       ],
@@ -247,7 +247,8 @@
             "showLabels": true
           }
         }
-      }
+      },
+      "description": "This view is unfiltered so it never shows \"No data\" unless Loki is down."
     },
     {
       "id": 3,
@@ -343,6 +344,33 @@
       "targets": [
         {
           "expr": "{log_type=~\"wifi|wifi_analytics\"}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true
+      }
+    },
+    {
+      "id": 9,
+      "type": "logs",
+      "title": "Keyword Search Results",
+      "description": "Use the Search box to filter logs by keyword (e.g., error, failed). If Search is empty, this panel may be blank.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 55,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "{job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"} |~ \"$search\"",
           "refId": "A"
         }
       ],
