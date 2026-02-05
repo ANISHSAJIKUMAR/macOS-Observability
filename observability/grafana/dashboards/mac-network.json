@@ -377,7 +377,7 @@
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "Bps"
+          "unit": "MBps"
         }
       },
       "gridPos": {
@@ -388,15 +388,15 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(node_network_receive_bytes_total[5m]))",
-          "legendFormat": "RX total"
+          "expr": "sum(job:node_network_receive_mb_s)",
+          "legendFormat": "RX MB/s"
         },
         {
-          "expr": "sum(rate(node_network_transmit_bytes_total[5m]))",
-          "legendFormat": "TX total"
+          "expr": "sum(job:node_network_transmit_mb_s)",
+          "legendFormat": "TX MB/s"
         }
       ],
-      "title": "Total Throughput (bytes/s)",
+      "title": "Total Throughput (MB/s)",
       "type": "timeseries"
     },
     {
@@ -889,5 +889,5 @@
   "timezone": "browser",
   "title": "Mac Network: Connectivity & Wi\u2011Fi",
   "uid": "mac-network",
-  "version": 16
+  "version": 17
 }

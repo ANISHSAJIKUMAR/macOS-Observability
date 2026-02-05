@@ -867,6 +867,157 @@
       ],
       "title": "Data Freshness (sec)",
       "type": "stat"
+    },
+    {
+      "description": "Battery charge level. Lower values mean less remaining power.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 60
+      },
+      "targets": [
+        {
+          "expr": "battery_charge_percent"
+        }
+      ],
+      "title": "Battery Charge %",
+      "type": "stat"
+    },
+    {
+      "description": "Total charge cycles; higher values indicate battery aging.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "short"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 60
+      },
+      "targets": [
+        {
+          "expr": "battery_cycle_count"
+        }
+      ],
+      "title": "Battery Cycle Count",
+      "type": "stat"
+    },
+    {
+      "description": "Shows whether Mac is running on AC power or battery (label).",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "1": {
+                  "text": "Active"
+                }
+              },
+              "type": "value"
+            }
+          ]
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 60
+      },
+      "targets": [
+        {
+          "expr": "battery_power_source"
+        }
+      ],
+      "title": "Power Source",
+      "type": "stat"
+    },
+    {
+      "description": "Overall thermal state (Nominal is best).",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "text": "Nominal"
+                },
+                "1": {
+                  "text": "Moderate"
+                },
+                "2": {
+                  "text": "Heavy"
+                },
+                "3": {
+                  "text": "Critical"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "max": 3,
+          "min": 0,
+          "unit": "short"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 60
+      },
+      "targets": [
+        {
+          "expr": "cpu_thermal_pressure_level"
+        }
+      ],
+      "title": "Thermal Pressure",
+      "type": "stat"
+    },
+    {
+      "description": "SMART status for disks (1=OK, 0=problem).",
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 64
+      },
+      "targets": [
+        {
+          "expr": "smart_device_ok",
+          "instant": true
+        }
+      ],
+      "title": "SMART Disk Status",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "valueLabel": "ok"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "device": 0,
+              "ok": 1
+            }
+          }
+        }
+      ],
+      "type": "table"
     }
   ],
   "refresh": "10s",
@@ -918,5 +1069,5 @@
   "timezone": "browser",
   "title": "Mac System: Core Health",
   "uid": "mac-system-all",
-  "version": 16
+  "version": 17
 }

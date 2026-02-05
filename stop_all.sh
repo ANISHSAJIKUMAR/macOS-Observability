@@ -12,10 +12,17 @@ launchctl unload ~/Library/LaunchAgents/com.local.mac_system_info.plist || true
 launchctl unload ~/Library/LaunchAgents/com.local.launchd_metrics.plist || true
 launchctl unload ~/Library/LaunchAgents/com.local.grafana_health.plist || true
 launchctl unload ~/Library/LaunchAgents/com.local.prom_config_checksum.plist || true
+launchctl unload ~/Library/LaunchAgents/com.local.battery_metrics.plist || true
 
 log "Stopping Wi‑Fi LaunchDaemon (root) if available..."
 if [ -f /Library/LaunchDaemons/com.local.wdutil_metrics.plist ]; then
   $SUDO launchctl bootout system /Library/LaunchDaemons/com.local.wdutil_metrics.plist || true
+fi
+if [ -f /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist ]; then
+  $SUDO launchctl bootout system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist || true
+fi
+if [ -f /Library/LaunchDaemons/com.local.smart_metrics.plist ]; then
+  $SUDO launchctl bootout system /Library/LaunchDaemons/com.local.smart_metrics.plist || true
 fi
 
 log "Stopping core services in order..."

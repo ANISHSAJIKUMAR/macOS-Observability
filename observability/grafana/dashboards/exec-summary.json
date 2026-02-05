@@ -807,6 +807,71 @@
       ],
       "title": "Data Freshness (sec)",
       "type": "stat"
+    },
+    {
+      "description": "Battery charge level at a glance.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 40
+      },
+      "targets": [
+        {
+          "expr": "battery_charge_percent"
+        }
+      ],
+      "title": "Battery Charge %",
+      "type": "stat"
+    },
+    {
+      "description": "Thermal state. Higher values indicate heat stress.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "text": "Nominal"
+                },
+                "1": {
+                  "text": "Moderate"
+                },
+                "2": {
+                  "text": "Heavy"
+                },
+                "3": {
+                  "text": "Critical"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "max": 3,
+          "min": 0,
+          "unit": "short"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 40
+      },
+      "targets": [
+        {
+          "expr": "cpu_thermal_pressure_level"
+        }
+      ],
+      "title": "Thermal Pressure",
+      "type": "stat"
     }
   ],
   "refresh": "30s",
@@ -842,5 +907,5 @@
   "timezone": "browser",
   "title": "Executive Summary: Anish Laptop",
   "uid": "exec-summary",
-  "version": 8
+  "version": 9
 }

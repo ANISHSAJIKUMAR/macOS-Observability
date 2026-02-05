@@ -6,6 +6,9 @@
 - `com.local.launchd_metrics.plist`
 - `com.local.grafana_health.plist`
 - `com.local.prom_config_checksum.plist`
+- `com.local.battery_metrics.plist`
+- `com.local.cpu_fan_metrics.plist`
+- `com.local.smart_metrics.plist`
 
 ## LaunchDaemon (root)
 - `com.local.wdutil_metrics.plist`

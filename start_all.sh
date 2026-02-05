@@ -18,10 +18,17 @@ launchctl load ~/Library/LaunchAgents/com.local.mac_system_info.plist
 launchctl load ~/Library/LaunchAgents/com.local.launchd_metrics.plist
 launchctl load ~/Library/LaunchAgents/com.local.grafana_health.plist
 launchctl load ~/Library/LaunchAgents/com.local.prom_config_checksum.plist
+launchctl load ~/Library/LaunchAgents/com.local.battery_metrics.plist
 
 log "Starting Wi‑Fi LaunchDaemon (root) if available..."
 if [ -f /Library/LaunchDaemons/com.local.wdutil_metrics.plist ]; then
   $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.wdutil_metrics.plist || true
+fi
+if [ -f /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist ]; then
+  $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist || true
+fi
+if [ -f /Library/LaunchDaemons/com.local.smart_metrics.plist ]; then
+  $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.smart_metrics.plist || true
 fi
 
 log "Reloading Prometheus rules..."

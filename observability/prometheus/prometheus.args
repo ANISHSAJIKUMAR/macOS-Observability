@@ -5,3 +5,4 @@
 --storage.tsdb.retention.size=20GB
 --storage.tsdb.min-block-duration=2h
 --storage.tsdb.max-block-duration=24h
+--web.enable-lifecycle

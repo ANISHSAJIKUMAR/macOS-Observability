@@ -4,6 +4,8 @@
 These scripts emit Prometheus metrics into the textfile directory for node_exporter.
 
 ## Files & Behavior
+- `battery_metrics.py`
+  - Battery charge %, cycle count, power source
 - `net_connectivity_metrics.py`
   - Pings public targets
   - Exposes latency and loss
@@ -11,6 +13,10 @@ These scripts emit Prometheus metrics into the textfile directory for node_expor
   - Exposes identity and hardware facts (CPU, memory, OS, IP, SSID)
 - `launchd_metrics.py`
   - Lists running launchd jobs
+- `cpu_fan_metrics.py`
+  - Thermal pressure level (proxy for CPU heat)
+- `smart_metrics.py`
+  - Disk SMART overall health
 - `grafana_health_metrics.py`
   - Checks Grafana API health (up/down)
 - `prom_config_checksum.py`
