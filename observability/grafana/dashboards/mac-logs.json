@@ -1,7 +1,7 @@
 {
   "id": null,
   "uid": "mac-logs",
-  "title": "Mac Logs: System & Apps",
+  "title": "Mac Logs: System, Apps & Observability",
   "timezone": "browser",
   "schemaVersion": 39,
   "version": 1,
@@ -80,23 +80,125 @@
     {
       "id": 5,
       "type": "text",
-      "title": "How to Use This Log Viewer",
+      "title": "Read Me: How to Use Logs",
       "gridPos": {
         "x": 0,
-        "y": 0,
+        "y": 5,
         "w": 24,
         "h": 6
       },
       "options": {
         "mode": "markdown",
-        "content": "## Quick Filters\n- Use **job** to switch between `system`, `user`, and `observability` logs.\n- Use **log_type** to narrow to wifi, install, diagnostics, app, or system logs.\n- Use **filename** to open one specific file.\n- Use **search** for keywords like `error`, `failed`, or an app name.\n\nTips:\n- Set time range to **Last 1 hour** for real\u2011time debugging.\n- Expand a log row to see full metadata and file path."
+        "content": "## Mac Logs \u2014 Quick Guide\nThis dashboard shows **system**, **app**, and **observability** logs in one place.\n\n**Best starting point**\n- Time range: **Last 1 hour**\n- job: **system**\n- log_type: **system** or **wifi**\n\n**Common searches**\n- `error`, `failed`, `panic`, `crash`\n- App names (e.g., `Chrome`, `Docker`, `Zoom`)\n\n**What each filter means**\n- **job**: system vs user vs observability\n- **log_type**: category like wifi/install/diagnostics/app\n- **filename**: exact file you want to tail\n- **search**: keyword in the log message\n\nTip: Expand a log row to see full metadata and the file path."
       },
       "transparent": true
     },
     {
+      "id": 6,
+      "type": "stat",
+      "title": "Active Log Streams",
+      "description": "Approximate number of active log streams ingested into Loki. If this is 0, logs are not being ingested.",
+      "gridPos": {
+        "x": 0,
+        "y": 6,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "targets": [
+        {
+          "expr": "count(count_over_time({job=~\"$job\",log_type=~\"$log_type\"}[5m]))",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 7,
+      "type": "stat",
+      "title": "Log Ingestion Health",
+      "description": "Promtail shipping status. If this is 0, Promtail is not sending logs to Loki.",
+      "gridPos": {
+        "x": 6,
+        "y": 6,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(promtail_sent_bytes_total[5m]))",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
       "id": 1,
       "type": "text",
-      "title": "Read Me",
+      "title": "Read Me: How to Use Logs",
       "gridPos": {
         "x": 0,
         "y": 6,
@@ -105,7 +207,7 @@
       },
       "options": {
         "mode": "markdown",
-        "content": "## Mac Logs (System + Apps)\nUse filters at the top to choose **job** (system/user/observability) and **log_type** (system, wifi, app, diagnostics).\n\nWhat this helps you answer:\n- **Is there a system problem?** Look for errors in system and wifi logs.\n- **Did an app crash?** Check diagnostic reports.\n- **Is observability healthy?** Check Grafana/Prometheus/node_exporter logs.\n\nTip: Start with **job=system** and **log_type=system** for OS issues."
+        "content": "## Mac Logs \u2014 Quick Guide\nThis dashboard shows **system**, **app**, and **observability** logs in one place.\n\n**Best starting point**\n- Time range: **Last 1 hour**\n- job: **system**\n- log_type: **system** or **wifi**\n\n**Common searches**\n- `error`, `failed`, `panic`, `crash`\n- App names (e.g., `Chrome`, `Docker`, `Zoom`)\n\n**What each filter means**\n- **job**: system vs user vs observability\n- **log_type**: category like wifi/install/diagnostics/app\n- **filename**: exact file you want to tail\n- **search**: keyword in the log message\n\nTip: Expand a log row to see full metadata and the file path."
       },
       "transparent": true
     },
@@ -119,7 +221,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 12,
+        "y": 17,
         "w": 24,
         "h": 16
       },
@@ -157,7 +259,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 28,
+        "y": 33,
         "w": 12,
         "h": 10
       },
@@ -195,7 +297,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 28,
+        "y": 33,
         "w": 12,
         "h": 10
       },
@@ -222,6 +324,34 @@
           }
         }
       }
+    },
+    {
+      "id": 8,
+      "type": "logs",
+      "title": "Wi\u2011Fi Logs (network issues)",
+      "description": "Focused view of Wi\u2011Fi and network related logs. Use this when connectivity feels slow or unstable.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 44,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "{log_type=~\"wifi|wifi_analytics\"}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true
+      }
     }
-  ]
+  ],
+  "description": "A human\u2011friendly log viewer for Anish\u2019s Mac. Use it to troubleshoot system issues, app crashes, and observability stack health. Filters at the top let you narrow by log source (system/user/observability), category (wifi/install/diagnostics/app), specific filename, and keyword search.\n\nHow to use: Start with the last 1 hour, set job=system, log_type=system. If you see a spike or error, open the row to read context and the exact file path."
 }
