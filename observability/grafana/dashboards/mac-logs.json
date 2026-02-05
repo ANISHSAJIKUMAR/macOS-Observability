@@ -435,6 +435,141 @@
         "wrapLogMessage": true,
         "enableLogDetails": true
       }
+    },
+    {
+      "id": 12,
+      "type": "logs",
+      "title": "Chrome Logs",
+      "description": "Application-specific logs for Chrome. Uses filename match to keep the panel readable.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 87,
+        "w": 12,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "{job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)chrome\"",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true
+      }
+    },
+    {
+      "id": 13,
+      "type": "logs",
+      "title": "Zoom Logs",
+      "description": "Application-specific logs for Zoom. Uses filename match to keep the panel readable.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 87,
+        "w": 12,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "{job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)zoom\"",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true
+      }
+    },
+    {
+      "id": 14,
+      "type": "logs",
+      "title": "Docker Logs",
+      "description": "Application-specific logs for Docker. Uses filename match to keep the panel readable.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 96,
+        "w": 12,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "{job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)docker\"",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true
+      }
+    },
+    {
+      "id": 15,
+      "type": "logs",
+      "title": "VS Code Logs",
+      "description": "Application-specific logs for VS Code. Uses filename match to keep the panel readable.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 96,
+        "w": 12,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "{job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)(vscode|visual\\s*studio\\s*code|code)\"",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true
+      }
+    },
+    {
+      "id": 16,
+      "type": "logs",
+      "title": "Xcode Logs",
+      "description": "Application-specific logs for Xcode. Uses filename match to keep the panel readable.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 105,
+        "w": 12,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "{job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)xcode\"",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true
+      }
     }
   ],
   "description": "A human\u2011friendly log viewer for Anish\u2019s Mac. Use it to troubleshoot system issues, app crashes, and observability stack health. Filters at the top let you narrow by log source (system/user/observability), category (wifi/install/diagnostics/app), specific filename, and keyword search.\n\nHow to use: Start with the last 1 hour, set job=system, log_type=system. If you see a spike or error, open the row to read context and the exact file path."
