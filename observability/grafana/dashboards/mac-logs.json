@@ -346,7 +346,11 @@
       "targets": [
         {
           "expr": "{log_type=~\"wifi\"}",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "efccujve04lxca"
+          }
         }
       ],
       "options": {

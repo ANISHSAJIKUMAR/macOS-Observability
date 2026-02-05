@@ -9,21 +9,24 @@ OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textf
 
 def run_powermetrics_plist():
     try:
-        out = subprocess.check_output(["/usr/bin/powermetrics", "-n", "1", "--show-all", "-f", "plist"], stderr=subprocess.STDOUT)
-        return out
+        p = subprocess.run(
+            ["/usr/bin/powermetrics", "-n", "1", "--show-all", "-f", "plist"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        return p.stdout or b""
     except Exception:
         return b""
 
 
 def main():
     raw = run_powermetrics_plist()
-    if not raw:
-        return
-
-    try:
-        data = plistlib.loads(raw)
-    except Exception:
-        return
+    data = {}
+    if raw:
+        try:
+            data = plistlib.loads(raw)
+        except Exception:
+            data = {}
 
     lines = []
     cpu_temp = None

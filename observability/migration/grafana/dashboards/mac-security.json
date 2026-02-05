@@ -372,7 +372,11 @@
       "targets": [
         {
           "expr": "{log_type=~\"wifi\"} |~ \"(?i)(disconnect|auth|denied|failed|ssid|bssid|security)\"",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "efccujve04lxca"
+          }
         }
       ],
       "options": {
@@ -399,7 +403,11 @@
       "targets": [
         {
           "expr": "{log_type=~\"system|xpc_launchd|wifi\"}",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "efccujve04lxca"
+          }
         }
       ],
       "options": {
@@ -641,7 +649,7 @@
       },
       "targets": [
         {
-          "expr": "topk(10, tshark_conv_bytes_total)",
+          "expr": "topk(10, tshark_conv_bytes_total) or on() vector(0)",
           "refId": "A"
         }
       ],
