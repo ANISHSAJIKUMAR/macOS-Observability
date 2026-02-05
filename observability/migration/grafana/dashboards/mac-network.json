@@ -1,0 +1,893 @@
+{
+  "description": "Expanded network dashboard with connectivity, interface, and Wi\u2011Fi signal metrics (live).",
+  "folderUid": "cfcclm6jxqvpcd",
+  "id": 3,
+  "panels": [
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, AnishSSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
+        "mode": "markdown"
+      },
+      "title": "What to Watch",
+      "type": "text"
+    },
+    {
+      "description": "High\u2011level summary panel for quick health checks. Use this to see if anything needs attention at a glance.",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "options": {
+        "content": "",
+        "mode": "markdown"
+      },
+      "title": "KPI Strip",
+      "type": "text"
+    },
+    {
+      "description": "Shows how busy your computer\u2019s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100"
+        }
+      ],
+      "title": "CPU %",
+      "type": "stat"
+    },
+    {
+      "description": "Shows how much RAM is in use. Higher values mean less free memory for new apps. Sustained high memory usage can cause slowdowns and app switching delays.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "(node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100"
+        }
+      ],
+      "title": "Memory %",
+      "type": "stat"
+    },
+    {
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "(node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100"
+        }
+      ],
+      "title": "Disk / %",
+      "type": "stat"
+    },
+    {
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(node_network_receive_bytes_total[5m]))"
+        }
+      ],
+      "title": "Net RX",
+      "type": "stat"
+    },
+    {
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(node_network_transmit_bytes_total[5m]))"
+        }
+      ],
+      "title": "Net TX",
+      "type": "stat"
+    },
+    {
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "dBm"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 20,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "wifi_rssi_dbm"
+        }
+      ],
+      "title": "Wi\u2011Fi RSSI",
+      "type": "stat"
+    },
+    {
+      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 3
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 22,
+        "y": 4
+      },
+      "options": {
+        "graphMode": "area",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "expr": "max(net_ping_loss_percent)"
+        }
+      ],
+      "title": "Ping Loss",
+      "type": "stat"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "options": {
+        "content": "## Read Me\nThis Grafana workspace monitors Anish's personal Mac with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health \u2014 CPU, memory, disk usage (including AnishSSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi\u2011Fi \u2014 throughput, errors/drops, ping health, Wi\u2011Fi signal/rates\n- Mac Info: Identity & Status \u2014 system identity, key specs, running launchd services\n- All Metrics: Live Explorer \u2014 all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, mac_system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi\u2011Fi metrics\n",
+        "mode": "markdown"
+      },
+      "title": "Read Me",
+      "type": "text"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "options": {
+        "content": "Includes:\n- Throughput RX/TX (all or selected interfaces)\n- Packets RX/TX\n- Errors RX/TX\n- Drops RX/TX\n- Multicast\n- Total bytes\n- Top interfaces by throughput\n- Average packet size\n- Connectivity (ping latency/loss)\n- Interface link state (en0/en1)\n- Wi\u2011Fi signal (RSSI/Noise/SNR), rates, CCA, MCS, NSS",
+        "mode": "markdown"
+      },
+      "title": "What This Dashboard Includes",
+      "type": "text"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "MBps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "targets": [
+        {
+          "expr": "sum(job:node_network_receive_mb_s)",
+          "legendFormat": "RX MB/s"
+        },
+        {
+          "expr": "sum(job:node_network_transmit_mb_s)",
+          "legendFormat": "TX MB/s"
+        }
+      ],
+      "title": "Total Throughput (MB/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Throughput By Interface (bytes/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Shows how many data packets are moving each second. Many small packets can indicate chatty apps. Useful to understand network behavior beyond raw speed.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "pps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 35
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_packets_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Packets (pkts/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 35
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_receive_packets_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Average Packet Size (bytes)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi\u2011Fi or router issues.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "eps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 43
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_errs_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "RX errs {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_errs_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "TX errs {{device}}"
+        }
+      ],
+      "title": "Errors (err/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi\u2011Fi or router issues.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "dps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 43
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_drop_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "RX drop {{device}}"
+        },
+        {
+          "expr": "rate(node_network_transmit_drop_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "TX drop {{device}}"
+        }
+      ],
+      "title": "Drops (drop/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "pps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 51
+      },
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_multicast_total{device=~\"$iface\"}[5m])",
+          "legendFormat": "multicast {{device}}"
+        }
+      ],
+      "title": "Multicast (pkts/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 51
+      },
+      "targets": [
+        {
+          "expr": "node_network_receive_bytes_total{device=~\"$iface\"}",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "node_network_transmit_bytes_total{device=~\"$iface\"}",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Interface Bytes (total)",
+      "type": "timeseries"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "Bps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 59
+      },
+      "targets": [
+        {
+          "expr": "topk(5, rate(node_network_receive_bytes_total[5m]))",
+          "legendFormat": "RX {{device}}"
+        },
+        {
+          "expr": "topk(5, rate(node_network_transmit_bytes_total[5m]))",
+          "legendFormat": "TX {{device}}"
+        }
+      ],
+      "title": "Top Interfaces by Throughput (bytes/s)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Shows how fast your internet responds. Higher latency feels like lag. Useful for detecting slow or congested connections.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "unit": "ms"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 59
+      },
+      "targets": [
+        {
+          "expr": "net_ping_latency_ms",
+          "legendFormat": "{{target}}"
+        }
+      ],
+      "title": "Ping Latency (ms)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter.",
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 67
+      },
+      "targets": [
+        {
+          "expr": "net_ping_loss_percent",
+          "legendFormat": "{{target}}"
+        }
+      ],
+      "title": "Ping Loss (%)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "text": "down"
+                },
+                "1": {
+                  "text": "up"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "unit": "short"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 67
+      },
+      "targets": [
+        {
+          "expr": "net_iface_up{iface=\"en0\"}",
+          "legendFormat": "en0"
+        },
+        {
+          "expr": "net_iface_up{iface=\"en1\"}",
+          "legendFormat": "en1"
+        }
+      ],
+      "title": "Interface Link Up",
+      "type": "stat"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "dBm"
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 75
+      },
+      "targets": [
+        {
+          "expr": "wifi_rssi_dbm",
+          "legendFormat": "{{ssid}}"
+        }
+      ],
+      "title": "Wi\u2011Fi Signal (RSSI dBm)",
+      "type": "timeseries"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "dB"
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 75
+      },
+      "targets": [
+        {
+          "expr": "wifi_noise_dbm",
+          "legendFormat": "noise {{ssid}}"
+        },
+        {
+          "expr": "wifi_snr_db",
+          "legendFormat": "snr {{ssid}}"
+        }
+      ],
+      "title": "Wi\u2011Fi Noise/SNR",
+      "type": "timeseries"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Mbps"
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 82
+      },
+      "targets": [
+        {
+          "expr": "wifi_tx_rate_mbps",
+          "legendFormat": "tx {{ssid}}"
+        }
+      ],
+      "title": "Wi\u2011Fi Rates (Mbps)",
+      "type": "timeseries"
+    },
+    {
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 82
+      },
+      "targets": [
+        {
+          "expr": "wifi_cca_percent",
+          "legendFormat": "CCA {{ssid}}"
+        },
+        {
+          "expr": "wifi_mcs",
+          "legendFormat": "MCS {{ssid}}"
+        },
+        {
+          "expr": "wifi_nss",
+          "legendFormat": "NSS {{ssid}}"
+        }
+      ],
+      "title": "Wi\u2011Fi Quality (CCA%, MCS, NSS)",
+      "type": "timeseries"
+    },
+    {
+      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 120
+              }
+            ]
+          },
+          "unit": "s"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 4
+      },
+      "targets": [
+        {
+          "expr": "time() - max(timestamp(node_cpu_seconds_total))"
+        }
+      ],
+      "title": "Data Freshness (sec)",
+      "type": "stat"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 41,
+  "tags": [
+    "network",
+    "mac",
+    "node_exporter"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": ".*",
+        "current": {
+          "text": "en0",
+          "value": "en0"
+        },
+        "datasource": "Prometheus",
+        "includeAll": true,
+        "label": "Interface",
+        "multi": true,
+        "name": "iface",
+        "query": "label_values(node_network_receive_bytes_total, device)",
+        "refresh": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h"
+    ],
+    "time_options": [
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "7d",
+      "14d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Mac Network: Connectivity & Wi\u2011Fi",
+  "uid": "mac-network",
+  "version": 17
+}
