@@ -171,3 +171,7 @@ Use this order to demo the system in interviews or walkthroughs:
 9. **All Metrics Explorer** — raw metrics for deep‑dive
    - https://localhost:3000/d/all-metrics-full/all-metrics3a-live-explorer
    - What it shows: full live metric list and raw panels
+
+
+## Metrics & Logs Reference
+- /Users/anishskumar/Anish-DevOps-Lab/observability/METRICS_AND_LOGS.md
