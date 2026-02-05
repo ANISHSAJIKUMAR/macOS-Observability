@@ -9,7 +9,10 @@ OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textf
 
 
 def run(cmd):
-    p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    try:
+        p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    except Exception:
+        return ""
     if p.returncode != 0:
         return ""
     return p.stdout
@@ -26,13 +29,9 @@ def parse_kv(text):
 
 
 def run_airport():
-    path = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
-    if not os.path.exists(path):
-        return {}
-    out = run([path, "-I"])
-    if not out:
-        return {}
-    return parse_kv(out)
+    # Hard-disable airport usage on newer macOS where the binary may be missing
+    # or gated. We rely on wdutil and system_profiler instead.
+    return {}
 
 
 def run_system_profiler_wifi():
