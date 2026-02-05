@@ -400,7 +400,7 @@
       "type": "timeseries"
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -415,11 +415,11 @@
       },
       "targets": [
         {
-          "expr": "rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m])",
+          "expr": "(rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m])) or on() vector(0)",
           "legendFormat": "RX {{device}}"
         },
         {
-          "expr": "rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m])",
+          "expr": "(rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m])) or on() vector(0)",
           "legendFormat": "TX {{device}}"
         }
       ],
@@ -427,7 +427,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Shows how many data packets are moving each second. Many small packets can indicate chatty apps. Useful to understand network behavior beyond raw speed.",
+      "description": "Shows how many data packets are moving each second. Many small packets can indicate chatty apps. Useful to understand network behavior beyond raw speed.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -442,11 +442,11 @@
       },
       "targets": [
         {
-          "expr": "rate(node_network_receive_packets_total{device=~\"$iface\"}[5m])",
+          "expr": "(rate(node_network_receive_packets_total{device=~\"$iface\"}[5m])) or on() vector(0)",
           "legendFormat": "RX {{device}}"
         },
         {
-          "expr": "rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m])",
+          "expr": "(rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m])) or on() vector(0)",
           "legendFormat": "TX {{device}}"
         }
       ],
@@ -454,7 +454,7 @@
       "type": "timeseries"
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -469,11 +469,11 @@
       },
       "targets": [
         {
-          "expr": "rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_receive_packets_total{device=~\"$iface\"}[5m])",
+          "expr": "(rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_receive_packets_total{device=~\"$iface\"}[5m])) or on() vector(0)",
           "legendFormat": "RX {{device}}"
         },
         {
-          "expr": "rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m])",
+          "expr": "(rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m])) or on() vector(0)",
           "legendFormat": "TX {{device}}"
         }
       ],
@@ -481,7 +481,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi\u2011Fi or router issues.",
+      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi\u2011Fi or router issues.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -496,11 +496,11 @@
       },
       "targets": [
         {
-          "expr": "rate(node_network_receive_errs_total{device=~\"$iface\"}[5m])",
+          "expr": "(rate(node_network_receive_errs_total{device=~\"$iface\"}[5m])) or on() vector(0)",
           "legendFormat": "RX errs {{device}}"
         },
         {
-          "expr": "rate(node_network_transmit_errs_total{device=~\"$iface\"}[5m])",
+          "expr": "(rate(node_network_transmit_errs_total{device=~\"$iface\"}[5m])) or on() vector(0)",
           "legendFormat": "TX errs {{device}}"
         }
       ],
@@ -508,7 +508,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi\u2011Fi or router issues.",
+      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi\u2011Fi or router issues.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -523,11 +523,11 @@
       },
       "targets": [
         {
-          "expr": "rate(node_network_receive_drop_total{device=~\"$iface\"}[5m])",
+          "expr": "(rate(node_network_receive_drop_total{device=~\"$iface\"}[5m])) or on() vector(0)",
           "legendFormat": "RX drop {{device}}"
         },
         {
-          "expr": "rate(node_network_transmit_drop_total{device=~\"$iface\"}[5m])",
+          "expr": "(rate(node_network_transmit_drop_total{device=~\"$iface\"}[5m])) or on() vector(0)",
           "legendFormat": "TX drop {{device}}"
         }
       ],
@@ -535,7 +535,7 @@
       "type": "timeseries"
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -550,7 +550,7 @@
       },
       "targets": [
         {
-          "expr": "rate(node_network_receive_multicast_total{device=~\"$iface\"}[5m])",
+          "expr": "(rate(node_network_receive_multicast_total{device=~\"$iface\"}[5m])) or on() vector(0)",
           "legendFormat": "multicast {{device}}"
         }
       ],
@@ -558,7 +558,7 @@
       "type": "timeseries"
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -573,11 +573,11 @@
       },
       "targets": [
         {
-          "expr": "node_network_receive_bytes_total{device=~\"$iface\"}",
+          "expr": "(node_network_receive_bytes_total{device=~\"$iface\"}) or on() vector(0)",
           "legendFormat": "RX {{device}}"
         },
         {
-          "expr": "node_network_transmit_bytes_total{device=~\"$iface\"}",
+          "expr": "(node_network_transmit_bytes_total{device=~\"$iface\"}) or on() vector(0)",
           "legendFormat": "TX {{device}}"
         }
       ],

@@ -97,7 +97,7 @@
       "id": 6,
       "type": "stat",
       "title": "Active Log Streams",
-      "description": "Approximate number of active log streams ingested into Loki. If this is 0, logs are not being ingested.",
+      "description": "Approximate number of active log streams ingested into Loki. If this is 0, logs are not being ingested.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "gridPos": {
         "x": 0,
         "y": 6,
@@ -110,7 +110,7 @@
       },
       "targets": [
         {
-          "expr": "count(count_over_time({job=~\"$job\",log_type=~\"$log_type\"}[5m]))",
+          "expr": "(count(count_over_time({job=~\"$job\",log_type=~\"$log_type\"}[5m]))) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -148,7 +148,7 @@
       "id": 7,
       "type": "stat",
       "title": "Log Ingestion Health",
-      "description": "Promtail shipping status. If this is 0, Promtail is not sending logs to Loki.",
+      "description": "Promtail shipping status. If this is 0, Promtail is not sending logs to Loki.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "gridPos": {
         "x": 6,
         "y": 6,
@@ -161,7 +161,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(promtail_sent_bytes_total[5m]))",
+          "expr": "(sum(rate(promtail_sent_bytes_total[5m]))) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -266,7 +266,7 @@
       },
       "targets": [
         {
-          "expr": "{job=\"system\"} |= \"error\" or {job=\"system\"} |= \"warn\"",
+          "expr": "({job=\"system\"} |= \"error\" or {job=\"system\"} |= \"warn\") or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -286,7 +286,8 @@
             "showLabels": true
           }
         }
-      }
+      },
+      "description": "Auto\u2011fallback to 0 if metric is missing or has no recent samples."
     },
     {
       "id": 4,
@@ -304,7 +305,7 @@
       },
       "targets": [
         {
-          "expr": "{job=\"observability\"}",
+          "expr": "({job=\"observability\"}) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -324,7 +325,8 @@
             "showLabels": true
           }
         }
-      }
+      },
+      "description": "Auto\u2011fallback to 0 if metric is missing or has no recent samples."
     },
     {
       "id": 8,

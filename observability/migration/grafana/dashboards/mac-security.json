@@ -82,7 +82,7 @@
       "id": 2,
       "type": "stat",
       "title": "Security Signals (last 1h)",
-      "description": "Approximate count of security\u2011related log lines in the last hour. If this spikes, drill down in the logs panels.",
+      "description": "Approximate count of security\u2011related log lines in the last hour. If this spikes, drill down in the logs panels.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "gridPos": {
         "x": 0,
         "y": 6,
@@ -95,7 +95,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|sudo|auth|login|password|keychain|gatekeeper|quarantine)\"[1h]))",
+          "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|sudo|auth|login|password|keychain|gatekeeper|quarantine)\"[1h]))) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -137,7 +137,7 @@
       "id": 3,
       "type": "stat",
       "title": "Failed Auth / Denied (last 1h)",
-      "description": "Count of log lines with failed authentication, denial, or authorization errors in the last hour.",
+      "description": "Count of log lines with failed authentication, denial, or authorization errors in the last hour.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "gridPos": {
         "x": 6,
         "y": 6,
@@ -150,7 +150,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|auth)\"[1h]))",
+          "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|auth)\"[1h]))) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -192,7 +192,7 @@
       "id": 4,
       "type": "stat",
       "title": "Privilege / sudo Activity (last 1h)",
-      "description": "Potential privilege escalations or sudo usage detected in logs in the last hour.",
+      "description": "Potential privilege escalations or sudo usage detected in logs in the last hour.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "gridPos": {
         "x": 12,
         "y": 6,
@@ -205,7 +205,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(sudo|root|privilege|authorization)\"[1h]))",
+          "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(sudo|root|privilege|authorization)\"[1h]))) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -247,7 +247,7 @@
       "id": 5,
       "type": "stat",
       "title": "Crash / Diagnostic Reports (last 1h)",
-      "description": "Counts diagnostic or crash reports created in the last hour. Unexpected crashes can indicate instability or security issues.",
+      "description": "Counts diagnostic or crash reports created in the last hour. Unexpected crashes can indicate instability or security issues.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "gridPos": {
         "x": 18,
         "y": 6,
@@ -260,7 +260,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({log_type=~\"diagnostic_reports.*\"}[1h]))",
+          "expr": "(sum(count_over_time({log_type=~\"diagnostic_reports.*\"}[1h]))) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -331,7 +331,7 @@
       "id": 7,
       "type": "logs",
       "title": "User Activity Signals",
-      "description": "Shows log lines that may indicate user activity such as logins, session starts, or app launches.",
+      "description": "Shows log lines that may indicate user activity such as logins, session starts, or app launches.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "datasource": {
         "type": "loki",
         "uid": "efccujve04lxca"
@@ -344,7 +344,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"$job\"} |~ \"(?i)(login|logout|session|launch|started|opened|signed in)\"",
+          "expr": "({job=~\"$job\"} |~ \"(?i)(login|logout|session|launch|started|opened|signed in)\") or on() vector(0)",
           "refId": "A"
         }
       ],
