@@ -31,3 +31,16 @@ Docs:
 - `observability/` — full monitoring stack (metrics + logs)
 - `output/` — generated artifacts (screenshots/exports)
 - `start_all.sh` / `stop_all.sh` — start/stop everything
+
+
+
+## Demo Links (Quick Navigation)
+- Overview: https://localhost:3000/d/overview/anish-laptop3a-overview
+- Executive Summary: https://localhost:3000/d/exec-summary/executive-summary3a-anish-laptop
+- System Health: https://localhost:3000/d/mac-system-all/mac-system3a-core-health
+- Network & Wi‑Fi: https://localhost:3000/d/mac-network/mac-network3a-connectivity-and-wie28091-fi
+- Live Capture (tshark): https://localhost:3000/d/tshark-live/mac-network3a-live-capture-tshark
+- Logs: https://localhost:3000/d/mac-logs/mac-logs3a-system-apps-and-observability
+- Security: https://localhost:3000/d/mac-security/mac-security3a-activity-and-risk-signals
+- Prometheus Self‑Monitoring: https://localhost:3000/d/prometheus-self/prometheus3a-selfe28091-monitoring
+- All Metrics Explorer: https://localhost:3000/d/all-metrics-full/all-metrics3a-live-explorer

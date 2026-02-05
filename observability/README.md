@@ -130,3 +130,44 @@ Prometheus keeps **14 days** of data with a **20 GB** cap.
 ---
 
 See folder‑level READMEs for details.
+
+
+
+## Showcase Flow (UI Walkthrough)
+Use this order to demo the system in interviews or walkthroughs:
+
+1. **Overview** — landing page and navigation hub
+   - https://localhost:3000/d/overview/anish-laptop3a-overview
+   - What it shows: overall health KPIs, quick links to all dashboards
+
+2. **Executive Summary** — high‑level story for non‑technical audience
+   - https://localhost:3000/d/exec-summary/executive-summary3a-anish-laptop
+   - What it shows: top KPIs, health checks, and key risk signals
+
+3. **System Health** — core CPU, memory, disk, battery, thermal
+   - https://localhost:3000/d/mac-system-all/mac-system3a-core-health
+   - What it shows: system resource health + battery and SMART status
+
+4. **Network & Wi‑Fi** — connectivity and quality
+   - https://localhost:3000/d/mac-network/mac-network3a-connectivity-and-wie28091-fi
+   - What it shows: throughput, errors/drops, ping, Wi‑Fi signal/rates
+
+5. **Live Capture (tshark)** — packet‑level live analysis
+   - https://localhost:3000/d/tshark-live/mac-network3a-live-capture-tshark
+   - What it shows: top talkers, protocol mix, live packet flow
+
+6. **Logs** — system/app/observability logs
+   - https://localhost:3000/d/mac-logs/mac-logs3a-system-apps-and-observability
+   - What it shows: readable log streams with filters and keyword search
+
+7. **Security** — risk signals from logs + live packet signals
+   - https://localhost:3000/d/mac-security/mac-security3a-activity-and-risk-signals
+   - What it shows: auth failures, privilege activity, Wi‑Fi security, tshark signals
+
+8. **Prometheus Self‑Monitoring** — data plane health
+   - https://localhost:3000/d/prometheus-self/prometheus3a-selfe28091-monitoring
+   - What it shows: scrape health, TSDB usage, WAL/ingestion status
+
+9. **All Metrics Explorer** — raw metrics for deep‑dive
+   - https://localhost:3000/d/all-metrics-full/all-metrics3a-live-explorer
+   - What it shows: full live metric list and raw panels
