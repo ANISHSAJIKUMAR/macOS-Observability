@@ -3,18 +3,18 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.local.battery_metrics</string>
+    <string>observability.launchd_metrics</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/battery_metrics.py</string>
+      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/launchd_metrics.py</string>
     </array>
     <key>StartInterval</key>
     <integer>60</integer>
     <key>RunAtLoad</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/tmp/battery_metrics.out</string>
+    <string>/tmp/launchd_metrics.out</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/battery_metrics.err</string>
+    <string>/tmp/launchd_metrics.err</string>
   </dict>
 </plist>

@@ -9,8 +9,8 @@ Tails system and app logs and ships them to Loki for Grafana to query.
 
 ## Apply Changes
 ```bash
-sudo launchctl bootout system /Library/LaunchDaemons/com.local.promtail.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.promtail.plist
+sudo launchctl bootout system /Library/LaunchDaemons/observability.promtail.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.promtail.plist
 ```
 
 ## Troubleshooting

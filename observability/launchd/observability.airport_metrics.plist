@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.local.airport_metrics</string>
+    <string>observability.airport_metrics</string>
     <key>ProgramArguments</key>
     <array>
       <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/airport_metrics.py</string>

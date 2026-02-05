@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.local.net_connectivity</string>
+    <string>observability.net_connectivity</string>
     <key>ProgramArguments</key>
     <array>
       <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/net_connectivity_metrics.py</string>

@@ -11,29 +11,30 @@ fi
 log() { printf "[stop_all] %s\n" "$*"; }
 
 log "Stopping LaunchAgents..."
-launchctl unload ~/Library/LaunchAgents/com.local.net_connectivity.plist || true
-launchctl unload ~/Library/LaunchAgents/com.local.mac_system_info.plist || true
-launchctl unload ~/Library/LaunchAgents/com.local.launchd_metrics.plist || true
-launchctl unload ~/Library/LaunchAgents/com.local.grafana_health.plist || true
-launchctl unload ~/Library/LaunchAgents/com.local.prom_config_checksum.plist || true
-launchctl unload ~/Library/LaunchAgents/com.local.battery_metrics.plist || true
+launchctl unload ~/Library/LaunchAgents/observability.net_connectivity.plist || true
+launchctl unload ~/Library/LaunchAgents/observability.mac_system_info.plist || true
+launchctl unload ~/Library/LaunchAgents/observability.launchd_metrics.plist || true
+launchctl unload ~/Library/LaunchAgents/observability.grafana_health.plist || true
+launchctl unload ~/Library/LaunchAgents/observability.prom_config_checksum.plist || true
+launchctl unload ~/Library/LaunchAgents/observability.battery_metrics.plist || true
+launchctl unload ~/Library/LaunchAgents/observability.airport_metrics.plist || true
 
 log "Stopping Wi‑Fi LaunchDaemon (root) if available..."
 if [ "$CAN_SUDO" -eq 1 ]; then
-  if [ -f /Library/LaunchDaemons/com.local.wdutil_metrics.plist ]; then
-    $SUDO launchctl bootout system /Library/LaunchDaemons/com.local.wdutil_metrics.plist || true
+  if [ -f /Library/LaunchDaemons/observability.wdutil_metrics.plist ]; then
+    $SUDO launchctl bootout system /Library/LaunchDaemons/observability.wdutil_metrics.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist ]; then
-    $SUDO launchctl bootout system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist || true
+  if [ -f /Library/LaunchDaemons/observability.cpu_fan_metrics.plist ]; then
+    $SUDO launchctl bootout system /Library/LaunchDaemons/observability.cpu_fan_metrics.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/com.local.smart_metrics.plist ]; then
-    $SUDO launchctl bootout system /Library/LaunchDaemons/com.local.smart_metrics.plist || true
+  if [ -f /Library/LaunchDaemons/observability.smart_metrics.plist ]; then
+    $SUDO launchctl bootout system /Library/LaunchDaemons/observability.smart_metrics.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/com.local.promtail.plist ]; then
-    $SUDO launchctl bootout system /Library/LaunchDaemons/com.local.promtail.plist || true
+  if [ -f /Library/LaunchDaemons/observability.promtail.plist ]; then
+    $SUDO launchctl bootout system /Library/LaunchDaemons/observability.promtail.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/com.local.tshark_metrics.plist ]; then
-    $SUDO launchctl bootout system /Library/LaunchDaemons/com.local.tshark_metrics.plist || true
+  if [ -f /Library/LaunchDaemons/observability.tshark_metrics.plist ]; then
+    $SUDO launchctl bootout system /Library/LaunchDaemons/observability.tshark_metrics.plist || true
   fi
 else
   log "Skipping root LaunchDaemons (sudo -n not available)."

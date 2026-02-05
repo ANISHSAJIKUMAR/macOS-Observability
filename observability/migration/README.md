@@ -82,19 +82,19 @@ brew services start loki
 
 ### 6. Load launchd jobs
 ```bash
-launchctl load ~/Library/LaunchAgents/com.local.net_connectivity.plist
-launchctl load ~/Library/LaunchAgents/com.local.mac_system_info.plist
-launchctl load ~/Library/LaunchAgents/com.local.launchd_metrics.plist
-launchctl load ~/Library/LaunchAgents/com.local.grafana_health.plist
-launchctl load ~/Library/LaunchAgents/com.local.prom_config_checksum.plist
-launchctl load ~/Library/LaunchAgents/com.local.battery_metrics.plist
+launchctl load ~/Library/LaunchAgents/observability.net_connectivity.plist
+launchctl load ~/Library/LaunchAgents/observability.mac_system_info.plist
+launchctl load ~/Library/LaunchAgents/observability.launchd_metrics.plist
+launchctl load ~/Library/LaunchAgents/observability.grafana_health.plist
+launchctl load ~/Library/LaunchAgents/observability.prom_config_checksum.plist
+launchctl load ~/Library/LaunchAgents/observability.battery_metrics.plist
 
 # root daemons (Wi‑Fi / SMART / Thermal)
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.wdutil_metrics.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.smart_metrics.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.promtail.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.tshark_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.wdutil_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.cpu_fan_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.smart_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.promtail.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.tshark_metrics.plist
 ```
 
 ### 7. Verify

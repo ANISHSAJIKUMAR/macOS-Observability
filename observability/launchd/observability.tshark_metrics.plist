@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.local.tshark_metrics</string>
+    <string>observability.tshark_metrics</string>
     <key>ProgramArguments</key>
     <array>
       <string>/usr/bin/python3</string>

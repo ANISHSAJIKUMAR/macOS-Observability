@@ -3,18 +3,18 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.local.prom_config_checksum</string>
+    <string>observability.cpu_fan_metrics</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/prom_config_checksum.py</string>
+      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/cpu_fan_metrics.py</string>
     </array>
     <key>StartInterval</key>
     <integer>60</integer>
     <key>RunAtLoad</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/tmp/prom_config_checksum.out</string>
+    <string>/tmp/cpu_fan_metrics.out</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/prom_config_checksum.err</string>
+    <string>/tmp/cpu_fan_metrics.err</string>
   </dict>
 </plist>

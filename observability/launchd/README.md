@@ -1,24 +1,24 @@
 # launchd Jobs (Full Detail)
 
 ## LaunchAgents (user)
-- `com.local.net_connectivity.plist`
-- `com.local.mac_system_info.plist`
-- `com.local.launchd_metrics.plist`
-- `com.local.grafana_health.plist`
-- `com.local.prom_config_checksum.plist`
-- `com.local.battery_metrics.plist`
+- `observability.net_connectivity.plist`
+- `observability.mac_system_info.plist`
+- `observability.launchd_metrics.plist`
+- `observability.grafana_health.plist`
+- `observability.prom_config_checksum.plist`
+- `observability.battery_metrics.plist`
 
 ## LaunchDaemon (root)
-- `com.local.wdutil_metrics.plist`
-- `com.local.cpu_fan_metrics.plist`
-- `com.local.smart_metrics.plist`
-- `com.local.promtail.plist`
-- `com.local.tshark_metrics.plist`
+- `observability.wdutil_metrics.plist`
+- `observability.cpu_fan_metrics.plist`
+- `observability.smart_metrics.plist`
+- `observability.promtail.plist`
+- `observability.tshark_metrics.plist`
 
 ## Example Plist (Line‑by‑Line)
 ```
 <key>Label</key>                 # Unique job name
-<string>com.local.net_connectivity</string>
+<string>observability.net_connectivity</string>
 
 <key>ProgramArguments</key>      # Executable path and args
 <array>
@@ -44,22 +44,22 @@
 
 ## Apply Changes
 ```bash
-launchctl unload ~/Library/LaunchAgents/com.local.net_connectivity.plist
-launchctl unload ~/Library/LaunchAgents/com.local.mac_system_info.plist
-launchctl unload ~/Library/LaunchAgents/com.local.launchd_metrics.plist
-launchctl unload ~/Library/LaunchAgents/com.local.grafana_health.plist
-launchctl load ~/Library/LaunchAgents/com.local.net_connectivity.plist
-launchctl load ~/Library/LaunchAgents/com.local.mac_system_info.plist
-launchctl load ~/Library/LaunchAgents/com.local.launchd_metrics.plist
-launchctl load ~/Library/LaunchAgents/com.local.grafana_health.plist
-sudo launchctl bootout system /Library/LaunchDaemons/com.local.wdutil_metrics.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.wdutil_metrics.plist
-sudo launchctl bootout system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist
-sudo launchctl bootout system /Library/LaunchDaemons/com.local.smart_metrics.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.smart_metrics.plist
-sudo launchctl bootout system /Library/LaunchDaemons/com.local.promtail.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.promtail.plist
-sudo launchctl bootout system /Library/LaunchDaemons/com.local.tshark_metrics.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.tshark_metrics.plist
+launchctl unload ~/Library/LaunchAgents/observability.net_connectivity.plist
+launchctl unload ~/Library/LaunchAgents/observability.mac_system_info.plist
+launchctl unload ~/Library/LaunchAgents/observability.launchd_metrics.plist
+launchctl unload ~/Library/LaunchAgents/observability.grafana_health.plist
+launchctl load ~/Library/LaunchAgents/observability.net_connectivity.plist
+launchctl load ~/Library/LaunchAgents/observability.mac_system_info.plist
+launchctl load ~/Library/LaunchAgents/observability.launchd_metrics.plist
+launchctl load ~/Library/LaunchAgents/observability.grafana_health.plist
+sudo launchctl bootout system /Library/LaunchDaemons/observability.wdutil_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.wdutil_metrics.plist
+sudo launchctl bootout system /Library/LaunchDaemons/observability.cpu_fan_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.cpu_fan_metrics.plist
+sudo launchctl bootout system /Library/LaunchDaemons/observability.smart_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.smart_metrics.plist
+sudo launchctl bootout system /Library/LaunchDaemons/observability.promtail.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.promtail.plist
+sudo launchctl bootout system /Library/LaunchDaemons/observability.tshark_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.tshark_metrics.plist
 ```

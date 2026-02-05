@@ -18,29 +18,30 @@ brew services start loki
 brew services start grafana
 
 log "Starting LaunchAgents..."
-launchctl load ~/Library/LaunchAgents/com.local.net_connectivity.plist
-launchctl load ~/Library/LaunchAgents/com.local.mac_system_info.plist
-launchctl load ~/Library/LaunchAgents/com.local.launchd_metrics.plist
-launchctl load ~/Library/LaunchAgents/com.local.grafana_health.plist
-launchctl load ~/Library/LaunchAgents/com.local.prom_config_checksum.plist
-launchctl load ~/Library/LaunchAgents/com.local.battery_metrics.plist
+launchctl load ~/Library/LaunchAgents/observability.net_connectivity.plist
+launchctl load ~/Library/LaunchAgents/observability.mac_system_info.plist
+launchctl load ~/Library/LaunchAgents/observability.launchd_metrics.plist
+launchctl load ~/Library/LaunchAgents/observability.grafana_health.plist
+launchctl load ~/Library/LaunchAgents/observability.prom_config_checksum.plist
+launchctl load ~/Library/LaunchAgents/observability.battery_metrics.plist
+launchctl load ~/Library/LaunchAgents/observability.airport_metrics.plist
 
 log "Starting Wi‑Fi LaunchDaemon (root) if available..."
 if [ "$CAN_SUDO" -eq 1 ]; then
-  if [ -f /Library/LaunchDaemons/com.local.wdutil_metrics.plist ]; then
-    $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.wdutil_metrics.plist || true
+  if [ -f /Library/LaunchDaemons/observability.wdutil_metrics.plist ]; then
+    $SUDO launchctl bootstrap system /Library/LaunchDaemons/observability.wdutil_metrics.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist ]; then
-    $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist || true
+  if [ -f /Library/LaunchDaemons/observability.cpu_fan_metrics.plist ]; then
+    $SUDO launchctl bootstrap system /Library/LaunchDaemons/observability.cpu_fan_metrics.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/com.local.smart_metrics.plist ]; then
-    $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.smart_metrics.plist || true
+  if [ -f /Library/LaunchDaemons/observability.smart_metrics.plist ]; then
+    $SUDO launchctl bootstrap system /Library/LaunchDaemons/observability.smart_metrics.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/com.local.promtail.plist ]; then
-    $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.promtail.plist || true
+  if [ -f /Library/LaunchDaemons/observability.promtail.plist ]; then
+    $SUDO launchctl bootstrap system /Library/LaunchDaemons/observability.promtail.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/com.local.tshark_metrics.plist ]; then
-    $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.tshark_metrics.plist || true
+  if [ -f /Library/LaunchDaemons/observability.tshark_metrics.plist ]; then
+    $SUDO launchctl bootstrap system /Library/LaunchDaemons/observability.tshark_metrics.plist || true
   fi
 else
   log "Skipping root LaunchDaemons (sudo -n not available)."

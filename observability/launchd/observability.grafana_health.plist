@@ -3,18 +3,18 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.local.launchd_metrics</string>
+    <string>observability.grafana_health</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/launchd_metrics.py</string>
+      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/grafana_health_metrics.py</string>
     </array>
     <key>StartInterval</key>
-    <integer>60</integer>
+    <integer>30</integer>
     <key>RunAtLoad</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/tmp/launchd_metrics.out</string>
+    <string>/tmp/grafana_health.out</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/launchd_metrics.err</string>
+    <string>/tmp/grafana_health.err</string>
   </dict>
 </plist>

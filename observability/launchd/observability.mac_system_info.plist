@@ -3,18 +3,18 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.local.smart_metrics</string>
+    <string>observability.mac_system_info</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/smart_metrics.py</string>
+      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/mac_system_info_metrics.py</string>
     </array>
     <key>StartInterval</key>
-    <integer>300</integer>
+    <integer>60</integer>
     <key>RunAtLoad</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/tmp/smart_metrics.out</string>
+    <string>/tmp/mac_system_info.out</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/smart_metrics.err</string>
+    <string>/tmp/mac_system_info.err</string>
   </dict>
 </plist>

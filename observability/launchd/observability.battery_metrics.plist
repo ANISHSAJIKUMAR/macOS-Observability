@@ -3,18 +3,18 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.local.mac_system_info</string>
+    <string>observability.battery_metrics</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/mac_system_info_metrics.py</string>
+      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/battery_metrics.py</string>
     </array>
     <key>StartInterval</key>
     <integer>60</integer>
     <key>RunAtLoad</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/tmp/mac_system_info.out</string>
+    <string>/tmp/battery_metrics.out</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/mac_system_info.err</string>
+    <string>/tmp/battery_metrics.err</string>
   </dict>
 </plist>

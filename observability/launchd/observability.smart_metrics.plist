@@ -3,18 +3,18 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.local.wdutil_metrics</string>
+    <string>observability.smart_metrics</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/wdutil_metrics.py</string>
+      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/smart_metrics.py</string>
     </array>
     <key>StartInterval</key>
-    <integer>30</integer>
+    <integer>300</integer>
     <key>RunAtLoad</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/tmp/wdutil_metrics.out</string>
+    <string>/tmp/smart_metrics.out</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/wdutil_metrics.err</string>
+    <string>/tmp/smart_metrics.err</string>
   </dict>
 </plist>

@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.local.promtail</string>
+    <string>observability.promtail</string>
     <key>ProgramArguments</key>
     <array>
       <string>/opt/homebrew/opt/promtail/bin/promtail</string>

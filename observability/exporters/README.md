@@ -39,14 +39,14 @@ These scripts emit Prometheus metrics into the textfile directory for node_expor
 
 ## Apply Changes
 ```bash
-launchctl unload ~/Library/LaunchAgents/com.local.net_connectivity.plist
-launchctl unload ~/Library/LaunchAgents/com.local.mac_system_info.plist
-launchctl unload ~/Library/LaunchAgents/com.local.launchd_metrics.plist
-launchctl load ~/Library/LaunchAgents/com.local.net_connectivity.plist
-launchctl load ~/Library/LaunchAgents/com.local.mac_system_info.plist
-launchctl load ~/Library/LaunchAgents/com.local.launchd_metrics.plist
-sudo launchctl bootout system /Library/LaunchDaemons/com.local.wdutil_metrics.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.wdutil_metrics.plist
+launchctl unload ~/Library/LaunchAgents/observability.net_connectivity.plist
+launchctl unload ~/Library/LaunchAgents/observability.mac_system_info.plist
+launchctl unload ~/Library/LaunchAgents/observability.launchd_metrics.plist
+launchctl load ~/Library/LaunchAgents/observability.net_connectivity.plist
+launchctl load ~/Library/LaunchAgents/observability.mac_system_info.plist
+launchctl load ~/Library/LaunchAgents/observability.launchd_metrics.plist
+sudo launchctl bootout system /Library/LaunchDaemons/observability.wdutil_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/observability.wdutil_metrics.plist
 ```
 
 ## Troubleshooting
