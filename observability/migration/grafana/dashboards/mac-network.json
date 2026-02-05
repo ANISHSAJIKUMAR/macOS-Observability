@@ -79,7 +79,7 @@
       },
       "targets": [
         {
-          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100"
+          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100) or on() vector(0)"
         }
       ],
       "title": "CPU %",
@@ -131,7 +131,7 @@
       },
       "targets": [
         {
-          "expr": "(node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100"
+          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100) or on() vector(0)"
         }
       ],
       "title": "Memory %",
@@ -183,7 +183,7 @@
       },
       "targets": [
         {
-          "expr": "(node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100"
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100) or on() vector(0)"
         }
       ],
       "title": "Disk / %",
@@ -217,7 +217,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(node_network_receive_bytes_total[5m]))"
+          "expr": "(sum(rate(node_network_receive_bytes_total[5m]))) or on() vector(0)"
         }
       ],
       "title": "Net RX",
@@ -251,7 +251,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(node_network_transmit_bytes_total[5m]))"
+          "expr": "(sum(rate(node_network_transmit_bytes_total[5m]))) or on() vector(0)"
         }
       ],
       "title": "Net TX",
@@ -284,7 +284,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_rssi_dbm"
+          "expr": "(wifi_rssi_dbm) or on() vector(0)"
         }
       ],
       "title": "Wi\u2011Fi RSSI",
@@ -336,7 +336,7 @@
       },
       "targets": [
         {
-          "expr": "max(net_ping_loss_percent)"
+          "expr": "(max(net_ping_loss_percent)) or on() vector(0)"
         }
       ],
       "title": "Ping Loss",
@@ -388,11 +388,11 @@
       },
       "targets": [
         {
-          "expr": "sum(job:node_network_receive_mb_s)",
+          "expr": "(sum(job:node_network_receive_mb_s)) or on() vector(0)",
           "legendFormat": "RX MB/s"
         },
         {
-          "expr": "sum(job:node_network_transmit_mb_s)",
+          "expr": "(sum(job:node_network_transmit_mb_s)) or on() vector(0)",
           "legendFormat": "TX MB/s"
         }
       ],
@@ -600,11 +600,11 @@
       },
       "targets": [
         {
-          "expr": "topk(5, rate(node_network_receive_bytes_total[5m]))",
+          "expr": "(topk(5, rate(node_network_receive_bytes_total[5m]))) or on() vector(0)",
           "legendFormat": "RX {{device}}"
         },
         {
-          "expr": "topk(5, rate(node_network_transmit_bytes_total[5m]))",
+          "expr": "(topk(5, rate(node_network_transmit_bytes_total[5m]))) or on() vector(0)",
           "legendFormat": "TX {{device}}"
         }
       ],
@@ -627,7 +627,7 @@
       },
       "targets": [
         {
-          "expr": "net_ping_latency_ms",
+          "expr": "(net_ping_latency_ms) or on() vector(0)",
           "legendFormat": "{{target}}"
         }
       ],
@@ -651,7 +651,7 @@
       },
       "targets": [
         {
-          "expr": "net_ping_loss_percent",
+          "expr": "(net_ping_loss_percent) or on() vector(0)",
           "legendFormat": "{{target}}"
         }
       ],
@@ -686,11 +686,11 @@
       },
       "targets": [
         {
-          "expr": "net_iface_up{iface=\"en0\"}",
+          "expr": "(net_iface_up{iface=\"en0\"}) or on() vector(0)",
           "legendFormat": "en0"
         },
         {
-          "expr": "net_iface_up{iface=\"en1\"}",
+          "expr": "(net_iface_up{iface=\"en1\"}) or on() vector(0)",
           "legendFormat": "en1"
         }
       ],
@@ -712,7 +712,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_rssi_dbm",
+          "expr": "(wifi_rssi_dbm) or on() vector(0)",
           "legendFormat": "{{ssid}}"
         }
       ],
@@ -734,11 +734,11 @@
       },
       "targets": [
         {
-          "expr": "wifi_noise_dbm",
+          "expr": "(wifi_noise_dbm) or on() vector(0)",
           "legendFormat": "noise {{ssid}}"
         },
         {
-          "expr": "wifi_snr_db",
+          "expr": "(wifi_snr_db) or on() vector(0)",
           "legendFormat": "snr {{ssid}}"
         }
       ],
@@ -760,7 +760,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_tx_rate_mbps",
+          "expr": "(wifi_tx_rate_mbps) or on() vector(0)",
           "legendFormat": "tx {{ssid}}"
         }
       ],
@@ -782,15 +782,15 @@
       },
       "targets": [
         {
-          "expr": "wifi_cca_percent",
+          "expr": "(wifi_cca_percent) or on() vector(0)",
           "legendFormat": "CCA {{ssid}}"
         },
         {
-          "expr": "wifi_mcs",
+          "expr": "(wifi_mcs) or on() vector(0)",
           "legendFormat": "MCS {{ssid}}"
         },
         {
-          "expr": "wifi_nss",
+          "expr": "(wifi_nss) or on() vector(0)",
           "legendFormat": "NSS {{ssid}}"
         }
       ],
@@ -830,7 +830,7 @@
       },
       "targets": [
         {
-          "expr": "time() - max(timestamp(node_cpu_seconds_total))"
+          "expr": "(time() - max(timestamp(node_cpu_seconds_total))) or on() vector(0)"
         }
       ],
       "title": "Data Freshness (sec)",
@@ -866,7 +866,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_metrics_source",
+          "expr": "(wifi_metrics_source) or on() vector(0)",
           "legendFormat": "{{source}}"
         }
       ]

@@ -45,7 +45,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_capture_success",
+          "expr": "(tshark_capture_success) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -91,7 +91,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_capture_pps",
+          "expr": "(tshark_capture_pps) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -124,7 +124,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_capture_bps",
+          "expr": "(tshark_capture_bps) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -157,7 +157,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_capture_frames_total",
+          "expr": "(tshark_capture_frames_total) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -190,7 +190,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_capture_bps",
+          "expr": "(tshark_capture_bps) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -240,7 +240,7 @@
       },
       "targets": [
         {
-          "expr": "topk(8, tshark_proto_bytes_total)",
+          "expr": "(topk(8, tshark_proto_bytes_total)) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -296,7 +296,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_sec_frames_total",
+          "expr": "(tshark_sec_frames_total) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -324,7 +324,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_sec_bytes_total",
+          "expr": "(tshark_sec_bytes_total) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -352,7 +352,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_sec_frames_total",
+          "expr": "(tshark_sec_frames_total) or on() vector(0)",
           "refId": "A"
         }
       ],

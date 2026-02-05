@@ -63,7 +63,7 @@
       },
       "targets": [
         {
-          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100"
+          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100) or on() vector(0)"
         }
       ],
       "title": "CPU %",
@@ -115,7 +115,7 @@
       },
       "targets": [
         {
-          "expr": "(node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100"
+          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100) or on() vector(0)"
         }
       ],
       "title": "Memory %",
@@ -167,7 +167,7 @@
       },
       "targets": [
         {
-          "expr": "(node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100"
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100) or on() vector(0)"
         }
       ],
       "title": "Disk / %",
@@ -201,7 +201,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(node_network_receive_bytes_total[5m]))"
+          "expr": "(sum(rate(node_network_receive_bytes_total[5m]))) or on() vector(0)"
         }
       ],
       "title": "Net RX",
@@ -235,7 +235,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(node_network_transmit_bytes_total[5m]))"
+          "expr": "(sum(rate(node_network_transmit_bytes_total[5m]))) or on() vector(0)"
         }
       ],
       "title": "Net TX",
@@ -268,7 +268,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_rssi_dbm"
+          "expr": "(wifi_rssi_dbm) or on() vector(0)"
         }
       ],
       "title": "Wi\u2011Fi RSSI",
@@ -320,7 +320,7 @@
       },
       "targets": [
         {
-          "expr": "max(net_ping_loss_percent)"
+          "expr": "(max(net_ping_loss_percent)) or on() vector(0)"
         }
       ],
       "title": "Ping Loss",
@@ -356,7 +356,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_cycles_automatic_gc_cycles_total",
+          "expr": "(go_gc_cycles_automatic_gc_cycles_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -378,7 +378,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_cycles_forced_gc_cycles_total",
+          "expr": "(go_gc_cycles_forced_gc_cycles_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -400,7 +400,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_cycles_total_gc_cycles_total",
+          "expr": "(go_gc_cycles_total_gc_cycles_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -422,7 +422,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_duration_seconds",
+          "expr": "(go_gc_duration_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -444,7 +444,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_duration_seconds_count",
+          "expr": "(go_gc_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -466,7 +466,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_duration_seconds_sum",
+          "expr": "(go_gc_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -488,7 +488,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_gogc_percent",
+          "expr": "(go_gc_gogc_percent) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -510,7 +510,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_gomemlimit_bytes",
+          "expr": "(go_gc_gomemlimit_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -532,7 +532,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_allocs_by_size_bytes_bucket",
+          "expr": "(go_gc_heap_allocs_by_size_bytes_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -554,7 +554,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_allocs_by_size_bytes_count",
+          "expr": "(go_gc_heap_allocs_by_size_bytes_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -576,7 +576,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_allocs_by_size_bytes_sum",
+          "expr": "(go_gc_heap_allocs_by_size_bytes_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -598,7 +598,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_allocs_bytes_total",
+          "expr": "(go_gc_heap_allocs_bytes_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -620,7 +620,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_allocs_objects_total",
+          "expr": "(go_gc_heap_allocs_objects_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -642,7 +642,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_frees_by_size_bytes_bucket",
+          "expr": "(go_gc_heap_frees_by_size_bytes_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -664,7 +664,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_frees_by_size_bytes_count",
+          "expr": "(go_gc_heap_frees_by_size_bytes_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -686,7 +686,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_frees_by_size_bytes_sum",
+          "expr": "(go_gc_heap_frees_by_size_bytes_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -708,7 +708,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_frees_bytes_total",
+          "expr": "(go_gc_heap_frees_bytes_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -730,7 +730,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_frees_objects_total",
+          "expr": "(go_gc_heap_frees_objects_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -752,7 +752,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_goal_bytes",
+          "expr": "(go_gc_heap_goal_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -774,7 +774,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_live_bytes",
+          "expr": "(go_gc_heap_live_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -796,7 +796,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_objects_objects",
+          "expr": "(go_gc_heap_objects_objects) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -818,7 +818,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_heap_tiny_allocs_objects_total",
+          "expr": "(go_gc_heap_tiny_allocs_objects_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -840,7 +840,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_limiter_last_enabled_gc_cycle",
+          "expr": "(go_gc_limiter_last_enabled_gc_cycle) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -862,7 +862,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_pauses_seconds_bucket",
+          "expr": "(go_gc_pauses_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -884,7 +884,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_pauses_seconds_count",
+          "expr": "(go_gc_pauses_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -906,7 +906,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_pauses_seconds_sum",
+          "expr": "(go_gc_pauses_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -928,7 +928,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_scan_globals_bytes",
+          "expr": "(go_gc_scan_globals_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -950,7 +950,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_scan_heap_bytes",
+          "expr": "(go_gc_scan_heap_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -972,7 +972,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_scan_stack_bytes",
+          "expr": "(go_gc_scan_stack_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -994,7 +994,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_scan_total_bytes",
+          "expr": "(go_gc_scan_total_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1016,7 +1016,7 @@
       },
       "targets": [
         {
-          "expr": "go_gc_stack_starting_size_bytes",
+          "expr": "(go_gc_stack_starting_size_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1038,7 +1038,7 @@
       },
       "targets": [
         {
-          "expr": "go_goroutines",
+          "expr": "(go_goroutines) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1060,7 +1060,7 @@
       },
       "targets": [
         {
-          "expr": "go_info",
+          "expr": "(go_info) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1082,7 +1082,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_alloc_bytes",
+          "expr": "(go_memstats_alloc_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1104,7 +1104,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_alloc_bytes_total",
+          "expr": "(go_memstats_alloc_bytes_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1126,7 +1126,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_buck_hash_sys_bytes",
+          "expr": "(go_memstats_buck_hash_sys_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1148,7 +1148,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_frees_total",
+          "expr": "(go_memstats_frees_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1170,7 +1170,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_gc_sys_bytes",
+          "expr": "(go_memstats_gc_sys_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1192,7 +1192,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_heap_alloc_bytes",
+          "expr": "(go_memstats_heap_alloc_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1214,7 +1214,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_heap_idle_bytes",
+          "expr": "(go_memstats_heap_idle_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1236,7 +1236,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_heap_inuse_bytes",
+          "expr": "(go_memstats_heap_inuse_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1258,7 +1258,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_heap_objects",
+          "expr": "(go_memstats_heap_objects) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1280,7 +1280,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_heap_released_bytes",
+          "expr": "(go_memstats_heap_released_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1302,7 +1302,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_heap_sys_bytes",
+          "expr": "(go_memstats_heap_sys_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1324,7 +1324,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_last_gc_time_seconds",
+          "expr": "(go_memstats_last_gc_time_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1346,7 +1346,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_mallocs_total",
+          "expr": "(go_memstats_mallocs_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1368,7 +1368,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_mcache_inuse_bytes",
+          "expr": "(go_memstats_mcache_inuse_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1390,7 +1390,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_mcache_sys_bytes",
+          "expr": "(go_memstats_mcache_sys_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1412,7 +1412,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_mspan_inuse_bytes",
+          "expr": "(go_memstats_mspan_inuse_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1434,7 +1434,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_mspan_sys_bytes",
+          "expr": "(go_memstats_mspan_sys_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1456,7 +1456,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_next_gc_bytes",
+          "expr": "(go_memstats_next_gc_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1478,7 +1478,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_other_sys_bytes",
+          "expr": "(go_memstats_other_sys_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1500,7 +1500,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_stack_inuse_bytes",
+          "expr": "(go_memstats_stack_inuse_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1522,7 +1522,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_stack_sys_bytes",
+          "expr": "(go_memstats_stack_sys_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1544,7 +1544,7 @@
       },
       "targets": [
         {
-          "expr": "go_memstats_sys_bytes",
+          "expr": "(go_memstats_sys_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1566,7 +1566,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_gomaxprocs_threads",
+          "expr": "(go_sched_gomaxprocs_threads) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1588,7 +1588,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_goroutines_goroutines",
+          "expr": "(go_sched_goroutines_goroutines) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1610,7 +1610,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_latencies_seconds_bucket",
+          "expr": "(go_sched_latencies_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1632,7 +1632,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_latencies_seconds_count",
+          "expr": "(go_sched_latencies_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1654,7 +1654,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_latencies_seconds_sum",
+          "expr": "(go_sched_latencies_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1676,7 +1676,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_stopping_gc_seconds_bucket",
+          "expr": "(go_sched_pauses_stopping_gc_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1698,7 +1698,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_stopping_gc_seconds_count",
+          "expr": "(go_sched_pauses_stopping_gc_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1720,7 +1720,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_stopping_gc_seconds_sum",
+          "expr": "(go_sched_pauses_stopping_gc_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1742,7 +1742,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_stopping_other_seconds_bucket",
+          "expr": "(go_sched_pauses_stopping_other_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1764,7 +1764,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_stopping_other_seconds_count",
+          "expr": "(go_sched_pauses_stopping_other_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1786,7 +1786,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_stopping_other_seconds_sum",
+          "expr": "(go_sched_pauses_stopping_other_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1808,7 +1808,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_total_gc_seconds_bucket",
+          "expr": "(go_sched_pauses_total_gc_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1830,7 +1830,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_total_gc_seconds_count",
+          "expr": "(go_sched_pauses_total_gc_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1852,7 +1852,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_total_gc_seconds_sum",
+          "expr": "(go_sched_pauses_total_gc_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1874,7 +1874,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_total_other_seconds_bucket",
+          "expr": "(go_sched_pauses_total_other_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1896,7 +1896,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_total_other_seconds_count",
+          "expr": "(go_sched_pauses_total_other_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1918,7 +1918,7 @@
       },
       "targets": [
         {
-          "expr": "go_sched_pauses_total_other_seconds_sum",
+          "expr": "(go_sched_pauses_total_other_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1940,7 +1940,7 @@
       },
       "targets": [
         {
-          "expr": "go_sync_mutex_wait_total_seconds_total",
+          "expr": "(go_sync_mutex_wait_total_seconds_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1962,7 +1962,7 @@
       },
       "targets": [
         {
-          "expr": "go_threads",
+          "expr": "(go_threads) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -1984,7 +1984,7 @@
       },
       "targets": [
         {
-          "expr": "launchd_job_pid",
+          "expr": "(launchd_job_pid) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2006,7 +2006,7 @@
       },
       "targets": [
         {
-          "expr": "launchd_job_running",
+          "expr": "(launchd_job_running) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2028,7 +2028,7 @@
       },
       "targets": [
         {
-          "expr": "launchd_job_status",
+          "expr": "(launchd_job_status) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2050,7 +2050,7 @@
       },
       "targets": [
         {
-          "expr": "launchd_jobs_total",
+          "expr": "(launchd_jobs_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2072,7 +2072,7 @@
       },
       "targets": [
         {
-          "expr": "launchd_metrics_timestamp_seconds",
+          "expr": "(launchd_metrics_timestamp_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2094,7 +2094,7 @@
       },
       "targets": [
         {
-          "expr": "mac_system_info",
+          "expr": "(mac_system_info) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2116,7 +2116,7 @@
       },
       "targets": [
         {
-          "expr": "mac_system_info_timestamp_seconds",
+          "expr": "(mac_system_info_timestamp_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2138,7 +2138,7 @@
       },
       "targets": [
         {
-          "expr": "mac_system_kv",
+          "expr": "(mac_system_kv) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2160,7 +2160,7 @@
       },
       "targets": [
         {
-          "expr": "net_connectivity_timestamp_seconds",
+          "expr": "(net_connectivity_timestamp_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2182,7 +2182,7 @@
       },
       "targets": [
         {
-          "expr": "net_conntrack_dialer_conn_attempted_total",
+          "expr": "(net_conntrack_dialer_conn_attempted_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2204,7 +2204,7 @@
       },
       "targets": [
         {
-          "expr": "net_conntrack_dialer_conn_closed_total",
+          "expr": "(net_conntrack_dialer_conn_closed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2226,7 +2226,7 @@
       },
       "targets": [
         {
-          "expr": "net_conntrack_dialer_conn_established_total",
+          "expr": "(net_conntrack_dialer_conn_established_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2248,7 +2248,7 @@
       },
       "targets": [
         {
-          "expr": "net_conntrack_dialer_conn_failed_total",
+          "expr": "(net_conntrack_dialer_conn_failed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2270,7 +2270,7 @@
       },
       "targets": [
         {
-          "expr": "net_conntrack_listener_conn_accepted_total",
+          "expr": "(net_conntrack_listener_conn_accepted_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2292,7 +2292,7 @@
       },
       "targets": [
         {
-          "expr": "net_conntrack_listener_conn_closed_total",
+          "expr": "(net_conntrack_listener_conn_closed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2314,7 +2314,7 @@
       },
       "targets": [
         {
-          "expr": "net_iface_up",
+          "expr": "(net_iface_up) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2336,7 +2336,7 @@
       },
       "targets": [
         {
-          "expr": "net_ping_latency_ms",
+          "expr": "(net_ping_latency_ms) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2358,7 +2358,7 @@
       },
       "targets": [
         {
-          "expr": "net_ping_loss_percent",
+          "expr": "(net_ping_loss_percent) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2380,7 +2380,7 @@
       },
       "targets": [
         {
-          "expr": "node_boot_time_seconds",
+          "expr": "(node_boot_time_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2402,7 +2402,7 @@
       },
       "targets": [
         {
-          "expr": "node_cpu_seconds_total",
+          "expr": "(node_cpu_seconds_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2424,7 +2424,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_read_bytes_total",
+          "expr": "(node_disk_read_bytes_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2446,7 +2446,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_read_errors_total",
+          "expr": "(node_disk_read_errors_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2468,7 +2468,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_read_retries_total",
+          "expr": "(node_disk_read_retries_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2490,7 +2490,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_read_sectors_total",
+          "expr": "(node_disk_read_sectors_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2512,7 +2512,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_read_time_seconds_total",
+          "expr": "(node_disk_read_time_seconds_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2534,7 +2534,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_reads_completed_total",
+          "expr": "(node_disk_reads_completed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2556,7 +2556,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_write_errors_total",
+          "expr": "(node_disk_write_errors_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2578,7 +2578,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_write_retries_total",
+          "expr": "(node_disk_write_retries_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2600,7 +2600,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_write_time_seconds_total",
+          "expr": "(node_disk_write_time_seconds_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2622,7 +2622,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_writes_completed_total",
+          "expr": "(node_disk_writes_completed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2644,7 +2644,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_written_bytes_total",
+          "expr": "(node_disk_written_bytes_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2666,7 +2666,7 @@
       },
       "targets": [
         {
-          "expr": "node_disk_written_sectors_total",
+          "expr": "(node_disk_written_sectors_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2688,7 +2688,7 @@
       },
       "targets": [
         {
-          "expr": "node_exporter_build_info",
+          "expr": "(node_exporter_build_info) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2710,7 +2710,7 @@
       },
       "targets": [
         {
-          "expr": "node_filesystem_avail_bytes",
+          "expr": "(node_filesystem_avail_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2732,7 +2732,7 @@
       },
       "targets": [
         {
-          "expr": "node_filesystem_device_error",
+          "expr": "(node_filesystem_device_error) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2754,7 +2754,7 @@
       },
       "targets": [
         {
-          "expr": "node_filesystem_files",
+          "expr": "(node_filesystem_files) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2776,7 +2776,7 @@
       },
       "targets": [
         {
-          "expr": "node_filesystem_files_free",
+          "expr": "(node_filesystem_files_free) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2798,7 +2798,7 @@
       },
       "targets": [
         {
-          "expr": "node_filesystem_free_bytes",
+          "expr": "(node_filesystem_free_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2820,7 +2820,7 @@
       },
       "targets": [
         {
-          "expr": "node_filesystem_mount_info",
+          "expr": "(node_filesystem_mount_info) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2842,7 +2842,7 @@
       },
       "targets": [
         {
-          "expr": "node_filesystem_purgeable_bytes",
+          "expr": "(node_filesystem_purgeable_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2864,7 +2864,7 @@
       },
       "targets": [
         {
-          "expr": "node_filesystem_readonly",
+          "expr": "(node_filesystem_readonly) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2886,7 +2886,7 @@
       },
       "targets": [
         {
-          "expr": "node_filesystem_size_bytes",
+          "expr": "(node_filesystem_size_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2908,7 +2908,7 @@
       },
       "targets": [
         {
-          "expr": "node_load1",
+          "expr": "(node_load1) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2930,7 +2930,7 @@
       },
       "targets": [
         {
-          "expr": "node_load15",
+          "expr": "(node_load15) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2952,7 +2952,7 @@
       },
       "targets": [
         {
-          "expr": "node_load5",
+          "expr": "(node_load5) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2974,7 +2974,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_active_bytes",
+          "expr": "(node_memory_active_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -2996,7 +2996,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_compressed_bytes",
+          "expr": "(node_memory_compressed_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3018,7 +3018,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_free_bytes",
+          "expr": "(node_memory_free_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3040,7 +3040,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_inactive_bytes",
+          "expr": "(node_memory_inactive_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3062,7 +3062,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_internal_bytes",
+          "expr": "(node_memory_internal_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3084,7 +3084,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_purgeable_bytes",
+          "expr": "(node_memory_purgeable_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3106,7 +3106,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_swap_total_bytes",
+          "expr": "(node_memory_swap_total_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3128,7 +3128,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_swap_used_bytes",
+          "expr": "(node_memory_swap_used_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3150,7 +3150,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_swapped_in_bytes_total",
+          "expr": "(node_memory_swapped_in_bytes_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3172,7 +3172,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_swapped_out_bytes_total",
+          "expr": "(node_memory_swapped_out_bytes_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3194,7 +3194,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_total_bytes",
+          "expr": "(node_memory_total_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3216,7 +3216,7 @@
       },
       "targets": [
         {
-          "expr": "node_memory_wired_bytes",
+          "expr": "(node_memory_wired_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3238,7 +3238,7 @@
       },
       "targets": [
         {
-          "expr": "node_network_noproto_total",
+          "expr": "(node_network_noproto_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3260,7 +3260,7 @@
       },
       "targets": [
         {
-          "expr": "node_network_receive_bytes_total",
+          "expr": "(node_network_receive_bytes_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3282,7 +3282,7 @@
       },
       "targets": [
         {
-          "expr": "node_network_receive_drop_total",
+          "expr": "(node_network_receive_drop_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3304,7 +3304,7 @@
       },
       "targets": [
         {
-          "expr": "node_network_receive_errs_total",
+          "expr": "(node_network_receive_errs_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3326,7 +3326,7 @@
       },
       "targets": [
         {
-          "expr": "node_network_receive_multicast_total",
+          "expr": "(node_network_receive_multicast_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3348,7 +3348,7 @@
       },
       "targets": [
         {
-          "expr": "node_network_receive_packets_total",
+          "expr": "(node_network_receive_packets_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3370,7 +3370,7 @@
       },
       "targets": [
         {
-          "expr": "node_network_transmit_bytes_total",
+          "expr": "(node_network_transmit_bytes_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3392,7 +3392,7 @@
       },
       "targets": [
         {
-          "expr": "node_network_transmit_colls_total",
+          "expr": "(node_network_transmit_colls_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3414,7 +3414,7 @@
       },
       "targets": [
         {
-          "expr": "node_network_transmit_errs_total",
+          "expr": "(node_network_transmit_errs_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3436,7 +3436,7 @@
       },
       "targets": [
         {
-          "expr": "node_network_transmit_multicast_total",
+          "expr": "(node_network_transmit_multicast_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3458,7 +3458,7 @@
       },
       "targets": [
         {
-          "expr": "node_network_transmit_packets_total",
+          "expr": "(node_network_transmit_packets_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3480,7 +3480,7 @@
       },
       "targets": [
         {
-          "expr": "node_os_info",
+          "expr": "(node_os_info) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3502,7 +3502,7 @@
       },
       "targets": [
         {
-          "expr": "node_os_version",
+          "expr": "(node_os_version) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3524,7 +3524,7 @@
       },
       "targets": [
         {
-          "expr": "node_power_supply_battery_health",
+          "expr": "(node_power_supply_battery_health) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3546,7 +3546,7 @@
       },
       "targets": [
         {
-          "expr": "node_power_supply_charging",
+          "expr": "(node_power_supply_charging) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3568,7 +3568,7 @@
       },
       "targets": [
         {
-          "expr": "node_power_supply_current_ampere",
+          "expr": "(node_power_supply_current_ampere) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3590,7 +3590,7 @@
       },
       "targets": [
         {
-          "expr": "node_power_supply_current_capacity",
+          "expr": "(node_power_supply_current_capacity) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3612,7 +3612,7 @@
       },
       "targets": [
         {
-          "expr": "node_power_supply_info",
+          "expr": "(node_power_supply_info) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3634,7 +3634,7 @@
       },
       "targets": [
         {
-          "expr": "node_power_supply_max_capacity",
+          "expr": "(node_power_supply_max_capacity) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3656,7 +3656,7 @@
       },
       "targets": [
         {
-          "expr": "node_power_supply_power_source_state",
+          "expr": "(node_power_supply_power_source_state) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3678,7 +3678,7 @@
       },
       "targets": [
         {
-          "expr": "node_power_supply_present",
+          "expr": "(node_power_supply_present) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3700,7 +3700,7 @@
       },
       "targets": [
         {
-          "expr": "node_power_supply_time_to_empty_seconds",
+          "expr": "(node_power_supply_time_to_empty_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3722,7 +3722,7 @@
       },
       "targets": [
         {
-          "expr": "node_power_supply_time_to_full_seconds",
+          "expr": "(node_power_supply_time_to_full_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3744,7 +3744,7 @@
       },
       "targets": [
         {
-          "expr": "node_scrape_collector_duration_seconds",
+          "expr": "(node_scrape_collector_duration_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3766,7 +3766,7 @@
       },
       "targets": [
         {
-          "expr": "node_scrape_collector_success",
+          "expr": "(node_scrape_collector_success) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3788,7 +3788,7 @@
       },
       "targets": [
         {
-          "expr": "node_textfile_mtime_seconds",
+          "expr": "(node_textfile_mtime_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3810,7 +3810,7 @@
       },
       "targets": [
         {
-          "expr": "node_textfile_scrape_error",
+          "expr": "(node_textfile_scrape_error) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3832,7 +3832,7 @@
       },
       "targets": [
         {
-          "expr": "node_time_seconds",
+          "expr": "(node_time_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3854,7 +3854,7 @@
       },
       "targets": [
         {
-          "expr": "node_time_zone_offset_seconds",
+          "expr": "(node_time_zone_offset_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3876,7 +3876,7 @@
       },
       "targets": [
         {
-          "expr": "node_uname_info",
+          "expr": "(node_uname_info) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3898,7 +3898,7 @@
       },
       "targets": [
         {
-          "expr": "process_cpu_seconds_total",
+          "expr": "(process_cpu_seconds_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3920,7 +3920,7 @@
       },
       "targets": [
         {
-          "expr": "process_max_fds",
+          "expr": "(process_max_fds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3942,7 +3942,7 @@
       },
       "targets": [
         {
-          "expr": "process_open_fds",
+          "expr": "(process_open_fds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3964,7 +3964,7 @@
       },
       "targets": [
         {
-          "expr": "process_resident_memory_bytes",
+          "expr": "(process_resident_memory_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -3986,7 +3986,7 @@
       },
       "targets": [
         {
-          "expr": "process_start_time_seconds",
+          "expr": "(process_start_time_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4008,7 +4008,7 @@
       },
       "targets": [
         {
-          "expr": "process_virtual_memory_bytes",
+          "expr": "(process_virtual_memory_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4030,7 +4030,7 @@
       },
       "targets": [
         {
-          "expr": "process_virtual_memory_max_bytes",
+          "expr": "(process_virtual_memory_max_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4052,7 +4052,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_api_notification_active_subscribers",
+          "expr": "(prometheus_api_notification_active_subscribers) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4074,7 +4074,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_api_notification_updates_dropped_total",
+          "expr": "(prometheus_api_notification_updates_dropped_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4096,7 +4096,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_api_notification_updates_sent_total",
+          "expr": "(prometheus_api_notification_updates_sent_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4118,7 +4118,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_build_info",
+          "expr": "(prometheus_build_info) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4140,7 +4140,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_config_last_reload_success_timestamp_seconds",
+          "expr": "(prometheus_config_last_reload_success_timestamp_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4162,7 +4162,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_config_last_reload_successful",
+          "expr": "(prometheus_config_last_reload_successful) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4184,7 +4184,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_engine_queries",
+          "expr": "(prometheus_engine_queries) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4206,7 +4206,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_engine_queries_concurrent_max",
+          "expr": "(prometheus_engine_queries_concurrent_max) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4228,7 +4228,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_engine_query_duration_histogram_seconds_bucket",
+          "expr": "(prometheus_engine_query_duration_histogram_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4250,7 +4250,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_engine_query_duration_histogram_seconds_count",
+          "expr": "(prometheus_engine_query_duration_histogram_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4272,7 +4272,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_engine_query_duration_histogram_seconds_sum",
+          "expr": "(prometheus_engine_query_duration_histogram_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4294,7 +4294,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_engine_query_duration_seconds",
+          "expr": "(prometheus_engine_query_duration_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4316,7 +4316,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_engine_query_duration_seconds_count",
+          "expr": "(prometheus_engine_query_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4338,7 +4338,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_engine_query_duration_seconds_sum",
+          "expr": "(prometheus_engine_query_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4360,7 +4360,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_engine_query_log_enabled",
+          "expr": "(prometheus_engine_query_log_enabled) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4382,7 +4382,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_engine_query_log_failures_total",
+          "expr": "(prometheus_engine_query_log_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4404,7 +4404,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_engine_query_samples_total",
+          "expr": "(prometheus_engine_query_samples_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4426,7 +4426,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_http_request_duration_seconds_bucket",
+          "expr": "(prometheus_http_request_duration_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4448,7 +4448,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_http_request_duration_seconds_count",
+          "expr": "(prometheus_http_request_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4470,7 +4470,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_http_request_duration_seconds_sum",
+          "expr": "(prometheus_http_request_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4492,7 +4492,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_http_requests_total",
+          "expr": "(prometheus_http_requests_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4514,7 +4514,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_http_response_size_bytes_bucket",
+          "expr": "(prometheus_http_response_size_bytes_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4536,7 +4536,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_http_response_size_bytes_count",
+          "expr": "(prometheus_http_response_size_bytes_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4558,7 +4558,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_http_response_size_bytes_sum",
+          "expr": "(prometheus_http_response_size_bytes_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4580,7 +4580,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_notifications_alertmanagers_discovered",
+          "expr": "(prometheus_notifications_alertmanagers_discovered) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4602,7 +4602,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_notifications_dropped_total",
+          "expr": "(prometheus_notifications_dropped_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4624,7 +4624,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_notifications_queue_capacity",
+          "expr": "(prometheus_notifications_queue_capacity) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4646,7 +4646,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_notifications_queue_length",
+          "expr": "(prometheus_notifications_queue_length) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4668,7 +4668,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_ready",
+          "expr": "(prometheus_ready) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4690,7 +4690,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_remote_read_handler_queries",
+          "expr": "(prometheus_remote_read_handler_queries) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4712,7 +4712,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_remote_storage_exemplars_in_total",
+          "expr": "(prometheus_remote_storage_exemplars_in_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4734,7 +4734,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_remote_storage_highest_timestamp_in_seconds",
+          "expr": "(prometheus_remote_storage_highest_timestamp_in_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4756,7 +4756,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_remote_storage_histograms_in_total",
+          "expr": "(prometheus_remote_storage_histograms_in_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4778,7 +4778,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_remote_storage_samples_in_total",
+          "expr": "(prometheus_remote_storage_samples_in_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4800,7 +4800,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_remote_storage_string_interner_zero_reference_releases_total",
+          "expr": "(prometheus_remote_storage_string_interner_zero_reference_releases_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4822,7 +4822,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_evaluation_duration_histogram_seconds_bucket",
+          "expr": "(prometheus_rule_evaluation_duration_histogram_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4844,7 +4844,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_evaluation_duration_histogram_seconds_count",
+          "expr": "(prometheus_rule_evaluation_duration_histogram_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4866,7 +4866,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_evaluation_duration_histogram_seconds_sum",
+          "expr": "(prometheus_rule_evaluation_duration_histogram_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4888,7 +4888,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_evaluation_duration_seconds",
+          "expr": "(prometheus_rule_evaluation_duration_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4910,7 +4910,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_evaluation_duration_seconds_count",
+          "expr": "(prometheus_rule_evaluation_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4932,7 +4932,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_evaluation_duration_seconds_sum",
+          "expr": "(prometheus_rule_evaluation_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4954,7 +4954,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_group_duration_histogram_seconds_bucket",
+          "expr": "(prometheus_rule_group_duration_histogram_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4976,7 +4976,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_group_duration_histogram_seconds_count",
+          "expr": "(prometheus_rule_group_duration_histogram_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -4998,7 +4998,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_group_duration_histogram_seconds_sum",
+          "expr": "(prometheus_rule_group_duration_histogram_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5020,7 +5020,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_group_duration_seconds",
+          "expr": "(prometheus_rule_group_duration_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5042,7 +5042,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_group_duration_seconds_count",
+          "expr": "(prometheus_rule_group_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5064,7 +5064,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_rule_group_duration_seconds_sum",
+          "expr": "(prometheus_rule_group_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5086,7 +5086,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_azure_cache_hit_total",
+          "expr": "(prometheus_sd_azure_cache_hit_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5108,7 +5108,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_azure_failures_total",
+          "expr": "(prometheus_sd_azure_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5130,7 +5130,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_consul_rpc_duration_seconds",
+          "expr": "(prometheus_sd_consul_rpc_duration_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5152,7 +5152,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_consul_rpc_duration_seconds_count",
+          "expr": "(prometheus_sd_consul_rpc_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5174,7 +5174,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_consul_rpc_duration_seconds_sum",
+          "expr": "(prometheus_sd_consul_rpc_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5196,7 +5196,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_consul_rpc_failures_total",
+          "expr": "(prometheus_sd_consul_rpc_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5218,7 +5218,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_discovered_targets",
+          "expr": "(prometheus_sd_discovered_targets) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5240,7 +5240,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_dns_lookup_failures_total",
+          "expr": "(prometheus_sd_dns_lookup_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5262,7 +5262,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_dns_lookups_total",
+          "expr": "(prometheus_sd_dns_lookups_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5284,7 +5284,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_failed_configs",
+          "expr": "(prometheus_sd_failed_configs) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5306,7 +5306,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_file_read_errors_total",
+          "expr": "(prometheus_sd_file_read_errors_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5328,7 +5328,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_file_scan_duration_seconds",
+          "expr": "(prometheus_sd_file_scan_duration_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5350,7 +5350,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_file_scan_duration_seconds_count",
+          "expr": "(prometheus_sd_file_scan_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5372,7 +5372,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_file_scan_duration_seconds_sum",
+          "expr": "(prometheus_sd_file_scan_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5394,7 +5394,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_file_watcher_errors_total",
+          "expr": "(prometheus_sd_file_watcher_errors_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5416,7 +5416,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_http_failures_total",
+          "expr": "(prometheus_sd_http_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5438,7 +5438,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_kubernetes_events_total",
+          "expr": "(prometheus_sd_kubernetes_events_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5460,7 +5460,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_kubernetes_failures_total",
+          "expr": "(prometheus_sd_kubernetes_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5482,7 +5482,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_kuma_fetch_duration_seconds",
+          "expr": "(prometheus_sd_kuma_fetch_duration_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5504,7 +5504,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_kuma_fetch_duration_seconds_count",
+          "expr": "(prometheus_sd_kuma_fetch_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5526,7 +5526,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_kuma_fetch_duration_seconds_sum",
+          "expr": "(prometheus_sd_kuma_fetch_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5548,7 +5548,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_kuma_fetch_failures_total",
+          "expr": "(prometheus_sd_kuma_fetch_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5570,7 +5570,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_kuma_fetch_skipped_updates_total",
+          "expr": "(prometheus_sd_kuma_fetch_skipped_updates_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5592,7 +5592,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_linode_failures_total",
+          "expr": "(prometheus_sd_linode_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5614,7 +5614,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_nomad_failures_total",
+          "expr": "(prometheus_sd_nomad_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5636,7 +5636,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_received_updates_total",
+          "expr": "(prometheus_sd_received_updates_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5658,7 +5658,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_updates_delayed_total",
+          "expr": "(prometheus_sd_updates_delayed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5680,7 +5680,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_sd_updates_total",
+          "expr": "(prometheus_sd_updates_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5702,7 +5702,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_interval_length_histogram_seconds_bucket",
+          "expr": "(prometheus_target_interval_length_histogram_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5724,7 +5724,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_interval_length_histogram_seconds_count",
+          "expr": "(prometheus_target_interval_length_histogram_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5746,7 +5746,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_interval_length_histogram_seconds_sum",
+          "expr": "(prometheus_target_interval_length_histogram_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5768,7 +5768,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_interval_length_seconds",
+          "expr": "(prometheus_target_interval_length_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5790,7 +5790,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_interval_length_seconds_count",
+          "expr": "(prometheus_target_interval_length_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5812,7 +5812,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_interval_length_seconds_sum",
+          "expr": "(prometheus_target_interval_length_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5834,7 +5834,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_metadata_cache_bytes",
+          "expr": "(prometheus_target_metadata_cache_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5856,7 +5856,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_metadata_cache_entries",
+          "expr": "(prometheus_target_metadata_cache_entries) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5878,7 +5878,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrape_pool_exceeded_label_limits_total",
+          "expr": "(prometheus_target_scrape_pool_exceeded_label_limits_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5900,7 +5900,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrape_pool_exceeded_target_limit_total",
+          "expr": "(prometheus_target_scrape_pool_exceeded_target_limit_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5922,7 +5922,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrape_pool_reloads_failed_total",
+          "expr": "(prometheus_target_scrape_pool_reloads_failed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5944,7 +5944,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrape_pool_reloads_total",
+          "expr": "(prometheus_target_scrape_pool_reloads_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5966,7 +5966,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrape_pool_symboltable_items",
+          "expr": "(prometheus_target_scrape_pool_symboltable_items) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -5988,7 +5988,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrape_pool_sync_total",
+          "expr": "(prometheus_target_scrape_pool_sync_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6010,7 +6010,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrape_pool_target_limit",
+          "expr": "(prometheus_target_scrape_pool_target_limit) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6032,7 +6032,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrape_pool_targets",
+          "expr": "(prometheus_target_scrape_pool_targets) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6054,7 +6054,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrape_pools_failed_total",
+          "expr": "(prometheus_target_scrape_pools_failed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6076,7 +6076,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrape_pools_total",
+          "expr": "(prometheus_target_scrape_pools_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6098,7 +6098,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrapes_cache_flush_forced_total",
+          "expr": "(prometheus_target_scrapes_cache_flush_forced_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6120,7 +6120,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrapes_exceeded_body_size_limit_total",
+          "expr": "(prometheus_target_scrapes_exceeded_body_size_limit_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6142,7 +6142,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrapes_exceeded_native_histogram_bucket_limit_total",
+          "expr": "(prometheus_target_scrapes_exceeded_native_histogram_bucket_limit_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6164,7 +6164,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrapes_exceeded_sample_limit_total",
+          "expr": "(prometheus_target_scrapes_exceeded_sample_limit_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6186,7 +6186,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrapes_exemplar_out_of_order_total",
+          "expr": "(prometheus_target_scrapes_exemplar_out_of_order_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6208,7 +6208,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrapes_sample_duplicate_timestamp_total",
+          "expr": "(prometheus_target_scrapes_sample_duplicate_timestamp_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6230,7 +6230,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrapes_sample_out_of_bounds_total",
+          "expr": "(prometheus_target_scrapes_sample_out_of_bounds_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6252,7 +6252,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_scrapes_sample_out_of_order_total",
+          "expr": "(prometheus_target_scrapes_sample_out_of_order_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6274,7 +6274,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_sync_failed_total",
+          "expr": "(prometheus_target_sync_failed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6296,7 +6296,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_sync_length_histogram_seconds_bucket",
+          "expr": "(prometheus_target_sync_length_histogram_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6318,7 +6318,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_sync_length_histogram_seconds_count",
+          "expr": "(prometheus_target_sync_length_histogram_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6340,7 +6340,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_sync_length_histogram_seconds_sum",
+          "expr": "(prometheus_target_sync_length_histogram_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6362,7 +6362,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_sync_length_seconds",
+          "expr": "(prometheus_target_sync_length_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6384,7 +6384,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_sync_length_seconds_count",
+          "expr": "(prometheus_target_sync_length_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6406,7 +6406,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_target_sync_length_seconds_sum",
+          "expr": "(prometheus_target_sync_length_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6428,7 +6428,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_template_text_expansion_failures_total",
+          "expr": "(prometheus_template_text_expansion_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6450,7 +6450,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_template_text_expansions_total",
+          "expr": "(prometheus_template_text_expansions_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6472,7 +6472,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_treecache_watcher_goroutines",
+          "expr": "(prometheus_treecache_watcher_goroutines) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6494,7 +6494,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_treecache_zookeeper_failures_total",
+          "expr": "(prometheus_treecache_zookeeper_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6516,7 +6516,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_blocks_loaded",
+          "expr": "(prometheus_tsdb_blocks_loaded) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6538,7 +6538,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_checkpoint_creations_failed_total",
+          "expr": "(prometheus_tsdb_checkpoint_creations_failed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6560,7 +6560,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_checkpoint_creations_total",
+          "expr": "(prometheus_tsdb_checkpoint_creations_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6582,7 +6582,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_checkpoint_deletions_failed_total",
+          "expr": "(prometheus_tsdb_checkpoint_deletions_failed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6604,7 +6604,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_checkpoint_deletions_total",
+          "expr": "(prometheus_tsdb_checkpoint_deletions_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6626,7 +6626,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_clean_start",
+          "expr": "(prometheus_tsdb_clean_start) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6648,7 +6648,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_chunk_range_seconds_bucket",
+          "expr": "(prometheus_tsdb_compaction_chunk_range_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6670,7 +6670,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_chunk_range_seconds_count",
+          "expr": "(prometheus_tsdb_compaction_chunk_range_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6692,7 +6692,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_chunk_range_seconds_sum",
+          "expr": "(prometheus_tsdb_compaction_chunk_range_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6714,7 +6714,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_chunk_samples_bucket",
+          "expr": "(prometheus_tsdb_compaction_chunk_samples_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6736,7 +6736,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_chunk_samples_count",
+          "expr": "(prometheus_tsdb_compaction_chunk_samples_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6758,7 +6758,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_chunk_samples_sum",
+          "expr": "(prometheus_tsdb_compaction_chunk_samples_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6780,7 +6780,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_chunk_size_bytes_bucket",
+          "expr": "(prometheus_tsdb_compaction_chunk_size_bytes_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6802,7 +6802,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_chunk_size_bytes_count",
+          "expr": "(prometheus_tsdb_compaction_chunk_size_bytes_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6824,7 +6824,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_chunk_size_bytes_sum",
+          "expr": "(prometheus_tsdb_compaction_chunk_size_bytes_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6846,7 +6846,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_duration_seconds_bucket",
+          "expr": "(prometheus_tsdb_compaction_duration_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6868,7 +6868,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_duration_seconds_count",
+          "expr": "(prometheus_tsdb_compaction_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6890,7 +6890,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_duration_seconds_sum",
+          "expr": "(prometheus_tsdb_compaction_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6912,7 +6912,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compaction_populating_block",
+          "expr": "(prometheus_tsdb_compaction_populating_block) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6934,7 +6934,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compactions_failed_total",
+          "expr": "(prometheus_tsdb_compactions_failed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6956,7 +6956,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compactions_skipped_total",
+          "expr": "(prometheus_tsdb_compactions_skipped_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -6978,7 +6978,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compactions_total",
+          "expr": "(prometheus_tsdb_compactions_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7000,7 +7000,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_compactions_triggered_total",
+          "expr": "(prometheus_tsdb_compactions_triggered_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7022,7 +7022,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_data_replay_duration_seconds",
+          "expr": "(prometheus_tsdb_data_replay_duration_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7044,7 +7044,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_exemplar_exemplars_appended_total",
+          "expr": "(prometheus_tsdb_exemplar_exemplars_appended_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7066,7 +7066,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_exemplar_exemplars_in_storage",
+          "expr": "(prometheus_tsdb_exemplar_exemplars_in_storage) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7088,7 +7088,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_exemplar_last_exemplars_timestamp_seconds",
+          "expr": "(prometheus_tsdb_exemplar_last_exemplars_timestamp_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7110,7 +7110,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_exemplar_max_exemplars",
+          "expr": "(prometheus_tsdb_exemplar_max_exemplars) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7132,7 +7132,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_exemplar_out_of_order_exemplars_total",
+          "expr": "(prometheus_tsdb_exemplar_out_of_order_exemplars_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7154,7 +7154,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_exemplar_series_with_exemplars_in_storage",
+          "expr": "(prometheus_tsdb_exemplar_series_with_exemplars_in_storage) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7176,7 +7176,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_active_appenders",
+          "expr": "(prometheus_tsdb_head_active_appenders) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7198,7 +7198,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_chunks",
+          "expr": "(prometheus_tsdb_head_chunks) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7220,7 +7220,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_chunks_created_total",
+          "expr": "(prometheus_tsdb_head_chunks_created_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7242,7 +7242,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_chunks_removed_total",
+          "expr": "(prometheus_tsdb_head_chunks_removed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7264,7 +7264,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_chunks_storage_size_bytes",
+          "expr": "(prometheus_tsdb_head_chunks_storage_size_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7286,7 +7286,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_gc_duration_seconds_count",
+          "expr": "(prometheus_tsdb_head_gc_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7308,7 +7308,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_gc_duration_seconds_sum",
+          "expr": "(prometheus_tsdb_head_gc_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7330,7 +7330,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_max_time",
+          "expr": "(prometheus_tsdb_head_max_time) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7352,7 +7352,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_max_time_seconds",
+          "expr": "(prometheus_tsdb_head_max_time_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7374,7 +7374,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_min_time",
+          "expr": "(prometheus_tsdb_head_min_time) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7396,7 +7396,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_min_time_seconds",
+          "expr": "(prometheus_tsdb_head_min_time_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7418,7 +7418,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_out_of_order_samples_appended_total",
+          "expr": "(prometheus_tsdb_head_out_of_order_samples_appended_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7440,7 +7440,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_samples_appended_total",
+          "expr": "(prometheus_tsdb_head_samples_appended_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7462,7 +7462,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_series",
+          "expr": "(prometheus_tsdb_head_series) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7484,7 +7484,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_series_created_total",
+          "expr": "(prometheus_tsdb_head_series_created_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7506,7 +7506,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_series_not_found_total",
+          "expr": "(prometheus_tsdb_head_series_not_found_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7528,7 +7528,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_series_removed_total",
+          "expr": "(prometheus_tsdb_head_series_removed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7550,7 +7550,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_stale_series",
+          "expr": "(prometheus_tsdb_head_stale_series) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7572,7 +7572,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_truncations_failed_total",
+          "expr": "(prometheus_tsdb_head_truncations_failed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7594,7 +7594,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_truncations_total",
+          "expr": "(prometheus_tsdb_head_truncations_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7616,7 +7616,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_isolation_high_watermark",
+          "expr": "(prometheus_tsdb_isolation_high_watermark) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7638,7 +7638,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_isolation_low_watermark",
+          "expr": "(prometheus_tsdb_isolation_low_watermark) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7660,7 +7660,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_lowest_timestamp",
+          "expr": "(prometheus_tsdb_lowest_timestamp) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7682,7 +7682,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_lowest_timestamp_seconds",
+          "expr": "(prometheus_tsdb_lowest_timestamp_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7704,7 +7704,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_mmap_chunk_corruptions_total",
+          "expr": "(prometheus_tsdb_mmap_chunk_corruptions_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7726,7 +7726,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_mmap_chunks_total",
+          "expr": "(prometheus_tsdb_mmap_chunks_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7748,7 +7748,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_out_of_bound_samples_total",
+          "expr": "(prometheus_tsdb_out_of_bound_samples_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7770,7 +7770,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_out_of_order_samples_total",
+          "expr": "(prometheus_tsdb_out_of_order_samples_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7792,7 +7792,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_reloads_failures_total",
+          "expr": "(prometheus_tsdb_reloads_failures_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7814,7 +7814,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_reloads_total",
+          "expr": "(prometheus_tsdb_reloads_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7836,7 +7836,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_retention_limit_bytes",
+          "expr": "(prometheus_tsdb_retention_limit_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7858,7 +7858,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_retention_limit_seconds",
+          "expr": "(prometheus_tsdb_retention_limit_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7880,7 +7880,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_sample_ooo_delta_bucket",
+          "expr": "(prometheus_tsdb_sample_ooo_delta_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7902,7 +7902,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_sample_ooo_delta_count",
+          "expr": "(prometheus_tsdb_sample_ooo_delta_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7924,7 +7924,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_sample_ooo_delta_sum",
+          "expr": "(prometheus_tsdb_sample_ooo_delta_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7946,7 +7946,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_size_retentions_total",
+          "expr": "(prometheus_tsdb_size_retentions_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7968,7 +7968,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_snapshot_replay_error_total",
+          "expr": "(prometheus_tsdb_snapshot_replay_error_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -7990,7 +7990,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_storage_blocks_bytes",
+          "expr": "(prometheus_tsdb_storage_blocks_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8012,7 +8012,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_symbol_table_size_bytes",
+          "expr": "(prometheus_tsdb_symbol_table_size_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8034,7 +8034,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_time_retentions_total",
+          "expr": "(prometheus_tsdb_time_retentions_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8056,7 +8056,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_tombstone_cleanup_seconds_bucket",
+          "expr": "(prometheus_tsdb_tombstone_cleanup_seconds_bucket) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8078,7 +8078,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_tombstone_cleanup_seconds_count",
+          "expr": "(prometheus_tsdb_tombstone_cleanup_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8100,7 +8100,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_tombstone_cleanup_seconds_sum",
+          "expr": "(prometheus_tsdb_tombstone_cleanup_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8122,7 +8122,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_too_old_samples_total",
+          "expr": "(prometheus_tsdb_too_old_samples_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8144,7 +8144,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_vertical_compactions_total",
+          "expr": "(prometheus_tsdb_vertical_compactions_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8166,7 +8166,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_completed_pages_total",
+          "expr": "(prometheus_tsdb_wal_completed_pages_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8188,7 +8188,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_corruptions_total",
+          "expr": "(prometheus_tsdb_wal_corruptions_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8210,7 +8210,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_fsync_duration_seconds",
+          "expr": "(prometheus_tsdb_wal_fsync_duration_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8232,7 +8232,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_fsync_duration_seconds_count",
+          "expr": "(prometheus_tsdb_wal_fsync_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8254,7 +8254,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_fsync_duration_seconds_sum",
+          "expr": "(prometheus_tsdb_wal_fsync_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8276,7 +8276,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_page_flushes_total",
+          "expr": "(prometheus_tsdb_wal_page_flushes_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8298,7 +8298,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_record_bytes_saved_total",
+          "expr": "(prometheus_tsdb_wal_record_bytes_saved_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8320,7 +8320,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_record_part_writes_total",
+          "expr": "(prometheus_tsdb_wal_record_part_writes_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8342,7 +8342,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_record_parts_bytes_written_total",
+          "expr": "(prometheus_tsdb_wal_record_parts_bytes_written_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8364,7 +8364,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_segment_current",
+          "expr": "(prometheus_tsdb_wal_segment_current) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8386,7 +8386,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_storage_size_bytes",
+          "expr": "(prometheus_tsdb_wal_storage_size_bytes) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8408,7 +8408,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_truncate_duration_seconds_count",
+          "expr": "(prometheus_tsdb_wal_truncate_duration_seconds_count) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8430,7 +8430,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_truncate_duration_seconds_sum",
+          "expr": "(prometheus_tsdb_wal_truncate_duration_seconds_sum) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8452,7 +8452,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_truncations_failed_total",
+          "expr": "(prometheus_tsdb_wal_truncations_failed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8474,7 +8474,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_truncations_total",
+          "expr": "(prometheus_tsdb_wal_truncations_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8496,7 +8496,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_writes_failed_total",
+          "expr": "(prometheus_tsdb_wal_writes_failed_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8518,7 +8518,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_web_federation_errors_total",
+          "expr": "(prometheus_web_federation_errors_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8540,7 +8540,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_web_federation_warnings_total",
+          "expr": "(prometheus_web_federation_warnings_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8562,7 +8562,7 @@
       },
       "targets": [
         {
-          "expr": "promhttp_metric_handler_errors_total",
+          "expr": "(promhttp_metric_handler_errors_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8584,7 +8584,7 @@
       },
       "targets": [
         {
-          "expr": "promhttp_metric_handler_requests_in_flight",
+          "expr": "(promhttp_metric_handler_requests_in_flight) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8606,7 +8606,7 @@
       },
       "targets": [
         {
-          "expr": "promhttp_metric_handler_requests_total",
+          "expr": "(promhttp_metric_handler_requests_total) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8628,7 +8628,7 @@
       },
       "targets": [
         {
-          "expr": "scrape_duration_seconds",
+          "expr": "(scrape_duration_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8650,7 +8650,7 @@
       },
       "targets": [
         {
-          "expr": "scrape_samples_post_metric_relabeling",
+          "expr": "(scrape_samples_post_metric_relabeling) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8672,7 +8672,7 @@
       },
       "targets": [
         {
-          "expr": "scrape_samples_scraped",
+          "expr": "(scrape_samples_scraped) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8694,7 +8694,7 @@
       },
       "targets": [
         {
-          "expr": "scrape_series_added",
+          "expr": "(scrape_series_added) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8716,7 +8716,7 @@
       },
       "targets": [
         {
-          "expr": "up",
+          "expr": "(up) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8738,7 +8738,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_cca_percent",
+          "expr": "(wifi_cca_percent) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8760,7 +8760,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_mcs",
+          "expr": "(wifi_mcs) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8782,7 +8782,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_metrics_timestamp_seconds",
+          "expr": "(wifi_metrics_timestamp_seconds) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8804,7 +8804,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_noise_dbm",
+          "expr": "(wifi_noise_dbm) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8826,7 +8826,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_nss",
+          "expr": "(wifi_nss) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8848,7 +8848,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_rssi_dbm",
+          "expr": "(wifi_rssi_dbm) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8870,7 +8870,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_snr_db",
+          "expr": "(wifi_snr_db) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],
@@ -8892,7 +8892,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_tx_rate_mbps",
+          "expr": "(wifi_tx_rate_mbps) or on() vector(0)",
           "legendFormat": "{{instance}} {{job}}"
         }
       ],

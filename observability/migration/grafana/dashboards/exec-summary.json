@@ -42,7 +42,7 @@
       },
       "targets": [
         {
-          "expr": "up{job=\"prometheus\"}"
+          "expr": "(up{job=\"prometheus\"}) or on() vector(0)"
         }
       ],
       "title": "Prometheus Up",
@@ -89,7 +89,7 @@
       },
       "targets": [
         {
-          "expr": "up{job=\"node_exporter\"}"
+          "expr": "(up{job=\"node_exporter\"}) or on() vector(0)"
         }
       ],
       "title": "node_exporter Up",
@@ -136,7 +136,7 @@
       },
       "targets": [
         {
-          "expr": "grafana_up"
+          "expr": "(grafana_up) or on() vector(0)"
         }
       ],
       "title": "Grafana Up",
@@ -218,7 +218,7 @@
       },
       "targets": [
         {
-          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100"
+          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100) or on() vector(0)"
         }
       ],
       "title": "CPU %",
@@ -270,7 +270,7 @@
       },
       "targets": [
         {
-          "expr": "(node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100"
+          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100) or on() vector(0)"
         }
       ],
       "title": "Memory %",
@@ -322,7 +322,7 @@
       },
       "targets": [
         {
-          "expr": "(node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100"
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100) or on() vector(0)"
         }
       ],
       "title": "Disk / %",
@@ -356,7 +356,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(node_network_receive_bytes_total[5m]))"
+          "expr": "(sum(rate(node_network_receive_bytes_total[5m]))) or on() vector(0)"
         }
       ],
       "title": "Net RX",
@@ -390,7 +390,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(node_network_transmit_bytes_total[5m]))"
+          "expr": "(sum(rate(node_network_transmit_bytes_total[5m]))) or on() vector(0)"
         }
       ],
       "title": "Net TX",
@@ -423,7 +423,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_rssi_dbm"
+          "expr": "(wifi_rssi_dbm) or on() vector(0)"
         }
       ],
       "title": "Wi\u2011Fi RSSI",
@@ -475,7 +475,7 @@
       },
       "targets": [
         {
-          "expr": "max(net_ping_loss_percent)"
+          "expr": "(max(net_ping_loss_percent)) or on() vector(0)"
         }
       ],
       "title": "Ping Loss",
@@ -513,7 +513,7 @@
       },
       "targets": [
         {
-          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100",
+          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100) or on() vector(0)",
           "legendFormat": ""
         }
       ],
@@ -537,7 +537,7 @@
       },
       "targets": [
         {
-          "expr": "(node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100",
+          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100) or on() vector(0)",
           "legendFormat": ""
         }
       ],
@@ -561,7 +561,7 @@
       },
       "targets": [
         {
-          "expr": "(node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100",
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100) or on() vector(0)",
           "legendFormat": ""
         }
       ],
@@ -583,7 +583,7 @@
       },
       "targets": [
         {
-          "expr": "wifi_rssi_dbm",
+          "expr": "(wifi_rssi_dbm) or on() vector(0)",
           "legendFormat": ""
         }
       ],
@@ -607,11 +607,11 @@
       },
       "targets": [
         {
-          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100",
+          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100) or on() vector(0)",
           "legendFormat": "CPU %"
         },
         {
-          "expr": "(node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100",
+          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100) or on() vector(0)",
           "legendFormat": "Memory %"
         }
       ],
@@ -634,11 +634,11 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(node_network_receive_bytes_total[5m]))",
+          "expr": "(sum(rate(node_network_receive_bytes_total[5m]))) or on() vector(0)",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(node_network_transmit_bytes_total[5m]))",
+          "expr": "(sum(rate(node_network_transmit_bytes_total[5m]))) or on() vector(0)",
           "legendFormat": "TX"
         }
       ],
@@ -661,7 +661,7 @@
       },
       "targets": [
         {
-          "expr": "net_ping_latency_ms",
+          "expr": "(net_ping_latency_ms) or on() vector(0)",
           "legendFormat": "{{target}}"
         }
       ],
@@ -683,11 +683,11 @@
       },
       "targets": [
         {
-          "expr": "wifi_snr_db",
+          "expr": "(wifi_snr_db) or on() vector(0)",
           "legendFormat": "SNR"
         },
         {
-          "expr": "wifi_cca_percent",
+          "expr": "(wifi_cca_percent) or on() vector(0)",
           "legendFormat": "CCA %"
         }
       ],
@@ -710,7 +710,7 @@
       },
       "targets": [
         {
-          "expr": "topk(5, node_filesystem_size_bytes{fstype!~\"autofs\"} - node_filesystem_avail_bytes{fstype!~\"autofs\"})",
+          "expr": "(topk(5, node_filesystem_size_bytes{fstype!~\"autofs\"} - node_filesystem_avail_bytes{fstype!~\"autofs\"})) or on() vector(0)",
           "instant": true
         }
       ],
@@ -745,7 +745,7 @@
       },
       "targets": [
         {
-          "expr": "mac_system_kv",
+          "expr": "(mac_system_kv) or on() vector(0)",
           "instant": true
         }
       ],
@@ -802,7 +802,7 @@
       },
       "targets": [
         {
-          "expr": "time() - max(timestamp(node_cpu_seconds_total))"
+          "expr": "(time() - max(timestamp(node_cpu_seconds_total))) or on() vector(0)"
         }
       ],
       "title": "Data Freshness (sec)",
@@ -825,7 +825,7 @@
       },
       "targets": [
         {
-          "expr": "battery_charge_percent"
+          "expr": "(battery_charge_percent) or on() vector(0)"
         }
       ],
       "title": "Battery Charge %",
@@ -867,7 +867,7 @@
       },
       "targets": [
         {
-          "expr": "cpu_thermal_pressure_level"
+          "expr": "(cpu_thermal_pressure_level) or on() vector(0)"
         }
       ],
       "title": "Thermal Pressure",
@@ -920,7 +920,7 @@
       },
       "targets": [
         {
-          "expr": "battery_charge_percent",
+          "expr": "(battery_charge_percent) or on() vector(0)",
           "legendFormat": ""
         }
       ]
@@ -972,7 +972,7 @@
       },
       "targets": [
         {
-          "expr": "battery_health_max_capacity_percent",
+          "expr": "(battery_health_max_capacity_percent) or on() vector(0)",
           "legendFormat": ""
         }
       ]
@@ -1007,7 +1007,7 @@
       },
       "targets": [
         {
-          "expr": "battery_cycle_count",
+          "expr": "(battery_cycle_count) or on() vector(0)",
           "legendFormat": ""
         }
       ]
@@ -1055,7 +1055,7 @@
       },
       "targets": [
         {
-          "expr": "battery_charger_connected",
+          "expr": "(battery_charger_connected) or on() vector(0)",
           "legendFormat": ""
         }
       ]
@@ -1090,7 +1090,7 @@
       },
       "targets": [
         {
-          "expr": "battery_power_source",
+          "expr": "(battery_power_source) or on() vector(0)",
           "legendFormat": "{{source}}"
         }
       ]
@@ -1125,7 +1125,7 @@
       },
       "targets": [
         {
-          "expr": "battery_condition",
+          "expr": "(battery_condition) or on() vector(0)",
           "legendFormat": "{{state}}"
         }
       ]
@@ -1196,7 +1196,7 @@
       },
       "targets": [
         {
-          "expr": "cpu_thermal_pressure_level",
+          "expr": "(cpu_thermal_pressure_level) or on() vector(0)",
           "legendFormat": ""
         }
       ]
@@ -1231,7 +1231,7 @@
       },
       "targets": [
         {
-          "expr": "cpu_thermal_pressure_state",
+          "expr": "(cpu_thermal_pressure_state) or on() vector(0)",
           "legendFormat": "{{state}}"
         }
       ]
@@ -1279,7 +1279,7 @@
       },
       "targets": [
         {
-          "expr": "cpu_temperature_available",
+          "expr": "(cpu_temperature_available) or on() vector(0)",
           "legendFormat": ""
         }
       ]
@@ -1327,7 +1327,7 @@
       },
       "targets": [
         {
-          "expr": "fan_speed_available",
+          "expr": "(fan_speed_available) or on() vector(0)",
           "legendFormat": ""
         }
       ]
@@ -1362,7 +1362,7 @@
       },
       "targets": [
         {
-          "expr": "smart_status_label",
+          "expr": "(smart_status_label) or on() vector(0)",
           "legendFormat": "{{status}}"
         }
       ]
@@ -1410,7 +1410,7 @@
       },
       "targets": [
         {
-          "expr": "smart_device_ok",
+          "expr": "(smart_device_ok) or on() vector(0)",
           "legendFormat": ""
         }
       ]
@@ -1458,7 +1458,7 @@
       },
       "targets": [
         {
-          "expr": "smart_device_supported",
+          "expr": "(smart_device_supported) or on() vector(0)",
           "legendFormat": ""
         }
       ]

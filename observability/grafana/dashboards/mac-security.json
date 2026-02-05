@@ -315,7 +315,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|auth|login|sudo|root|gatekeeper|quarantine|keychain|firewall)\"",
+          "expr": "({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|auth|login|sudo|root|gatekeeper|quarantine|keychain|firewall)\") or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -429,7 +429,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_sec_frames_total",
+          "expr": "(tshark_sec_frames_total) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -473,7 +473,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_sec_frames_total",
+          "expr": "(tshark_sec_frames_total) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -501,7 +501,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_sec_bytes_total",
+          "expr": "(tshark_sec_bytes_total) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -529,7 +529,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_sec_frames_total{filter=\"tcp.flags.syn==1 && tcp.flags.ack==0\"}",
+          "expr": "(tshark_sec_frames_total{filter=\"tcp.flags.syn==1 && tcp.flags.ack==0\"}) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -552,7 +552,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_sec_frames_total{filter=\"tcp.flags.reset==1\"}",
+          "expr": "(tshark_sec_frames_total{filter=\"tcp.flags.reset==1\"}) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -575,7 +575,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_sec_frames_total{filter=\"tcp.analysis.retransmission\"}",
+          "expr": "(tshark_sec_frames_total{filter=\"tcp.analysis.retransmission\"}) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -598,7 +598,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_sec_frames_total{filter=\"dns\"}",
+          "expr": "(tshark_sec_frames_total{filter=\"dns\"}) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -621,7 +621,7 @@
       },
       "targets": [
         {
-          "expr": "tshark_sec_bytes_total",
+          "expr": "(tshark_sec_bytes_total) or on() vector(0)",
           "refId": "A"
         }
       ],

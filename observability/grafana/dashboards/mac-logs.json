@@ -227,7 +227,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"$job\",log_type=~\"$log_type\"}",
+          "expr": "({job=~\"$job\",log_type=~\"$log_type\"}) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -376,7 +376,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"} |~ \"$search\"",
+          "expr": "({job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"} |~ \"$search\") or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -430,7 +430,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"}",
+          "expr": "({job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"}) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -457,7 +457,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)chrome\"",
+          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)chrome\") or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -484,7 +484,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)zoom\"",
+          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)zoom\") or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -511,7 +511,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)docker\"",
+          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)docker\") or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -538,7 +538,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)(vscode|visual\\s*studio\\s*code|code)\"",
+          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)(vscode|visual\\s*studio\\s*code|code)\") or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -565,7 +565,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)xcode\"",
+          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)xcode\") or on() vector(0)",
           "refId": "A"
         }
       ],

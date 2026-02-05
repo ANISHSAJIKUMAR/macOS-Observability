@@ -42,7 +42,7 @@
       },
       "targets": [
         {
-          "expr": "up{job=\"prometheus\"}"
+          "expr": "(up{job=\"prometheus\"}) or on() vector(0)"
         }
       ],
       "title": "Prometheus Up",
@@ -63,7 +63,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_head_series"
+          "expr": "(prometheus_tsdb_head_series) or on() vector(0)"
         }
       ],
       "title": "TSDB Head Series",
@@ -84,7 +84,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_storage_size_bytes"
+          "expr": "(prometheus_tsdb_wal_storage_size_bytes) or on() vector(0)"
         }
       ],
       "title": "WAL Size",
@@ -105,7 +105,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_storage_blocks_bytes"
+          "expr": "(prometheus_tsdb_storage_blocks_bytes) or on() vector(0)"
         }
       ],
       "title": "TSDB Blocks Size",
@@ -126,7 +126,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_retention_limit_bytes"
+          "expr": "(prometheus_tsdb_retention_limit_bytes) or on() vector(0)"
         }
       ],
       "title": "Retention Limit",
@@ -148,7 +148,7 @@
       },
       "targets": [
         {
-          "expr": "scrape_duration_seconds",
+          "expr": "(scrape_duration_seconds) or on() vector(0)",
           "legendFormat": "{{job}}"
         }
       ],
@@ -171,7 +171,7 @@
       },
       "targets": [
         {
-          "expr": "scrape_samples_scraped",
+          "expr": "(scrape_samples_scraped) or on() vector(0)",
           "legendFormat": "{{job}}"
         }
       ],
@@ -194,7 +194,7 @@
       },
       "targets": [
         {
-          "expr": "rate(prometheus_tsdb_compaction_duration_seconds_sum[5m])",
+          "expr": "(rate(prometheus_tsdb_compaction_duration_seconds_sum[5m])) or on() vector(0)",
           "legendFormat": "compaction"
         }
       ],
@@ -217,7 +217,7 @@
       },
       "targets": [
         {
-          "expr": "prometheus_tsdb_wal_fsync_duration_seconds",
+          "expr": "(prometheus_tsdb_wal_fsync_duration_seconds) or on() vector(0)",
           "legendFormat": "fsync"
         }
       ],
@@ -234,7 +234,7 @@
       },
       "targets": [
         {
-          "expr": "prom_config_checksum",
+          "expr": "(prom_config_checksum) or on() vector(0)",
           "instant": true
         }
       ],
