@@ -3,6 +3,7 @@ import subprocess
 import time
 import re
 import os
+import json
 
 OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile/wifi.prom"
 
@@ -22,6 +23,32 @@ def parse_kv(text):
         k, v = line.split(":", 1)
         data[k.strip()] = v.strip()
     return data
+
+
+def run_airport():
+    path = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+    if not os.path.exists(path):
+        return {}
+    out = run([path, "-I"])
+    if not out:
+        return {}
+    return parse_kv(out)
+
+
+def run_system_profiler_wifi():
+    try:
+        raw = subprocess.check_output(["/usr/sbin/system_profiler", "SPAirPortDataType", "-json"], text=True)
+        data = json.loads(raw)
+    except Exception:
+        return {}
+    try:
+        iface = data["SPAirPortDataType"][0]["spairport_airport_interfaces"][0]
+        current = iface.get("spairport_current_network_information", {})
+        signal_noise = current.get("spairport_signal_noise", "")
+        rate = current.get("spairport_network_rate", "")
+        return {"signal_noise": signal_noise, "rate": rate}
+    except Exception:
+        return {}
 
 
 def to_float(val):
@@ -57,6 +84,45 @@ def main():
     mcs = to_float(data.get("MCS Index", data.get("MCS", "")))
     cca = to_float(data.get("CCA", ""))
     nss = to_float(data.get("NSS", ""))
+
+    source = "wdutil"
+    # Some macOS builds report RSSI as 0 via wdutil. Fall back to airport -I.
+    if rssi is None or rssi == 0:
+        airport = run_airport()
+        arssi = to_float(airport.get("agrCtlRSSI"))
+        anoise = to_float(airport.get("agrCtlNoise"))
+        atx = to_float(airport.get("lastTxRate"))
+        amax = to_float(airport.get("maxRate"))
+        amcs = to_float(airport.get("MCS"))
+        anss = to_float(airport.get("NSS"))
+        if arssi is not None:
+            rssi = arssi
+            source = "airport"
+        if anoise is not None:
+            noise = anoise
+        if atx is not None:
+            tx_rate = atx
+        if amax is not None:
+            max_rate = amax
+        if amcs is not None:
+            mcs = amcs
+        if anss is not None:
+            nss = anss
+
+    # Second fallback: system_profiler SPAirPortDataType
+    if rssi is None or rssi == 0:
+        sp = run_system_profiler_wifi()
+        sig = sp.get("signal_noise", "")
+        # format: "-35 dBm / -95 dBm"
+        if sig and "/" in sig:
+            parts = sig.split("/")
+            if len(parts) >= 2:
+                rssi = to_float(parts[0])
+                noise = to_float(parts[1])
+                source = "system_profiler"
+        rate = sp.get("rate")
+        if rate:
+            tx_rate = to_float(rate)
 
     def esc(v: str) -> str:
         return v.replace("\\", r"\\").replace("\n", r"\\n").replace('"', r'\\"')
@@ -118,6 +184,10 @@ def main():
     lines.append("# HELP wifi_metrics_timestamp_seconds Export timestamp")
     lines.append("# TYPE wifi_metrics_timestamp_seconds gauge")
     lines.append(f"wifi_metrics_timestamp_seconds {time.time()}")
+
+    lines.append("# HELP wifi_metrics_source Wi-Fi metrics source (wdutil or airport)")
+    lines.append("# TYPE wifi_metrics_source gauge")
+    lines.append(f'wifi_metrics_source{{source="{source}"}} 1')
 
     tmp = OUTFILE + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:

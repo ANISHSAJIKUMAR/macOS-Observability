@@ -29,12 +29,27 @@ def smartctl(device):
         return ""
 
 
+def diskutil_smart_status(device):
+    try:
+        out = subprocess.check_output(["/usr/sbin/diskutil", "info", device], text=True)
+    except Exception:
+        return ""
+    for line in out.splitlines():
+        if "SMART Status:" in line:
+            return line.split(":", 1)[1].strip()
+    return ""
+
+
 def main():
     lines = []
     lines.append("# HELP smart_device_ok SMART overall health status (1=OK, 0=BAD)")
     lines.append("# TYPE smart_device_ok gauge")
     lines.append("# HELP smart_device_supported SMART support available (1=YES, 0=NO)")
     lines.append("# TYPE smart_device_supported gauge")
+    lines.append("# HELP smart_status_verified SMART status verified via diskutil (1=Verified)")
+    lines.append("# TYPE smart_status_verified gauge")
+    lines.append("# HELP smart_status_label SMART status label (diskutil)")
+    lines.append("# TYPE smart_status_label gauge")
 
     disks = list_disks()
     if not disks:
@@ -42,10 +57,30 @@ def main():
     for dev in disks:
         out = smartctl(dev)
         if not out:
-            lines.append(f'smart_device_supported{{device="{dev}"}} 0')
+            status = diskutil_smart_status(dev)
+            if status:
+                supported = 1
+                ok = 1 if status.lower() == "verified" else 0
+                verified = 1 if status.lower() == "verified" else 0
+                lines.append(f'smart_device_supported{{device="{dev}"}} {supported}')
+                lines.append(f'smart_device_ok{{device="{dev}"}} {ok}')
+                lines.append(f'smart_status_verified{{device="{dev}"}} {verified}')
+                lines.append(f'smart_status_label{{device="{dev}",status="{status}"}} 1')
+            else:
+                lines.append(f'smart_device_supported{{device="{dev}"}} 0')
             continue
         if "SMART support is: Unavailable" in out:
-            lines.append(f'smart_device_supported{{device="{dev}"}} 0')
+            status = diskutil_smart_status(dev)
+            if status:
+                supported = 1
+                ok = 1 if status.lower() == "verified" else 0
+                verified = 1 if status.lower() == "verified" else 0
+                lines.append(f'smart_device_supported{{device="{dev}"}} {supported}')
+                lines.append(f'smart_device_ok{{device="{dev}"}} {ok}')
+                lines.append(f'smart_status_verified{{device="{dev}"}} {verified}')
+                lines.append(f'smart_status_label{{device="{dev}",status="{status}"}} 1')
+            else:
+                lines.append(f'smart_device_supported{{device="{dev}"}} 0')
             continue
         lines.append(f'smart_device_supported{{device="{dev}"}} 1')
         ok = None

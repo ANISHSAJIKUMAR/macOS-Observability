@@ -5,7 +5,8 @@ These scripts emit Prometheus metrics into the textfile directory for node_expor
 
 ## Files & Behavior
 - `battery_metrics.py`
-  - Battery charge %, cycle count, power source
+  - Battery charge %, cycle count, charger connected
+  - Battery health max capacity %, condition label, power source
 - `net_connectivity_metrics.py`
   - Pings public targets
   - Exposes latency and loss
@@ -14,15 +15,18 @@ These scripts emit Prometheus metrics into the textfile directory for node_expor
 - `launchd_metrics.py`
   - Lists running launchd jobs
 - `cpu_fan_metrics.py`
-  - Thermal pressure level (proxy for CPU heat)
+  - Thermal pressure level/state (proxy for CPU heat)
+  - Availability flags for CPU temperature and fan speed (some Macs do not expose these)
 - `smart_metrics.py`
   - Disk SMART overall health
+  - Disk SMART status via diskutil (Verified/Not Supported)
 - `grafana_health_metrics.py`
   - Checks Grafana API health (up/down)
 - `prom_config_checksum.py`
   - Calculates SHA256 checksums of Prometheus config files
 - `wdutil_metrics.py`
   - Wi‑Fi RSSI, noise, SNR, link rate, CCA, MCS, NSS
+  - Adds `wifi_metrics_source` to show data source (wdutil/system_profiler)
   - Requires root (LaunchDaemon)
 
 ## What You Can Change

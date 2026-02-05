@@ -26,6 +26,8 @@ def main():
         return
 
     lines = []
+    cpu_temp = None
+    fan_rpm = None
 
     # Thermal pressure (Nominal, Moderate, Heavy, Critical)
     thermal = data.get("thermal_pressure")
@@ -41,6 +43,24 @@ def main():
         lines.append("# HELP cpu_thermal_pressure_state Thermal pressure state label")
         lines.append("# TYPE cpu_thermal_pressure_state gauge")
         lines.append(f'cpu_thermal_pressure_state{{state="{state}"}} 1')
+
+    lines.append("# HELP cpu_temperature_c CPU temperature in Celsius (if available)")
+    lines.append("# TYPE cpu_temperature_c gauge")
+    if cpu_temp is not None:
+        lines.append(f"cpu_temperature_c {cpu_temp}")
+
+    lines.append("# HELP cpu_temperature_available CPU temperature metric availability (1=yes, 0=no)")
+    lines.append("# TYPE cpu_temperature_available gauge")
+    lines.append(f"cpu_temperature_available {1 if cpu_temp is not None else 0}")
+
+    lines.append("# HELP fan_speed_rpm Fan speed in RPM (if available)")
+    lines.append("# TYPE fan_speed_rpm gauge")
+    if fan_rpm is not None:
+        lines.append(f"fan_speed_rpm {fan_rpm}")
+
+    lines.append("# HELP fan_speed_available Fan speed metric availability (1=yes, 0=no)")
+    lines.append("# TYPE fan_speed_available gauge")
+    lines.append(f"fan_speed_available {1 if fan_rpm is not None else 0}")
 
     lines.append("# HELP cpu_fan_metrics_timestamp_seconds Export timestamp")
     lines.append("# TYPE cpu_fan_metrics_timestamp_seconds gauge")

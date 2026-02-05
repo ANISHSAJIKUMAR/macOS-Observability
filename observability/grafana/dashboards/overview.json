@@ -2,6 +2,23 @@
   "id": 9,
   "panels": [
     {
+      "id": 14,
+      "type": "text",
+      "title": "Navigation & Orientation",
+      "description": "Quick links to the most important dashboards and how to use them.",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 6
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "## Anish Laptop Observability\nThis landing page is your quick map of the system. Use these links to jump into detail.\n\n- **Mac System: Core Health** \u2014 CPU, memory, disks, battery, thermal, SMART\n- **Mac Network: Connectivity & Wi\u2011Fi** \u2014 throughput, drops, Wi\u2011Fi quality\n- **Mac Info: Identity & Status** \u2014 system identity, IPs, launchd services\n- **Executive Summary** \u2014 demo\u2011friendly overview for interviews\n- **Prometheus: Self\u2011Monitoring** \u2014 scrape health, TSDB size, WAL\n\nTip: Start here, then drill down when a metric looks abnormal."
+      },
+      "transparent": true
+    },
+    {
       "description": "Prometheus service health (1=up).",
       "fieldConfig": {
         "defaults": {
@@ -38,7 +55,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 0
+        "y": 6
       },
       "targets": [
         {
@@ -85,7 +102,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 0
+        "y": 6
       },
       "targets": [
         {
@@ -132,7 +149,7 @@
         "h": 4,
         "w": 4,
         "x": 8,
-        "y": 0
+        "y": 6
       },
       "targets": [
         {
@@ -148,7 +165,7 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 10
       },
       "options": {
         "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, AnishSSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
@@ -163,7 +180,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 14
       },
       "options": {
         "content": "## Dashboards\n- [Executive Summary](#/d/exec-summary/executive-summary3a-anish-laptop)\n- [Mac System: Core Health](#/d/mac-system-all/mac-system3a-core-health)\n- [Mac Network: Connectivity & Wi\u2011Fi](#/d/mac-network/mac-network3a-connectivity-and-wie28091-fi)\n- [Mac Info: Identity & Status](#/d/mac-info/mac-info3a-identity-and-status)\n- [All Metrics: Live Explorer](#/d/all-metrics-full/all-metrics3a-live-explorer)\n\n**Retention:** 14 days, 20 GB cap.",
@@ -202,7 +219,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 14
+        "y": 20
       },
       "options": {
         "graphMode": "area",
@@ -252,7 +269,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 14
+        "y": 20
       },
       "options": {
         "graphMode": "area",
@@ -302,7 +319,7 @@
         "h": 4,
         "w": 4,
         "x": 8,
-        "y": 14
+        "y": 20
       },
       "options": {
         "graphMode": "area",
@@ -352,7 +369,7 @@
         "h": 4,
         "w": 4,
         "x": 12,
-        "y": 14
+        "y": 20
       },
       "options": {
         "graphMode": "area",
@@ -384,7 +401,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 18
+        "y": 24
       },
       "targets": [
         {
@@ -410,7 +427,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 18
+        "y": 24
       },
       "targets": [
         {
@@ -450,7 +467,7 @@
         "h": 4,
         "w": 4,
         "x": 20,
-        "y": 8
+        "y": 14
       },
       "targets": [
         {
@@ -459,6 +476,596 @@
       ],
       "title": "Data Freshness (sec)",
       "type": "stat"
+    },
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Battery Charge (%)",
+      "description": "Shows current battery percentage. Below ~20% plan to plug in soon. Below 10% save work to avoid shutdown.",
+      "gridPos": {
+        "x": 0,
+        "y": 32,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 15
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "expr": "battery_charge_percent",
+          "legendFormat": ""
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Battery Health Max Capacity (%)",
+      "description": "Health of the battery compared to when it was new. 100% = new, lower means reduced capacity. If it drops below ~80%, consider battery service.",
+      "gridPos": {
+        "x": 6,
+        "y": 32,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 70
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "expr": "battery_health_max_capacity_percent",
+          "legendFormat": ""
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Battery Cycle Count",
+      "description": "Number of full charge cycles. Higher counts mean the battery is older. Apple batteries are typically rated around 1000 cycles.",
+      "gridPos": {
+        "x": 12,
+        "y": 32,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "battery_cycle_count",
+          "legendFormat": ""
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Charger Connected",
+      "description": "Whether a charger is connected. Useful to confirm power source during long workloads.",
+      "gridPos": {
+        "x": 18,
+        "y": 32,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "No"
+                },
+                "1": {
+                  "text": "Yes"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "battery_charger_connected",
+          "legendFormat": ""
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "stat",
+      "title": "Power Source (AC/Battery)",
+      "description": "Shows if the Mac is currently running on AC power or battery.",
+      "gridPos": {
+        "x": 0,
+        "y": 39,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "name",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "battery_power_source",
+          "legendFormat": "{{source}}"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "stat",
+      "title": "Battery Condition",
+      "description": "Battery health label from macOS (e.g., Good). If it shows Service Recommended, plan a replacement.",
+      "gridPos": {
+        "x": 6,
+        "y": 39,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "name",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "battery_condition",
+          "legendFormat": "{{state}}"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "type": "stat",
+      "title": "Thermal Pressure Level",
+      "description": "How hard the system is working thermally. Nominal is normal, Moderate/Heavy/Critical indicate heat throttling risk.",
+      "gridPos": {
+        "x": 12,
+        "y": 39,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Nominal"
+                },
+                "1": {
+                  "text": "Moderate"
+                },
+                "2": {
+                  "text": "Heavy"
+                },
+                "3": {
+                  "text": "Critical"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "cpu_thermal_pressure_level",
+          "legendFormat": ""
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "stat",
+      "title": "Thermal Pressure State",
+      "description": "Human-readable thermal state from macOS. Helps explain CPU slowdowns during sustained load.",
+      "gridPos": {
+        "x": 18,
+        "y": 39,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "name",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cpu_thermal_pressure_state",
+          "legendFormat": "{{state}}"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "type": "stat",
+      "title": "CPU Temperature Available",
+      "description": "Whether CPU temperature is readable on this Mac. Some Apple Silicon models do not expose this metric.",
+      "gridPos": {
+        "x": 0,
+        "y": 46,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "No"
+                },
+                "1": {
+                  "text": "Yes"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "cpu_temperature_available",
+          "legendFormat": ""
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "type": "stat",
+      "title": "Fan Speed Available",
+      "description": "Whether fan speed is readable on this Mac. Some models do not expose this metric.",
+      "gridPos": {
+        "x": 6,
+        "y": 46,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "No"
+                },
+                "1": {
+                  "text": "Yes"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "fan_speed_available",
+          "legendFormat": ""
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "type": "stat",
+      "title": "SMART Status (Label)",
+      "description": "SMART drive health label from diskutil (e.g., Verified). Indicates if storage is reporting normal health.",
+      "gridPos": {
+        "x": 12,
+        "y": 46,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "name",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "smart_status_label",
+          "legendFormat": "{{status}}"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "type": "stat",
+      "title": "SMART Health OK",
+      "description": "Overall SMART health reported by the disk when available. 1 means OK.",
+      "gridPos": {
+        "x": 18,
+        "y": 46,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "No"
+                },
+                "1": {
+                  "text": "Yes"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "smart_device_ok",
+          "legendFormat": ""
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "type": "stat",
+      "title": "SMART Supported",
+      "description": "Shows if SMART monitoring is supported on the disk. Some Apple SSDs report via diskutil instead.",
+      "gridPos": {
+        "x": 0,
+        "y": 53,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "No"
+                },
+                "1": {
+                  "text": "Yes"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "smart_device_supported",
+          "legendFormat": ""
+        }
+      ]
     }
   ],
   "refresh": "30s",

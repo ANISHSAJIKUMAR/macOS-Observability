@@ -921,7 +921,7 @@ Legend:
 
 - Comment / default documentation.
 
-**L0229** `;encryption =`
+**L0229** `encryption = true`
 
 - Comment / default documentation.
 
@@ -1957,7 +1957,7 @@ Legend:
 
 - Comment / default documentation.
 
-**L0488** `;default_home_dashboard_path =`
+**L0488** `default_home_dashboard_path = /Users/anishskumar/Anish-DevOps-Lab/observability/grafana/dashboards/overview.json`
 
 - Comment / default documentation.
 
@@ -2205,7 +2205,7 @@ Legend:
 
 - Comment / default documentation.
 
-**L0550** `;default_theme = dark`
+**L0550** `default_theme = dark`
 
 - Comment / default documentation.
 
@@ -8532,4 +8532,3 @@ Legend:
 **L2131** `; fail_tests_on_console = true`
 
 - Comment / default documentation.
-

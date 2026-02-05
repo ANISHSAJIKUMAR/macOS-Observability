@@ -17,6 +17,7 @@ It includes configuration, dashboards, and custom exporters.
 - Remote cache enabled (database)
 - Minimum dashboard refresh interval: 10s
 - Overview dashboard is the default landing page
+- Prometheus alert rules added (CPU/memory/disk/network/Wi‑Fi health)
 
 ## Quick Start
 ```bash
@@ -47,7 +48,7 @@ graph TD
   D --> B
   B --> E["Prometheus (http://localhost:9090)"]
   C --> E
-  E --> F["Grafana (http://localhost:3000)"]
+  E --> F["Grafana (https://localhost:3000)"]
   G["launchd (user agents)"] --> C
   H["LaunchDaemon (root) for Wi‑Fi"] --> C
   E --> I["Retention: 14 days / 20 GB cap"]
@@ -64,7 +65,7 @@ Grafana folder: **Anish Laptop**
 - **Executive Summary: Anish Laptop** — high‑level health view for demos/interviews
 - **Anish Laptop: Overview** — navigation hub + quick KPIs
 - **Prometheus: Self‑Monitoring** — scrape health, TSDB, WAL, config checksum
-- **Mac System: Core Health** now includes battery, thermal pressure, and SMART disk health panels
+- **Mac System: Core Health** now includes battery health, thermal pressure, and SMART disk health panels
 
 Dashboard exports:
 ```

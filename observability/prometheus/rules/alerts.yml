@@ -1,0 +1,93 @@
+groups:
+  - name: laptop_alerts
+    interval: 30s
+    rules:
+      - alert: NodeExporterDown
+        expr: up{job="node_exporter"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "node_exporter is down"
+          description: "The node_exporter scrape has been failing for >2 minutes."
+
+      - alert: PrometheusDown
+        expr: up{job="prometheus"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Prometheus is down"
+          description: "Prometheus self-scrape has been failing for >2 minutes."
+
+      - alert: HighCPUUsage
+        expr: job:node_cpu_usage_percent:rate5m > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage has been >90% for 5 minutes. This can slow the system and increase fan/thermal pressure."
+
+      - alert: HighMemoryUsage
+        expr: job:node_memory_used_percent > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage has been >90% for 5 minutes. This can cause swapping and slowdowns."
+
+      - alert: DiskUsageHighRoot
+        expr: job:node_filesystem_used_percent{mountpoint="/"} > 90
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk usage high on /"
+          description: "Root volume usage is >90%. Consider freeing space."
+
+      - alert: DiskUsageHighAnishSSD
+        expr: job:node_filesystem_used_percent{mountpoint="/Volumes/AnishSSD"} > 90
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk usage high on AnishSSD"
+          description: "External AnishSSD volume usage is >90%."
+
+      - alert: DiskUsageHighTimeMachine
+        expr: job:node_filesystem_used_percent{mountpoint="/Volumes/Time Machine"} > 90
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk usage high on Time Machine"
+          description: "Time Machine volume usage is >90%."
+
+      - alert: HighPingLoss
+        expr: net_ping_loss_percent > 2
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High ping loss"
+          description: "Packet loss above 2% detected. This can cause calls/streaming issues."
+
+      - alert: HighPingLatency
+        expr: net_ping_latency_ms > 200
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High ping latency"
+          description: "Latency above 200ms detected. This can cause slow browsing and lag."
+
+      - alert: LowWiFiSignal
+        expr: wifi_rssi_dbm < -70
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low Wi‑Fi signal"
+          description: "Wi‑Fi RSSI is below -70 dBm. Consider moving closer to the router or changing bands."

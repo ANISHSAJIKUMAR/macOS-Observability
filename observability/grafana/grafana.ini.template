@@ -226,7 +226,7 @@ type = database
 ; prefix =
 
 # This enables encryption of values stored in the remote cache
-;encryption =
+encryption = true
 
 #################################### Data proxy ###########################
 [dataproxy]
@@ -485,7 +485,7 @@ timeout = 30
 min_refresh_interval = 10s
 
 # Path to the default home dashboard. If this value is empty, then Grafana uses StaticRootPath + "dashboards/home.json"
-;default_home_dashboard_path =
+default_home_dashboard_path = /Users/anishskumar/Anish-DevOps-Lab/observability/grafana/dashboards/overview.json
 
 ################################### Data sources #########################
 [datasources]
@@ -547,7 +547,7 @@ concurrent_query_count = 5
 ;password_hint = password
 
 # Default UI theme ("dark", "light" or "system")
-;default_theme = dark
+default_theme = dark
 
 # Default UI language (supported IETF language tag, such as en-US)
 ;default_language = en-US

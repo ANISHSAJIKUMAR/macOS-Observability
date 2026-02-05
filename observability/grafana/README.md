@@ -31,6 +31,9 @@ Browser will show a warning the first time; accept the certificate for local use
 - `dataproxy.timeout = 30` → data source query timeout (seconds)
 - `query.concurrent_query_limit = 20` → limits mixed query concurrency
 - `datasources.concurrent_query_count = 5` → limits datasource concurrency
+- `default_theme = dark` → dark UI theme by default
+- `default_home_dashboard_path` → Overview dashboard is the landing page
+- `remote_cache.type = database` + `encryption = true` → cached data stored safely
 - `data = /opt/homebrew/var/lib/grafana` → data storage
 - `logs = /opt/homebrew/var/log/grafana` → log directory
 - `plugins = /opt/homebrew/var/lib/grafana/plugins` → plugin directory
@@ -46,5 +49,5 @@ brew services restart grafana
 ```
 
 ## Troubleshooting
-- Health check: `http://localhost:3000/api/health`
+- Health check: `https://localhost:3000/api/health`
 - Logs: `/opt/homebrew/var/log/grafana`

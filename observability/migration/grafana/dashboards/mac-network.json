@@ -835,9 +835,44 @@
       ],
       "title": "Data Freshness (sec)",
       "type": "stat"
+    },
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Wi\u2011Fi Metrics Source",
+      "description": "Shows which system command is providing Wi\u2011Fi metrics (wdutil or airport). Helpful for debugging metric availability.",
+      "gridPos": {
+        "x": 0,
+        "y": 90,
+        "w": 6,
+        "h": 7
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "name",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "wifi_metrics_source",
+          "legendFormat": "{{source}}"
+        }
+      ]
     }
   ],
-  "refresh": "10s",
+  "refresh": "30s",
   "schemaVersion": 41,
   "tags": [
     "network",

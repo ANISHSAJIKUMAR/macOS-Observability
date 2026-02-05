@@ -25,13 +25,34 @@ def run(cmd):
 def main():
     data = run_json(["/usr/sbin/system_profiler", "SPPowerDataType", "-json"])
     batt = {}
+    charge_info = {}
+    health_info = {}
+    model_info = {}
+    charger_info = {}
     if isinstance(data, dict):
         items = data.get("SPPowerDataType", [])
         # Try to find the most detailed battery dict
         for it in items:
+            if "sppower_battery_charge_info" in it:
+                charge_info = it.get("sppower_battery_charge_info", {})
+            if "sppower_battery_health_info" in it:
+                health_info = it.get("sppower_battery_health_info", {})
+            if "sppower_battery_model_info" in it:
+                model_info = it.get("sppower_battery_model_info", {})
+            if "sppower_battery_charger_connected" in it or "sppower_battery_is_charging" in it:
+                charger_info = it
             if any(k in it for k in ("sppower_battery_health", "sppower_battery_cycle_count", "sppower_battery_charge_percentage")):
                 batt = it
-                break
+
+    # Flatten useful fields
+    if charge_info:
+        batt.update(charge_info)
+    if health_info:
+        batt.update(health_info)
+    if model_info:
+        batt.update(model_info)
+    if charger_info:
+        batt.update(charger_info)
 
     # Power source
     power_line = run(["/usr/bin/pmset", "-g", "batt"])
@@ -41,10 +62,16 @@ def main():
     elif "Battery Power" in power_line:
         source = "Battery"
 
-    percent = batt.get("sppower_battery_charge_percentage") or batt.get("sppower_battery_charge_percent")
+    percent = (
+        batt.get("sppower_battery_charge_percentage")
+        or batt.get("sppower_battery_charge_percent")
+        or batt.get("sppower_battery_state_of_charge")
+    )
     cycle = batt.get("sppower_battery_cycle_count")
     condition = batt.get("sppower_battery_health") or batt.get("sppower_battery_condition") or "Unknown"
     charging = batt.get("sppower_battery_is_charging")
+    charger_connected = batt.get("sppower_battery_charger_connected")
+    health_max_capacity = batt.get("sppower_battery_health_maximum_capacity")  # e.g. "81%"
 
     # Prefer parsing percent from pmset output
     if power_line:
@@ -63,11 +90,15 @@ def main():
 
     percent_f = to_float(percent)
     cycle_f = to_float(cycle)
+    health_max_f = to_float(health_max_capacity)
     if percent_f is None:
         percent_f = 0
     if cycle_f is None:
         cycle_f = 0
+    if health_max_f is None:
+        health_max_f = 0
     charging_val = 1 if str(charging).lower() in ("yes", "true", "1") else 0
+    charger_connected_val = 1 if str(charger_connected).lower() in ("yes", "true", "1") else 0
 
     lines = []
     lines.append("# HELP battery_charge_percent Battery charge percentage")
@@ -79,6 +110,14 @@ def main():
     lines.append("# TYPE battery_cycle_count gauge")
     if cycle_f is not None:
         lines.append(f"battery_cycle_count {cycle_f}")
+
+    lines.append("# HELP battery_health_max_capacity_percent Battery maximum capacity health (%)")
+    lines.append("# TYPE battery_health_max_capacity_percent gauge")
+    lines.append(f"battery_health_max_capacity_percent {health_max_f}")
+
+    lines.append("# HELP battery_charger_connected Charger connected (1=yes, 0=no)")
+    lines.append("# TYPE battery_charger_connected gauge")
+    lines.append(f"battery_charger_connected {charger_connected_val}")
 
     lines.append("# HELP battery_is_charging Battery charging state (1=charging, 0=not)")
     lines.append("# TYPE battery_is_charging gauge")
