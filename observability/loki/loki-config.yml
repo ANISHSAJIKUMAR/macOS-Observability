@@ -39,6 +39,10 @@ compactor:
 limits_config:
   retention_period: 14d
   max_global_streams_per_user: 0
+  max_query_parallelism: 8
+  max_query_length: 168h
+  max_query_series: 5000
+  max_entries_limit_per_query: 5000
 
 analytics:
   reporting_enabled: false

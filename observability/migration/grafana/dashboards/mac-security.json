@@ -380,6 +380,33 @@
         "wrapLogMessage": true,
         "enableLogDetails": true
       }
+    },
+    {
+      "id": 9,
+      "type": "logs",
+      "title": "Raw Security Logs (system/xpc/wifi)",
+      "description": "Unfiltered view of system, launchd, and Wi\u2011Fi logs. Use this when keyword filters miss something.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 36,
+        "w": 24,
+        "h": 14
+      },
+      "targets": [
+        {
+          "expr": "{log_type=~\"system|xpc_launchd|wifi|wifi_analytics\"}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true
+      }
     }
   ]
 }
