@@ -407,6 +407,198 @@
         "wrapLogMessage": true,
         "enableLogDetails": true
       }
+    },
+    {
+      "id": 10,
+      "type": "bargauge",
+      "title": "Live Packet Security Signals (tshark)",
+      "description": "Live capture indicators: SYN storms, resets, retransmissions, DNS/ARP/ICMP. Useful for spotting scans or unstable links.",
+      "gridPos": {
+        "x": 0,
+        "y": 51,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "tshark_sec_frames_total",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "displayName": "{{filter}}"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "type": "text",
+      "title": "Live Capture Security Signals (tshark)",
+      "gridPos": {
+        "x": 0,
+        "y": 62,
+        "w": 24,
+        "h": 5
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "## Live Capture Signals\nThese panels use **tshark** to sample traffic every minute. They help detect unusual spikes (SYN floods, resets, retransmissions) and show protocol activity (DNS/TLS/ARP/ICMP)."
+      },
+      "transparent": true
+    },
+    {
+      "id": 12,
+      "type": "bargauge",
+      "title": "Security Filters (Frames)",
+      "description": "Frames observed for each security\u2011relevant filter in the last sample window.",
+      "gridPos": {
+        "x": 0,
+        "y": 67,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "tshark_sec_frames_total",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "displayName": "{{filter}}"
+        }
+      }
+    },
+    {
+      "id": 13,
+      "type": "bargauge",
+      "title": "Security Filters (Bytes)",
+      "description": "Bytes observed for each security\u2011relevant filter in the last sample window.",
+      "gridPos": {
+        "x": 12,
+        "y": 67,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "tshark_sec_bytes_total",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "displayName": "{{filter}}"
+        }
+      }
+    },
+    {
+      "id": 14,
+      "type": "timeseries",
+      "title": "SYN Only (possible scans)",
+      "description": "SYN packets without ACK can indicate port scans or connection spikes.",
+      "gridPos": {
+        "x": 0,
+        "y": 77,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "tshark_sec_frames_total{filter=\"tcp.flags.syn==1 && tcp.flags.ack==0\"}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "type": "timeseries",
+      "title": "TCP Resets",
+      "description": "High reset rates can indicate unstable connections or blocked traffic.",
+      "gridPos": {
+        "x": 12,
+        "y": 77,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "tshark_sec_frames_total{filter=\"tcp.flags.reset==1\"}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      }
+    },
+    {
+      "id": 16,
+      "type": "timeseries",
+      "title": "TCP Retransmissions",
+      "description": "Retransmissions can indicate packet loss or congestion.",
+      "gridPos": {
+        "x": 0,
+        "y": 85,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "tshark_sec_frames_total{filter=\"tcp.analysis.retransmission\"}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      }
+    },
+    {
+      "id": 17,
+      "type": "timeseries",
+      "title": "DNS Activity",
+      "description": "DNS spikes can indicate browsing bursts or suspicious lookup behavior.",
+      "gridPos": {
+        "x": 12,
+        "y": 85,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "tshark_sec_frames_total{filter=\"dns\"}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      }
     }
   ]
 }

@@ -68,6 +68,7 @@ Grafana folder: **Anish Laptop**
 - **Mac Info: Identity & Status** — system identity, key specs, running launchd jobs
 - **Mac Logs: System & Apps** — system/app logs via Loki
 - **Mac Security: Activity & Risk Signals** — security‑focused log signals and user activity
+- **Mac Security: Activity & Risk Signals** now includes live tshark capture panels (SYN/RST/retrans/DNS/TLS)
 - **All Metrics: Live Explorer** — all active Prometheus metrics (live only)
 - **Executive Summary: Anish Laptop** — high‑level health view for demos/interviews
 - **Anish Laptop: Overview** — navigation hub + quick KPIs

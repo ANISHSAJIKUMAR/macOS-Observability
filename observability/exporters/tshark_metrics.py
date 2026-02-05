@@ -23,6 +23,28 @@ def run_tshark():
     ]
     return subprocess.check_output(cmd, text=True, stderr=subprocess.STDOUT)
 
+def run_tshark_security():
+    filters = [
+        "tcp.flags.syn==1 && tcp.flags.ack==0",
+        "tcp.flags.reset==1",
+        "tcp.analysis.retransmission",
+        "dns",
+        "tls",
+        "http",
+        "ssh",
+        "arp",
+        "icmp",
+    ]
+    cmd = [
+        "/opt/homebrew/bin/tshark",
+        "-i", IFACE,
+        "-a", f"duration:{DURATION}",
+        "-q",
+    ]
+    for flt in filters:
+        cmd += ["-z", f"io,stat,0,{flt}"]
+    return subprocess.check_output(cmd, text=True, stderr=subprocess.STDOUT)
+
 
 def parse_size(val: str) -> float:
     if val is None:
@@ -96,6 +118,28 @@ def parse_protocols(text: str):
         protos.append((proto, frames, bytes_))
     return protos
 
+def parse_security_stats(text: str):
+    # Parses multiple IO Statistics sections with Col 1: <filter>
+    stats = {}
+    current_filter = None
+    for line in text.splitlines():
+        m = re.search(r"Col\s+1:\s+(.+)$", line)
+        if m:
+            current_filter = m.group(1).replace("|", "").strip()
+            continue
+        if current_filter and re.search(r"<>", line) and "|" in line:
+            # line: | 0.000 <> 3.003 |  10 | 1200 |
+            parts = [p.strip() for p in line.strip("|").split("|")]
+            if len(parts) >= 3:
+                try:
+                    frames = int(parts[1])
+                    bytes_ = int(parts[2])
+                    stats[current_filter] = (frames, bytes_)
+                except Exception:
+                    pass
+            current_filter = None
+    return stats
+
 
 def main():
     lines = []
@@ -104,9 +148,11 @@ def main():
 
     try:
         output = run_tshark()
+        sec_output = run_tshark_security()
         frames, bytes_ = parse_io_stats(output)
         conv = parse_conversations(output)
         protos = parse_protocols(output)
+        sec = parse_security_stats(sec_output)
         duration = max(DURATION, 1)
 
         lines.append("tshark_capture_success 1")
@@ -141,6 +187,15 @@ def main():
         for proto, fcount, bcount in protos:
             lines.append(f'tshark_proto_frames_total{{proto="{proto}",iface="{IFACE}"}} {fcount}')
             lines.append(f'tshark_proto_bytes_total{{proto="{proto}",iface="{IFACE}"}} {bcount}')
+
+        lines.append("# HELP tshark_sec_frames_total Security-related frames by filter")
+        lines.append("# TYPE tshark_sec_frames_total gauge")
+        lines.append("# HELP tshark_sec_bytes_total Security-related bytes by filter")
+        lines.append("# TYPE tshark_sec_bytes_total gauge")
+        for flt, (fcount, bcount) in sec.items():
+            flt_label = flt.replace("\\\\", "\\\\").replace("\"", "'")
+            lines.append(f'tshark_sec_frames_total{{filter="{flt_label}",iface="{IFACE}"}} {fcount}')
+            lines.append(f'tshark_sec_bytes_total{{filter="{flt_label}",iface="{IFACE}"}} {bcount}')
 
     except Exception as e:
         lines.append("tshark_capture_success 0")

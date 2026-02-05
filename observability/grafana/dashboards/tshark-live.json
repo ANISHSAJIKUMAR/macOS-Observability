@@ -253,6 +253,90 @@
           "displayName": "{{proto}}"
         }
       }
+    },
+    {
+      "id": 9,
+      "type": "table",
+      "title": "Packet Flow (Top Conversations)",
+      "description": "Top IP conversations by bytes. This is the closest \u201cflow view\u201d in Grafana without a full packet viewer.",
+      "gridPos": {
+        "x": 0,
+        "y": 30,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "topk(10, tshark_conv_bytes_total)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showHeader": true
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "displayName": "{{src}} \u2192 {{dst}}"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 10,
+      "type": "bargauge",
+      "title": "Security Signals (Frames)",
+      "description": "Potential risk indicators from live capture: SYNs, resets, retransmissions, DNS/ARP/ICMP.",
+      "gridPos": {
+        "x": 0,
+        "y": 40,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "tshark_sec_frames_total",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "displayName": "{{filter}}"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "type": "bargauge",
+      "title": "Security Signals (Bytes)",
+      "description": "Byte volume by security\u2011related filter.",
+      "gridPos": {
+        "x": 12,
+        "y": 40,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "tshark_sec_bytes_total",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "displayName": "{{filter}}"
+        }
+      }
     }
   ]
 }
