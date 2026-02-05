@@ -1,7 +1,7 @@
 # Anish Laptop Observability (Complete Guide)
 
-This folder is the **single source of truth** for the full local monitoring stack on this Mac.
-It includes configuration, dashboards, and custom exporters.
+Single source of truth for the full local monitoring stack on this Mac.
+Includes configuration, dashboards, exporters, and demo flow.
 
 ## Tech Stack
 - Prometheus (metrics storage)
@@ -31,6 +31,12 @@ It includes configuration, dashboards, and custom exporters.
 # If you need root LaunchDaemons to start, run once per terminal session:
 sudo -v
 ```
+
+## Service URLs
+- Prometheus: http://localhost:9090
+- Grafana: https://localhost:3000
+- node_exporter: http://localhost:9100/metrics
+- Loki: http://localhost:3100
 
 ## High‑Level Architecture
 ```mermaid
@@ -81,6 +87,10 @@ Loki keeps **14 days** of logs.
 - A `.gitignore` was added at `/Users/anishskumar/Anish-DevOps-Lab/.gitignore` to prevent accidental commits of sensitive local config.
 - If you ever add credentials (Grafana admin password, OAuth secrets, API tokens), keep them in local files or environment variables and **do not commit** them.
 
+## Start/Stop Order
+- Start: `node_exporter` → `prometheus` → `loki` → `grafana` → exporters
+- Stop: `grafana` → `loki` → `prometheus` → `node_exporter` → exporters
+
 ## Key Paths
 ```
 /Users/anishskumar/Anish-DevOps-Lab/observability/prometheus/prometheus.yml
@@ -103,12 +113,6 @@ Loki keeps **14 days** of logs.
 - `promtail/` — Promtail config (log collection)
 - `migration/` — Docker + new‑Mac setup files
 
-## Quick URLs
-- Prometheus: http://localhost:9090
-- Grafana: https://localhost:3000
-- node_exporter: http://localhost:9100/metrics
-- Loki: http://localhost:3100
-
 ## Permissions & Launchd
 - `start_all.sh` uses `launchctl bootstrap/bootout` (preferred on modern macOS).
 - Root exporters (Wi‑Fi, SMART, fan/thermal, promtail, tshark) require sudo.
@@ -118,6 +122,7 @@ Loki keeps **14 days** of logs.
 - **No data in Grafana**: check Prometheus and node_exporter are running and `http://localhost:9100/metrics` works.
 - **Wi‑Fi panels empty**: ensure the root LaunchDaemon is loaded and `wdutil_metrics.py` runs with sudo. Wi‑Fi metrics use `wdutil` and `system_profiler` (airport is not used).
 - **Exporter metrics missing**: verify the textfile directory is correct and readable.
+- **Logs missing**: confirm Loki and promtail are running and the Loki datasource is healthy in Grafana.
 
 ## Common Changes
 - Change data retention in `prometheus.args`
@@ -170,6 +175,13 @@ Use this order to demo the system in interviews or walkthroughs:
    - https://localhost:3000/d/all-metrics-full/all-metrics3a-live-explorer
    - What it shows: full live metric list and raw panels
 
-
 ## Metrics & Logs Reference
 - /Users/anishskumar/Anish-DevOps-Lab/observability/METRICS_AND_LOGS.md
+
+## Quick Health Checks
+```bash
+curl -sf http://localhost:9090/-/ready
+curl -sf http://localhost:9100/metrics | head -n 5
+curl -sf http://localhost:3100/ready
+curl -skf https://localhost:3000/api/health
+```

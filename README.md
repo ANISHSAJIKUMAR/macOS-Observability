@@ -1,9 +1,9 @@
 # Anish DevOps Lab
 
-This is my personal DevOps workspace. The main project here is **observability** for my Mac laptop.
+Personal DevOps workspace for my Mac. The primary project is a full local **observability** stack (metrics + logs + dashboards) built for interview demos and daily monitoring.
 
 ## Quick Start / Stop
-Use these scripts to stop or start everything without deleting anything:
+Use these scripts to start or stop everything without deleting any data:
 
 ```bash
 ./stop_all.sh
@@ -20,7 +20,7 @@ What it contains:
 - Prometheus + Grafana configuration
 - Loki + Promtail log pipeline
 - node_exporter configuration
-- Custom exporters (network, system info, launchd, Wi‑Fi)
+- Custom exporters (network, system info, launchd, Wi‑Fi, battery, thermal, SMART, tshark)
 - Dashboard backups and documentation
 
 Docs:
@@ -37,8 +37,6 @@ Docs:
 - `output/` — generated artifacts (screenshots/exports)
 - `start_all.sh` / `stop_all.sh` — start/stop everything
 
-
-
 ## Demo Links (Quick Navigation)
 - Overview: https://localhost:3000/d/overview/anish-laptop3a-overview
 - Executive Summary: https://localhost:3000/d/exec-summary/executive-summary3a-anish-laptop
@@ -49,3 +47,11 @@ Docs:
 - Security: https://localhost:3000/d/mac-security/mac-security3a-activity-and-risk-signals
 - Prometheus Self‑Monitoring: https://localhost:3000/d/prometheus-self/prometheus3a-selfe28091-monitoring
 - All Metrics Explorer: https://localhost:3000/d/all-metrics-full/all-metrics3a-live-explorer
+
+## Health Checks (CLI)
+```bash
+curl -sf http://localhost:9090/-/ready
+curl -sf http://localhost:9100/metrics | head -n 5
+curl -sf http://localhost:3100/ready
+curl -skf https://localhost:3000/api/health
+```
