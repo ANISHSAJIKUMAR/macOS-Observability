@@ -7,7 +7,7 @@ It includes configuration, dashboards, and custom exporters.
 - Prometheus (metrics storage)
 - Grafana (dashboards + visualization)
 - node_exporter (system metrics)
-- Custom Python exporters (network, system info, launchd, Wi‑Fi)
+- Custom Python exporters (network, system info, launchd, Wi‑Fi, battery, thermal, SMART, Grafana health)
 - launchd / LaunchDaemon (scheduling & background services)
 
 ## UI & Performance Tuning
@@ -64,6 +64,7 @@ Grafana folder: **Anish Laptop**
 - **Executive Summary: Anish Laptop** — high‑level health view for demos/interviews
 - **Anish Laptop: Overview** — navigation hub + quick KPIs
 - **Prometheus: Self‑Monitoring** — scrape health, TSDB, WAL, config checksum
+- **Mac System: Core Health** now includes battery, thermal pressure, and SMART disk health panels
 
 Dashboard exports:
 ```
