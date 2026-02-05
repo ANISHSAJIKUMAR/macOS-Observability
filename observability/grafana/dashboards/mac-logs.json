@@ -7,7 +7,7 @@
   "version": 1,
   "refresh": "15s",
   "time": {
-    "from": "now-1h",
+    "from": "now-24h",
     "to": "now"
   },
   "tags": [
@@ -214,7 +214,7 @@
     {
       "id": 2,
       "type": "logs",
-      "title": "All Logs (Filtered)",
+      "title": "All Logs (Raw by Job/Type)",
       "datasource": {
         "type": "loki",
         "uid": "efccujve04lxca"
@@ -227,7 +227,7 @@
       },
       "targets": [
         {
-          "expr": "{job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"}",
+          "expr": "{job=~\"$job\",log_type=~\"$log_type\"}",
           "refId": "A"
         }
       ],
@@ -248,12 +248,12 @@
           }
         }
       },
-      "description": "This view is unfiltered so it never shows \"No data\" unless Loki is down."
+      "description": "Guaranteed log stream for selected job/log_type. Use keyword/search panels for filtering."
     },
     {
       "id": 3,
       "type": "logs",
-      "title": "System Critical (errors/warn)",
+      "title": "System Logs (All)",
       "datasource": {
         "type": "loki",
         "uid": "efccujve04lxca"
@@ -266,7 +266,7 @@
       },
       "targets": [
         {
-          "expr": "({job=\"system\"} |= \"error\" or {job=\"system\"} |= \"warn\") or on() vector(0)",
+          "expr": "{job=\"system\"}",
           "refId": "A"
         }
       ],
@@ -287,7 +287,7 @@
           }
         }
       },
-      "description": "Auto\u2011fallback to 0 if metric is missing or has no recent samples."
+      "description": "All system logs. Use keyword panel below to filter for errors/warnings."
     },
     {
       "id": 4,
@@ -305,7 +305,7 @@
       },
       "targets": [
         {
-          "expr": "({job=\"observability\"}) or on() vector(0)",
+          "expr": "{job=\"observability\"}",
           "refId": "A"
         }
       ],
@@ -359,7 +359,7 @@
       "id": 9,
       "type": "logs",
       "title": "Keyword Search Results",
-      "description": "Use the Search box to filter logs by keyword (e.g., error, failed). If Search is empty, this panel may be blank.",
+      "description": "Keyword search results. If search is empty or no matches, this panel can be empty.",
       "datasource": {
         "type": "loki",
         "uid": "efccujve04lxca"
@@ -373,6 +373,60 @@
       "targets": [
         {
           "expr": "{job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"} |~ \"$search\"",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true
+      }
+    },
+    {
+      "id": 10,
+      "type": "logs",
+      "title": "System Errors (keyword filter)",
+      "description": "Filtered view for errors/warnings. Change keywords as needed.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 66,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "{job=\"system\"} |~ \"(?i)(error|warn|failed|denied)\"",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true
+      }
+    },
+    {
+      "id": 11,
+      "type": "logs",
+      "title": "Logs by Filename",
+      "description": "Use the filename filter at the top to view a specific file.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 76,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "{job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"}",
           "refId": "A"
         }
       ],
