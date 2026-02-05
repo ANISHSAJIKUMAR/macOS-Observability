@@ -986,7 +986,7 @@
       "type": "stat"
     },
     {
-      "description": "SMART status for disks (1=OK, 0=problem).",
+      "description": "Shows whether SMART monitoring is supported for each disk (1=Yes, 0=No).",
       "gridPos": {
         "h": 6,
         "w": 24,
@@ -995,11 +995,11 @@
       },
       "targets": [
         {
-          "expr": "smart_device_ok",
+          "expr": "smart_device_supported",
           "instant": true
         }
       ],
-      "title": "SMART Disk Status",
+      "title": "SMART Support",
       "transformations": [
         {
           "id": "labelsToFields",
@@ -1069,5 +1069,5 @@
   "timezone": "browser",
   "title": "Mac System: Core Health",
   "uid": "mac-system-all",
-  "version": 17
+  "version": 18
 }

@@ -24,15 +24,14 @@ def run(cmd):
 
 def main():
     data = run_json(["/usr/sbin/system_profiler", "SPPowerDataType", "-json"])
-    batt = None
+    batt = {}
     if isinstance(data, dict):
         items = data.get("SPPowerDataType", [])
+        # Try to find the most detailed battery dict
         for it in items:
-            if "sppower_battery_installed" in it or "sppower_battery_health" in it:
+            if any(k in it for k in ("sppower_battery_health", "sppower_battery_cycle_count", "sppower_battery_charge_percentage")):
                 batt = it
                 break
-    if batt is None:
-        batt = {}
 
     # Power source
     power_line = run(["/usr/bin/pmset", "-g", "batt"])
@@ -47,6 +46,14 @@ def main():
     condition = batt.get("sppower_battery_health") or batt.get("sppower_battery_condition") or "Unknown"
     charging = batt.get("sppower_battery_is_charging")
 
+    # Prefer parsing percent from pmset output
+    if power_line:
+        # e.g. " -InternalBattery-0 (id=...) 87%; discharging; ..."
+        import re
+        m = re.search(r"(\d+)%", power_line)
+        if m:
+            percent = m.group(1)
+
     # Normalize numeric values
     def to_float(v):
         try:
@@ -56,6 +63,10 @@ def main():
 
     percent_f = to_float(percent)
     cycle_f = to_float(cycle)
+    if percent_f is None:
+        percent_f = 0
+    if cycle_f is None:
+        cycle_f = 0
     charging_val = 1 if str(charging).lower() in ("yes", "true", "1") else 0
 
     lines = []

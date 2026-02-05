@@ -33,11 +33,21 @@ def main():
     lines = []
     lines.append("# HELP smart_device_ok SMART overall health status (1=OK, 0=BAD)")
     lines.append("# TYPE smart_device_ok gauge")
+    lines.append("# HELP smart_device_supported SMART support available (1=YES, 0=NO)")
+    lines.append("# TYPE smart_device_supported gauge")
 
-    for dev in list_disks():
+    disks = list_disks()
+    if not disks:
+        lines.append('smart_device_supported{device="none"} 0')
+    for dev in disks:
         out = smartctl(dev)
         if not out:
+            lines.append(f'smart_device_supported{{device="{dev}"}} 0')
             continue
+        if "SMART support is: Unavailable" in out:
+            lines.append(f'smart_device_supported{{device="{dev}"}} 0')
+            continue
+        lines.append(f'smart_device_supported{{device="{dev}"}} 1')
         ok = None
         for line in out.splitlines():
             if "SMART overall-health self-assessment test result" in line or "SMART Health Status" in line:
@@ -46,8 +56,9 @@ def main():
                 else:
                     ok = 0
                 break
-        if ok is not None:
-            lines.append(f'smart_device_ok{{device="{dev}"}} {ok}')
+        if ok is None:
+            ok = 0
+        lines.append(f'smart_device_ok{{device="{dev}"}} {ok}')
 
     lines.append("# HELP smart_metrics_timestamp_seconds Export timestamp")
     lines.append("# TYPE smart_metrics_timestamp_seconds gauge")
