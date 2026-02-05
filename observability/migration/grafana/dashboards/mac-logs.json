@@ -266,7 +266,7 @@
       },
       "targets": [
         {
-          "expr": "{job=\"system\"}",
+          "expr": "({job=\"system\"}) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -287,7 +287,7 @@
           }
         }
       },
-      "description": "All system logs. Use keyword panel below to filter for errors/warnings."
+      "description": "All system logs. Use keyword panel below to filter for errors/warnings.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples."
     },
     {
       "id": 4,
@@ -305,7 +305,7 @@
       },
       "targets": [
         {
-          "expr": "{job=\"observability\"}",
+          "expr": "({job=\"observability\"}) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -386,7 +386,7 @@
       "id": 10,
       "type": "logs",
       "title": "System Errors (keyword filter)",
-      "description": "Filtered view for errors/warnings. Change keywords as needed.",
+      "description": "Filtered view for errors/warnings. Change keywords as needed.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "datasource": {
         "type": "loki",
         "uid": "efccujve04lxca"
@@ -399,7 +399,7 @@
       },
       "targets": [
         {
-          "expr": "{job=\"system\"} |~ \"(?i)(error|warn|failed|denied)\"",
+          "expr": "({job=\"system\"} |~ \"(?i)(error|warn|failed|denied)\") or on() vector(0)",
           "refId": "A"
         }
       ],

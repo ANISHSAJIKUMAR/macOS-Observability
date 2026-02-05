@@ -212,7 +212,7 @@
       },
       "targets": [
         {
-          "expr": "topk(5, tshark_conv_bytes_total)",
+          "expr": "(topk(5, tshark_conv_bytes_total)) or on() vector(0)",
           "refId": "A"
         }
       ],
@@ -225,7 +225,8 @@
           "unit": "bytes",
           "displayName": "{{src}} \u2192 {{dst}}"
         }
-      }
+      },
+      "description": "Auto\u2011fallback to 0 if metric is missing or has no recent samples."
     },
     {
       "id": 8,
@@ -258,7 +259,7 @@
       "id": 9,
       "type": "table",
       "title": "Packet Flow (Top Conversations)",
-      "description": "Top IP conversations by bytes. This is the closest \u201cflow view\u201d in Grafana without a full packet viewer.",
+      "description": "Top IP conversations by bytes. This is the closest \u201cflow view\u201d in Grafana without a full packet viewer.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "gridPos": {
         "x": 0,
         "y": 30,
@@ -267,7 +268,7 @@
       },
       "targets": [
         {
-          "expr": "topk(10, tshark_conv_bytes_total)",
+          "expr": "(topk(10, tshark_conv_bytes_total)) or on() vector(0)",
           "refId": "A"
         }
       ],
