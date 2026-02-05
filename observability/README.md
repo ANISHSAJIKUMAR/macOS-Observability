@@ -10,6 +10,14 @@ It includes configuration, dashboards, and custom exporters.
 - Custom Python exporters (network, system info, launchd, Wi‑Fi)
 - launchd / LaunchDaemon (scheduling & background services)
 
+## UI & Performance Tuning
+- Grafana uses HTTPS locally with a self‑signed certificate.
+- Data proxy timeout: 30s
+- Query concurrency limits set to reduce CPU usage
+- Remote cache enabled (database)
+- Minimum dashboard refresh interval: 10s
+- Overview dashboard is the default landing page
+
 ## Quick Start
 ```bash
 # Start/Restart all core services
@@ -78,6 +86,11 @@ Prometheus keeps **14 days** of data with a **20 GB** cap.
 /Users/anishskumar/Anish-DevOps-Lab/observability/exporters/
 /Users/anishskumar/Anish-DevOps-Lab/observability/launchd/
 ```
+
+## Quick URLs
+- Prometheus: http://localhost:9090
+- Grafana: https://localhost:3000
+- node_exporter: http://localhost:9100/metrics
 
 ## Troubleshooting
 - **No data in Grafana**: check Prometheus and node_exporter are running and `http://localhost:9100/metrics` works.

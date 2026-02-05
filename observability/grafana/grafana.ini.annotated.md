@@ -45,9 +45,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L0010** `;instance_name = ${HOSTNAME}`
+**L0010** `instance_name = Anish Laptop Observability`
 
-- Comment / default documentation.
+- Human‑readable instance name shown in UI.
 
 **L0011** ``
 
@@ -161,9 +161,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L0039** `;protocol = http`
+**L0039** `protocol = https`
 
-- Comment / default documentation.
+- HTTP or HTTPS protocol for the server.
 
 **L0040** ``
 
@@ -197,9 +197,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L0048** `;http_port = 3000`
+**L0048** `http_port = 3000`
 
-- Comment / default documentation.
+- Port Grafana listens on.
 
 **L0049** ``
 
@@ -209,9 +209,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L0051** `;domain = localhost`
+**L0051** `domain = localhost`
 
-- Comment / default documentation.
+- Domain used to build external URLs.
 
 **L0052** ``
 
@@ -241,9 +241,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L0059** `;root_url = %(protocol)s://%(domain)s:%(http_port)s/`
+**L0059** `root_url = %(protocol)s://%(domain)s:%(http_port)s/`
 
-- Comment / default documentation.
+- Full public URL Grafana uses in links.
 
 **L0060** ``
 
@@ -289,9 +289,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L0071** `;enable_gzip = false`
+**L0071** `enable_gzip = true`
 
-- Comment / default documentation.
+- Enable gzip compression for HTTP responses.
 
 **L0072** ``
 
@@ -301,13 +301,13 @@ Legend:
 
 - Comment / default documentation.
 
-**L0074** `;cert_file =`
+**L0074** `cert_file = /Users/anishskumar/Anish-DevOps-Lab/observability/grafana/certs/localhost.crt`
 
-- Comment / default documentation.
+- TLS certificate path for HTTPS.
 
-**L0075** `;cert_key =`
+**L0075** `cert_key = /Users/anishskumar/Anish-DevOps-Lab/observability/grafana/certs/localhost.key`
 
-- Comment / default documentation.
+- TLS private key path for HTTPS.
 
 **L0076** ``
 
@@ -405,9 +405,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L0100** `;read_timeout = 0`
+**L0100** `read_timeout = 30s`
 
-- Comment / default documentation.
+- Max time to read an incoming request.
 
 **L0101** ``
 
@@ -873,9 +873,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L0217** `;type = database`
+**L0217** `type = database`
 
-- Comment / default documentation.
+- Remote cache backend type.
 
 **L0218** ``
 
@@ -961,9 +961,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L0239** `;timeout = 30`
+**L0239** `timeout = 30`
 
-- Comment / default documentation.
+- Data proxy request timeout (seconds).
 
 **L0240** ``
 
@@ -1945,9 +1945,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L0485** `;min_refresh_interval = 5s`
+**L0485** `min_refresh_interval = 10s`
 
-- Comment / default documentation.
+- Minimum allowed dashboard refresh interval.
 
 **L0486** ``
 
@@ -1997,9 +1997,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L0498** `;concurrent_query_count = 10`
+**L0498** `concurrent_query_count = 5`
 
-- Comment / default documentation.
+- Limit concurrent datasource queries.
 
 **L0499** ``
 
@@ -6495,7 +6495,7 @@ Legend:
 
 **L1622** `timeout = 30s`
 
-- Grafana setting (see Grafana documentation).
+- Data proxy request timeout (seconds).
 
 **L1623** ``
 
@@ -6741,9 +6741,9 @@ Legend:
 
 - Comment / default documentation.
 
-**L1684** `;concurrent_query_limit =`
+**L1684** `concurrent_query_limit = 20`
 
-- Comment / default documentation.
+- Limit concurrent mixed queries.
 
 **L1685** ``
 

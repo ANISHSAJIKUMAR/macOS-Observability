@@ -4,6 +4,7 @@
 - `com.local.net_connectivity.plist`
 - `com.local.mac_system_info.plist`
 - `com.local.launchd_metrics.plist`
+- `com.local.grafana_health.plist`
 
 ## LaunchDaemon (root)
 - `com.local.wdutil_metrics.plist`
@@ -40,9 +41,11 @@
 launchctl unload ~/Library/LaunchAgents/com.local.net_connectivity.plist
 launchctl unload ~/Library/LaunchAgents/com.local.mac_system_info.plist
 launchctl unload ~/Library/LaunchAgents/com.local.launchd_metrics.plist
+launchctl unload ~/Library/LaunchAgents/com.local.grafana_health.plist
 launchctl load ~/Library/LaunchAgents/com.local.net_connectivity.plist
 launchctl load ~/Library/LaunchAgents/com.local.mac_system_info.plist
 launchctl load ~/Library/LaunchAgents/com.local.launchd_metrics.plist
+launchctl load ~/Library/LaunchAgents/com.local.grafana_health.plist
 sudo launchctl bootout system /Library/LaunchDaemons/com.local.wdutil_metrics.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.wdutil_metrics.plist
 ```

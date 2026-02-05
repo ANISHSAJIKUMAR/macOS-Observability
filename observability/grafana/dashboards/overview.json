@@ -2,12 +2,153 @@
   "id": 9,
   "panels": [
     {
+      "description": "Prometheus service health (1=up).",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "text": "down"
+                },
+                "1": {
+                  "text": "up"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "up{job=\"prometheus\"}"
+        }
+      ],
+      "title": "Prometheus Up",
+      "type": "stat"
+    },
+    {
+      "description": "node_exporter service health (1=up).",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "text": "down"
+                },
+                "1": {
+                  "text": "up"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "up{job=\"node_exporter\"}"
+        }
+      ],
+      "title": "node_exporter Up",
+      "type": "stat"
+    },
+    {
+      "description": "Grafana API health (1=up).",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "text": "down"
+                },
+                "1": {
+                  "text": "up"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "grafana_up"
+        }
+      ],
+      "title": "Grafana Up",
+      "type": "stat"
+    },
+    {
       "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
       "gridPos": {
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 4
       },
       "options": {
         "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, AnishSSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
@@ -22,7 +163,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 8
       },
       "options": {
         "content": "## Dashboards\n- [Executive Summary](#/d/exec-summary/executive-summary3a-anish-laptop)\n- [Mac System: Core Health](#/d/mac-system-all/mac-system3a-core-health)\n- [Mac Network: Connectivity & Wi\u2011Fi](#/d/mac-network/mac-network3a-connectivity-and-wie28091-fi)\n- [Mac Info: Identity & Status](#/d/mac-info/mac-info3a-identity-and-status)\n- [All Metrics: Live Explorer](#/d/all-metrics-full/all-metrics3a-live-explorer)\n\n**Retention:** 14 days, 20 GB cap.",
@@ -61,7 +202,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 10
+        "y": 14
       },
       "options": {
         "graphMode": "area",
@@ -111,7 +252,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 10
+        "y": 14
       },
       "options": {
         "graphMode": "area",
@@ -161,7 +302,7 @@
         "h": 4,
         "w": 4,
         "x": 8,
-        "y": 10
+        "y": 14
       },
       "options": {
         "graphMode": "area",
@@ -211,7 +352,7 @@
         "h": 4,
         "w": 4,
         "x": 12,
-        "y": 10
+        "y": 14
       },
       "options": {
         "graphMode": "area",
@@ -243,7 +384,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 14
+        "y": 18
       },
       "targets": [
         {
@@ -269,7 +410,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 14
+        "y": 18
       },
       "targets": [
         {
@@ -309,7 +450,7 @@
         "h": 4,
         "w": 4,
         "x": 20,
-        "y": 4
+        "y": 8
       },
       "targets": [
         {
@@ -352,5 +493,5 @@
   "timezone": "browser",
   "title": "Anish Laptop: Overview",
   "uid": "overview",
-  "version": 3
+  "version": 4
 }

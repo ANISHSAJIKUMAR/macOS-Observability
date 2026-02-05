@@ -11,6 +11,8 @@ These scripts emit Prometheus metrics into the textfile directory for node_expor
   - Exposes identity and hardware facts (CPU, memory, OS, IP, SSID)
 - `launchd_metrics.py`
   - Lists running launchd jobs
+- `grafana_health_metrics.py`
+  - Checks Grafana API health (up/down)
 - `wdutil_metrics.py`
   - Wi‑Fi RSSI, noise, SNR, link rate, CCA, MCS, NSS
   - Requires root (LaunchDaemon)

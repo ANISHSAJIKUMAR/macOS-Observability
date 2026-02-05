@@ -6,6 +6,10 @@ __pycache__/
 # Grafana local config may include secrets if customized
 observability/grafana/grafana.ini
 
+# Local TLS certs (self‑signed)
+observability/grafana/certs/*.key
+observability/grafana/certs/*.crt
+
 # Local Grafana data/db (not tracked)
 observability/grafana/data/
 
