@@ -19,6 +19,9 @@ observability/prometheus/data/
 # node_exporter textfile output (generated)
 observability/node_exporter/textfile/*.prom
 
+# Promtail positions (generated)
+observability/promtail/positions.yaml
+
 # Any exported secrets files
 *.env
 *.secret

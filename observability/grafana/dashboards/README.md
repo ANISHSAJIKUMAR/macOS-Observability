@@ -11,6 +11,7 @@ JSON exports of Grafana dashboards for backup/restore.
 - `exec-summary.json`
 - `overview.json`
 - `prometheus-self.json`
+- `mac-logs.json`
 
 ## Usage
 Import via Grafana UI:

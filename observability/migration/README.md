@@ -19,6 +19,7 @@ docker compose up -d
 - Grafana: http://localhost:3000
 - Prometheus: http://localhost:9090
 - node_exporter: http://localhost:9100/metrics
+- Loki: http://localhost:3100 (if enabled)
 
 ### 4. Notes
 - Grafana in Docker uses **HTTP** (no HTTPS by default).
@@ -41,7 +42,7 @@ docker compose down
 
 ### 2. Install
 ```bash
-brew install prometheus grafana node_exporter smartmontools
+brew install prometheus grafana node_exporter smartmontools loki promtail
 ```
 
 ### 3. Copy configs
@@ -73,6 +74,7 @@ Files to update:
 brew services start prometheus
 brew services start grafana
 brew services start node_exporter
+brew services start loki
 ```
 
 ### 6. Load launchd jobs
@@ -88,12 +90,14 @@ launchctl load ~/Library/LaunchAgents/com.local.battery_metrics.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.wdutil_metrics.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.smart_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.promtail.plist
 ```
 
 ### 7. Verify
 ```bash
 curl http://localhost:9090/-/ready
 curl http://localhost:9100/metrics
+curl http://localhost:3100/ready
 ```
 
 ---

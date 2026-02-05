@@ -7,11 +7,12 @@
 - `com.local.grafana_health.plist`
 - `com.local.prom_config_checksum.plist`
 - `com.local.battery_metrics.plist`
-- `com.local.cpu_fan_metrics.plist`
-- `com.local.smart_metrics.plist`
 
 ## LaunchDaemon (root)
 - `com.local.wdutil_metrics.plist`
+- `com.local.cpu_fan_metrics.plist`
+- `com.local.smart_metrics.plist`
+- `com.local.promtail.plist`
 
 ## Example Plist (Line‑by‑Line)
 ```
@@ -52,4 +53,10 @@ launchctl load ~/Library/LaunchAgents/com.local.launchd_metrics.plist
 launchctl load ~/Library/LaunchAgents/com.local.grafana_health.plist
 sudo launchctl bootout system /Library/LaunchDaemons/com.local.wdutil_metrics.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.wdutil_metrics.plist
+sudo launchctl bootout system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.cpu_fan_metrics.plist
+sudo launchctl bootout system /Library/LaunchDaemons/com.local.smart_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.smart_metrics.plist
+sudo launchctl bootout system /Library/LaunchDaemons/com.local.promtail.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.promtail.plist
 ```

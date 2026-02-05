@@ -14,6 +14,7 @@ log "Starting core services in order..."
 # Start metrics first, then storage, then UI
 brew services start node_exporter
 brew services start prometheus
+brew services start loki
 brew services start grafana
 
 log "Starting LaunchAgents..."
@@ -35,6 +36,9 @@ if [ "$CAN_SUDO" -eq 1 ]; then
   if [ -f /Library/LaunchDaemons/com.local.smart_metrics.plist ]; then
     $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.smart_metrics.plist || true
   fi
+  if [ -f /Library/LaunchDaemons/com.local.promtail.plist ]; then
+    $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.promtail.plist || true
+  fi
 else
   log "Skipping root LaunchDaemons (sudo -n not available)."
 fi
@@ -48,6 +52,7 @@ log "Status checks..."
 if command -v curl >/dev/null 2>&1; then
   curl -sf http://localhost:9090/-/ready >/dev/null && log "Prometheus ready" || log "Prometheus not ready"
   curl -sf http://localhost:9100/metrics >/dev/null && log "node_exporter OK" || log "node_exporter not responding"
+  curl -sf http://localhost:3100/ready >/dev/null && log "Loki OK" || log "Loki not responding"
   # Grafana is HTTPS now
   curl -skf https://localhost:3000/api/health >/dev/null && log "Grafana OK" || log "Grafana not responding"
 fi

@@ -1,0 +1,44 @@
+auth_enabled: false
+
+server:
+  http_listen_address: 127.0.0.1
+  http_listen_port: 3100
+
+common:
+  instance_addr: 127.0.0.1
+  path_prefix: /opt/homebrew/var/lib/loki
+  storage:
+    filesystem:
+      chunks_directory: /opt/homebrew/var/lib/loki/chunks
+      rules_directory: /opt/homebrew/var/lib/loki/rules
+  replication_factor: 1
+  ring:
+    kvstore:
+      store: inmemory
+
+schema_config:
+  configs:
+    - from: 2024-01-01
+      store: tsdb
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+
+storage_config:
+  filesystem:
+    directory: /opt/homebrew/var/lib/loki/chunks
+
+compactor:
+  working_directory: /opt/homebrew/var/lib/loki/compactor
+  compaction_interval: 10m
+  retention_enabled: true
+  delete_request_store: filesystem
+
+limits_config:
+  retention_period: 14d
+  max_global_streams_per_user: 0
+
+analytics:
+  reporting_enabled: false

@@ -37,6 +37,7 @@ Browser will show a warning the first time; accept the certificate for local use
 - `data = /opt/homebrew/var/lib/grafana` → data storage
 - `logs = /opt/homebrew/var/log/grafana` → log directory
 - `plugins = /opt/homebrew/var/lib/grafana/plugins` → plugin directory
+- Loki datasource added for log search
 
 ## Safe Changes
 - Change `http_port`

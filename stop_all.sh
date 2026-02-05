@@ -29,6 +29,9 @@ if [ "$CAN_SUDO" -eq 1 ]; then
   if [ -f /Library/LaunchDaemons/com.local.smart_metrics.plist ]; then
     $SUDO launchctl bootout system /Library/LaunchDaemons/com.local.smart_metrics.plist || true
   fi
+  if [ -f /Library/LaunchDaemons/com.local.promtail.plist ]; then
+    $SUDO launchctl bootout system /Library/LaunchDaemons/com.local.promtail.plist || true
+  fi
 else
   log "Skipping root LaunchDaemons (sudo -n not available)."
 fi
@@ -36,6 +39,7 @@ fi
 log "Stopping core services in order..."
 # Stop UI first, then storage, then exporters
 brew services stop grafana || true
+brew services stop loki || true
 brew services stop prometheus || true
 brew services stop node_exporter || true
 
@@ -43,6 +47,7 @@ log "Status checks..."
 if command -v curl >/dev/null 2>&1; then
   curl -sf http://localhost:9090/-/ready >/dev/null && log "Prometheus still running" || log "Prometheus stopped"
   curl -sf http://localhost:9100/metrics >/dev/null && log "node_exporter still running" || log "node_exporter stopped"
+  curl -sf http://localhost:3100/ready >/dev/null && log "Loki still running" || log "Loki stopped"
   curl -skf https://localhost:3000/api/health >/dev/null && log "Grafana still running" || log "Grafana stopped"
 fi
 

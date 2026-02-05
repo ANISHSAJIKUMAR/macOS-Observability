@@ -6,6 +6,8 @@ It includes configuration, dashboards, and custom exporters.
 ## Tech Stack
 - Prometheus (metrics storage)
 - Grafana (dashboards + visualization)
+- Loki (log storage)
+- Promtail (log collector)
 - node_exporter (system metrics)
 - Custom Python exporters (network, system info, launchd, Wi‑Fi, battery, thermal, SMART, Grafana health)
 - launchd / LaunchDaemon (scheduling & background services)
@@ -52,6 +54,9 @@ graph TD
   H["LaunchDaemon (root) for Wi‑Fi"] --> C
   E --> I["Retention: 14 days / 20 GB cap"]
   F --> J["Dashboards: System / Network / Info / Executive"]
+  A --> K["Promtail (log collector)"]
+  K --> L["Loki (http://localhost:3100)"]
+  L --> F
 ```
 
 ## Dashboard Inventory
@@ -60,6 +65,7 @@ Grafana folder: **Anish Laptop**
 - **Mac System: Core Health** — CPU, memory, disk usage (AnishSSD + Time Machine), disk I/O
 - **Mac Network: Connectivity & Wi‑Fi** — throughput, errors/drops, ping health, Wi‑Fi signal/rates
 - **Mac Info: Identity & Status** — system identity, key specs, running launchd jobs
+- **Mac Logs: System & Apps** — system/app logs via Loki
 - **All Metrics: Live Explorer** — all active Prometheus metrics (live only)
 - **Executive Summary: Anish Laptop** — high‑level health view for demos/interviews
 - **Anish Laptop: Overview** — navigation hub + quick KPIs
@@ -93,6 +99,7 @@ Prometheus keeps **14 days** of data with a **20 GB** cap.
 - Prometheus: http://localhost:9090
 - Grafana: https://localhost:3000
 - node_exporter: http://localhost:9100/metrics
+- Loki: http://localhost:3100
 
 ## Troubleshooting
 - **No data in Grafana**: check Prometheus and node_exporter are running and `http://localhost:9100/metrics` works.

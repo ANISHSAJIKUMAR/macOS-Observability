@@ -1,0 +1,148 @@
+{
+  "id": null,
+  "uid": "mac-logs",
+  "title": "Mac Logs: System & Apps",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "tags": [
+    "logs",
+    "loki",
+    "mac"
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "job",
+        "type": "query",
+        "datasource": {
+          "type": "loki",
+          "uid": "efccujve04lxca"
+        },
+        "query": "label_values(job)",
+        "includeAll": true,
+        "multi": true,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        }
+      },
+      {
+        "name": "log_type",
+        "type": "query",
+        "datasource": {
+          "type": "loki",
+          "uid": "efccujve04lxca"
+        },
+        "query": "label_values(log_type)",
+        "includeAll": true,
+        "multi": true,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        }
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "text",
+      "title": "Read Me",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 6
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "## Mac Logs (System + Apps)\nUse filters at the top to choose **job** (system/user/observability) and **log_type** (system, wifi, app, diagnostics).\n\nWhat this helps you answer:\n- **Is there a system problem?** Look for errors in system and wifi logs.\n- **Did an app crash?** Check diagnostic reports.\n- **Is observability healthy?** Check Grafana/Prometheus/node_exporter logs.\n\nTip: Start with **job=system** and **log_type=system** for OS issues."
+      },
+      "transparent": true
+    },
+    {
+      "id": 2,
+      "type": "logs",
+      "title": "All Logs (Filtered)",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 6,
+        "w": 24,
+        "h": 16
+      },
+      "targets": [
+        {
+          "expr": "{job=~\"$job\",log_type=~\"$log_type\"}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "dedupStrategy": "signature",
+        "enableLogDetails": true,
+        "prettifyLogMessage": true
+      }
+    },
+    {
+      "id": 3,
+      "type": "logs",
+      "title": "System Critical (errors/warn)",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 22,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "{job=\"system\"} |= \"error\" or {job=\"system\"} |= \"warn\"",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true
+      }
+    },
+    {
+      "id": 4,
+      "type": "logs",
+      "title": "Observability Logs (Grafana/Prom/Exporter)",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 22,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "{job=\"observability\"}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true
+      }
+    }
+  ]
+}
