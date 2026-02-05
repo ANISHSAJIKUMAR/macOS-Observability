@@ -86,6 +86,10 @@ scrape_configs:
           job: system
           log_type: asl
           __path__: /var/log/asl/*.asl
+    pipeline_stages:
+      - drop:
+          expression: '.+'
+          # .asl files are binary/legacy and render as unreadable in Grafana
 
   - job_name: diagnostic_reports_system
     static_configs:
@@ -128,7 +132,32 @@ scrape_configs:
         labels:
           job: system
           log_type: diagnostic_reports_retired
-          __path__: /Library/Logs/DiagnosticReports/Retired/*
+          __path__: /Library/Logs/DiagnosticReports/Retired/*.diag
+      - targets: [localhost]
+        labels:
+          job: system
+          log_type: diagnostic_reports_retired
+          __path__: /Library/Logs/DiagnosticReports/Retired/*.crash
+      - targets: [localhost]
+        labels:
+          job: system
+          log_type: diagnostic_reports_retired
+          __path__: /Library/Logs/DiagnosticReports/Retired/*.panic
+      - targets: [localhost]
+        labels:
+          job: system
+          log_type: diagnostic_reports_retired
+          __path__: /Library/Logs/DiagnosticReports/Retired/*.spin
+      - targets: [localhost]
+        labels:
+          job: system
+          log_type: diagnostic_reports_retired
+          __path__: /Library/Logs/DiagnosticReports/Retired/*.hang
+      - targets: [localhost]
+        labels:
+          job: system
+          log_type: diagnostic_reports_retired
+          __path__: /Library/Logs/DiagnosticReports/Retired/*.shutdownStall
 
   - job_name: diagnostic_reports_user
     static_configs:
@@ -161,7 +190,32 @@ scrape_configs:
         labels:
           job: user
           log_type: diagnostic_reports_retired
-          __path__: /Users/anishskumar/Library/Logs/DiagnosticReports/Retired/*
+          __path__: /Users/anishskumar/Library/Logs/DiagnosticReports/Retired/*.diag
+      - targets: [localhost]
+        labels:
+          job: user
+          log_type: diagnostic_reports_retired
+          __path__: /Users/anishskumar/Library/Logs/DiagnosticReports/Retired/*.crash
+      - targets: [localhost]
+        labels:
+          job: user
+          log_type: diagnostic_reports_retired
+          __path__: /Users/anishskumar/Library/Logs/DiagnosticReports/Retired/*.panic
+      - targets: [localhost]
+        labels:
+          job: user
+          log_type: diagnostic_reports_retired
+          __path__: /Users/anishskumar/Library/Logs/DiagnosticReports/Retired/*.spin
+      - targets: [localhost]
+        labels:
+          job: user
+          log_type: diagnostic_reports_retired
+          __path__: /Users/anishskumar/Library/Logs/DiagnosticReports/Retired/*.hang
+      - targets: [localhost]
+        labels:
+          job: user
+          log_type: diagnostic_reports_retired
+          __path__: /Users/anishskumar/Library/Logs/DiagnosticReports/Retired/*.shutdownStall
 
   - job_name: app_logs_user
     static_configs:
