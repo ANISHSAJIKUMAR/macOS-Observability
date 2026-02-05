@@ -39,6 +39,9 @@ if [ "$CAN_SUDO" -eq 1 ]; then
   if [ -f /Library/LaunchDaemons/com.local.promtail.plist ]; then
     $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.promtail.plist || true
   fi
+  if [ -f /Library/LaunchDaemons/com.local.tshark_metrics.plist ]; then
+    $SUDO launchctl bootstrap system /Library/LaunchDaemons/com.local.tshark_metrics.plist || true
+  fi
 else
   log "Skipping root LaunchDaemons (sudo -n not available)."
 fi

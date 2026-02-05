@@ -64,6 +64,7 @@ Grafana folder: **Anish Laptop**
 
 - **Mac System: Core Health** — CPU, memory, disk usage (AnishSSD + Time Machine), disk I/O
 - **Mac Network: Connectivity & Wi‑Fi** — throughput, errors/drops, ping health, Wi‑Fi signal/rates
+- **Mac Network: Live Capture (tshark)** — live traffic analysis (top talkers, protocol mix)
 - **Mac Info: Identity & Status** — system identity, key specs, running launchd jobs
 - **Mac Logs: System & Apps** — system/app logs via Loki
 - **Mac Security: Activity & Risk Signals** — security‑focused log signals and user activity

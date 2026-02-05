@@ -13,6 +13,7 @@
 - `com.local.cpu_fan_metrics.plist`
 - `com.local.smart_metrics.plist`
 - `com.local.promtail.plist`
+- `com.local.tshark_metrics.plist`
 
 ## Example Plist (Line‑by‑Line)
 ```
@@ -59,4 +60,6 @@ sudo launchctl bootout system /Library/LaunchDaemons/com.local.smart_metrics.pli
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.smart_metrics.plist
 sudo launchctl bootout system /Library/LaunchDaemons/com.local.promtail.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.promtail.plist
+sudo launchctl bootout system /Library/LaunchDaemons/com.local.tshark_metrics.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/com.local.tshark_metrics.plist
 ```

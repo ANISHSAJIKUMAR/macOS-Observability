@@ -27,6 +27,9 @@ These scripts emit Prometheus metrics into the textfile directory for node_expor
 - `wdutil_metrics.py`
   - Wi‑Fi RSSI, noise, SNR, link rate, CCA, MCS, NSS
   - Adds `wifi_metrics_source` to show data source (wdutil/system_profiler)
+- `tshark_metrics.py`
+  - Live packet capture metrics (throughput, top talkers, protocol mix)
+  - Requires root (LaunchDaemon)
   - Requires root (LaunchDaemon)
 
 ## What You Can Change

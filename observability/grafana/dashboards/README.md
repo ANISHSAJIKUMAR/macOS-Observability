@@ -13,6 +13,7 @@ JSON exports of Grafana dashboards for backup/restore.
 - `prometheus-self.json`
 - `mac-logs.json`
 - `mac-security.json`
+- `tshark-live.json`
 
 ## Usage
 Import via Grafana UI:
