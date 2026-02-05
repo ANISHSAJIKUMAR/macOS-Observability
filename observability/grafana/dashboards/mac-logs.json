@@ -343,7 +343,7 @@
       },
       "targets": [
         {
-          "expr": "{log_type=~\"wifi|wifi_analytics\"}",
+          "expr": "{log_type=~\"wifi\"}",
           "refId": "A"
         }
       ],

@@ -75,7 +75,7 @@ scrape_configs:
         labels:
           job: system
           log_type: wifi_analytics
-          __path__: /var/log/com.apple.wifi.analytics/*
+          __path__: /var/log/com.apple.wifi.analytics/*.log
       - targets: [localhost]
         labels:
           job: system
