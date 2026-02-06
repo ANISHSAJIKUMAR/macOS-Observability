@@ -2,7 +2,7 @@
 
 **Owner:** Anish Kumar (change `OWNER_NAME` in `.env`)
 
-Single source of truth for the full local monitoring stack on this Mac.
+Single source of truth for the full local monitoring stack on **macOS (Mac)**.
 Configuration is centralized in `.env` for easy path updates.
 Includes configuration, dashboards, exporters, and demo flow.
 
@@ -14,6 +14,10 @@ Includes configuration, dashboards, exporters, and demo flow.
 - node_exporter (system metrics)
 - Custom Python exporters (network, system info, launchd, Wi‑Fi, battery, thermal, SMART, Grafana health, tshark)
 - launchd / LaunchDaemon (scheduling & background services)
+
+## Platform
+- **Target OS:** macOS (tested on Apple Silicon)
+- Uses `launchd` and macOS‑specific tools (wdutil, system_profiler, powermetrics).
 
 ## UI & Performance Tuning
 - Grafana uses HTTPS locally with a self‑signed certificate.

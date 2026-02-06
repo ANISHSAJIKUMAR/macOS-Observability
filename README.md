@@ -2,10 +2,10 @@
 
 **Owner:** Anish Kumar (change `OWNER_NAME` in `observability/.env`)
 
-This repository hosts my personal DevOps workspace. The active project is **Observability**.
+This repository hosts my personal DevOps workspace. The active project is **Observability** for **macOS (Mac)**.
 
 ## Go To Project
-- Main project folder: `/Users/anishskumar/Anish-DevOps-Lab/observability`
+- Main project folder: `/Users/anishskumar/Anish-DevOps-Lab/observability` (macOS only)
 - Full setup guide: `/Users/anishskumar/Anish-DevOps-Lab/observability/README.md`
 
 ## Common Commands
@@ -19,3 +19,4 @@ Run from the root or any folder:
 ## Notes
 - Root folder is kept minimal on purpose.
 - All project scripts, configs, dashboards, and outputs live under `observability/`.
+- This setup is built and tested for macOS. Linux/Windows require different service managers and paths.
