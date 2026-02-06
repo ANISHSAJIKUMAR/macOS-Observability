@@ -2,8 +2,10 @@
 import subprocess
 import time
 import os
+from observability_env import load_env, get_textfile_dir
+load_env()
 
-OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile/launchd.prom"
+OUTFILE = os.path.join(get_textfile_dir(), "launchd.prom")
 
 
 def run(cmd):

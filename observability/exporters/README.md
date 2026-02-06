@@ -1,6 +1,7 @@
 # Custom Exporters
 
 ## Purpose
+This folder uses the central `.env` file for paths.
 These scripts emit Prometheus metrics into the textfile directory for node_exporter.
 
 ## Files & Behavior

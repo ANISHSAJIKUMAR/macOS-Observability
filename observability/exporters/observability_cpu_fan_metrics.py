@@ -3,8 +3,10 @@ import subprocess
 import time
 import os
 import plistlib
+from observability_env import load_env, get_textfile_dir
+load_env()
 
-OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile/cpu_fan.prom"
+OUTFILE = os.path.join(get_textfile_dir(), "cpu_fan.prom")
 
 
 def run_powermetrics_plist():

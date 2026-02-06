@@ -1,6 +1,9 @@
 # Anish Laptop Observability (Complete Guide)
 
+**Owner:** Anish Kumar (change `OWNER_NAME` in `.env`)
+
 Single source of truth for the full local monitoring stack on this Mac.
+Configuration is centralized in `.env` for easy path updates.
 Includes configuration, dashboards, exporters, and demo flow.
 
 ## Tech Stack
@@ -250,3 +253,10 @@ These images intentionally **exclude** logs, security, network, tshark, and iden
 ## Output Folder
 - /Users/anishskumar/Anish-DevOps-Lab/observability/output
   (Screenshots, renders, and exported artifacts)
+
+
+## Path Updates
+If you move this repo, update `OBS_BASE` in `.env` and run:
+```bash
+./tools/update_paths.sh
+```

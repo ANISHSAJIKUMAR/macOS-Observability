@@ -3,8 +3,10 @@ import subprocess
 import time
 import os
 import re
+from observability_env import load_env, get_textfile_dir
+load_env()
 
-OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile/smart.prom"
+OUTFILE = os.path.join(get_textfile_dir(), "smart.prom")
 
 
 def list_disks():

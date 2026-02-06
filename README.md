@@ -1,5 +1,7 @@
 # Anish DevOps Lab (Root)
 
+**Owner:** Anish Kumar (change `OWNER_NAME` in `observability/.env`)
+
 This repository hosts my personal DevOps workspace. The active project is **Observability**.
 
 ## Go To Project

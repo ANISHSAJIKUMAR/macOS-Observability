@@ -2,8 +2,10 @@
 import hashlib
 import time
 import os
+from observability_env import load_env, get_textfile_dir
+load_env()
 
-OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile/prom_config_checksum.prom"
+OUTFILE = os.path.join(get_textfile_dir(), "prom_config_checksum.prom")
 FILES = [
     "/Users/anishskumar/Anish-DevOps-Lab/observability/prometheus/prometheus.yml",
     "/Users/anishskumar/Anish-DevOps-Lab/observability/prometheus/prometheus.args",

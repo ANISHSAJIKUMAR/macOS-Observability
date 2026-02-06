@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+OBS_BASE="${OBS_BASE:-$(cd "$(dirname "$0")" && pwd)}"
+ENV_FILE="${OBS_ENV_FILE:-$OBS_BASE/.env}"
+if [ -f "$ENV_FILE" ]; then
+  set -a
+  # shellcheck disable=SC1090
+  . "$ENV_FILE"
+  set +a
+fi
 # Non-interactive: do not prompt for sudo
 SUDO="sudo -n"
 CAN_SUDO=1

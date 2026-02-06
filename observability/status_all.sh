@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+OBS_BASE="${OBS_BASE:-$(cd "$(dirname "$0")" && pwd)}"
+ENV_FILE="${OBS_ENV_FILE:-$OBS_BASE/.env}"
+if [ -f "$ENV_FILE" ]; then
+  set -a
+  # shellcheck disable=SC1090
+  . "$ENV_FILE"
+  set +a
+fi
 log() { printf "[status] %s\n" "$*"; }
 
 SUDO="sudo -n"
@@ -76,7 +84,7 @@ else
 fi
 
 log "Textfile exporter freshness"
-TEXTDIR="/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile"
+TEXTDIR="${TEXTFILE_DIR:-$OBS_BASE/node_exporter/textfile}"
 if command -v python3 >/dev/null 2>&1; then
   python3 - <<PY
 import os, time, glob

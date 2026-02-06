@@ -3,8 +3,10 @@ import subprocess
 import time
 import re
 import os
+from observability_env import load_env, get_textfile_dir
+load_env()
 
-OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile/net_connectivity.prom"
+OUTFILE = os.path.join(get_textfile_dir(), "net_connectivity.prom")
 
 TARGETS = ["1.1.1.1", "8.8.8.8"]
 IFACES = ["en0", "en1"]

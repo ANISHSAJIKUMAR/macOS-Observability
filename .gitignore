@@ -28,3 +28,6 @@ observability/promtail/positions.yaml
 
 # Local artifacts
 observability/output/
+
+# Track central config
+!observability/.env

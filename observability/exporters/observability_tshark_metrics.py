@@ -3,8 +3,10 @@ import os
 import re
 import subprocess
 import time
+from observability_env import load_env, get_textfile_dir
+load_env()
 
-OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile/tshark.prom"
+OUTFILE = os.path.join(get_textfile_dir(), "tshark.prom")
 
 IFACE = os.environ.get("TS_IFACE", "en0")
 DURATION = int(os.environ.get("TS_DURATION", "5"))

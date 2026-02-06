@@ -4,8 +4,10 @@ import re
 import subprocess
 import time
 import glob
+from observability_env import load_env, get_textfile_dir
+load_env()
 
-OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile/vmware_fusion.prom"
+OUTFILE = os.path.join(get_textfile_dir(), "vmware_fusion.prom")
 
 DEFAULT_VMRUN = "/Applications/VMware Fusion.app/Contents/Library/vmrun"
 

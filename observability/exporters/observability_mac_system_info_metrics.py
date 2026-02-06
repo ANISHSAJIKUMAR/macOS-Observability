@@ -4,8 +4,10 @@ import time
 import platform
 import socket
 import os
+from observability_env import load_env, get_textfile_dir
+load_env()
 
-OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile/mac_system_info.prom"
+OUTFILE = os.path.join(get_textfile_dir(), "mac_system_info.prom")
 
 
 def run(cmd):

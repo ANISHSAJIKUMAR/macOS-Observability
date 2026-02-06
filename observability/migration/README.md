@@ -40,6 +40,8 @@ docker compose down
 
 ## B) New Mac (Non‑Docker, permanent setup)
 
+Use `.env` to centralize paths (update `OBS_BASE` if your repo is in a different location).
+
 ### 1. Requirements
 - Homebrew installed
 

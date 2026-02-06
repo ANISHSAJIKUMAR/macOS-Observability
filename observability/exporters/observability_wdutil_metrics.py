@@ -4,8 +4,10 @@ import time
 import re
 import os
 import json
+from observability_env import load_env, get_textfile_dir
+load_env()
 
-OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile/wifi.prom"
+OUTFILE = os.path.join(get_textfile_dir(), "wifi.prom")
 
 
 def run(cmd):

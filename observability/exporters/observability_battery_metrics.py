@@ -3,8 +3,10 @@ import json
 import subprocess
 import time
 import os
+from observability_env import load_env, get_textfile_dir
+load_env()
 
-OUTFILE = "/Users/anishskumar/Anish-DevOps-Lab/observability/node_exporter/textfile/battery.prom"
+OUTFILE = os.path.join(get_textfile_dir(), "battery.prom")
 
 
 def run_json(cmd):
