@@ -245,3 +245,8 @@ These images intentionally **exclude** logs, security, network, tshark, and iden
 
 ## VMware Folder
 - /Users/anishskumar/Anish-DevOps-Lab/observability/vmware/README.md
+
+
+## Output Folder
+- /Users/anishskumar/Anish-DevOps-Lab/observability/output
+  (Screenshots, renders, and exported artifacts)

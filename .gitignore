@@ -27,4 +27,4 @@ observability/promtail/positions.yaml
 *.secret
 
 # Local artifacts
-output/
+observability/output/

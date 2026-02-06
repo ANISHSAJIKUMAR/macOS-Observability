@@ -16,4 +16,4 @@ Run from the root or any folder:
 
 ## Notes
 - Root folder is kept minimal on purpose.
-- All project scripts, configs, and dashboards live under `observability/`.
+- All project scripts, configs, dashboards, and outputs live under `observability/`.
