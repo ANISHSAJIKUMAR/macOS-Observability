@@ -219,3 +219,18 @@ curl -skf https://localhost:3000/api/health
 - Dashboard layouts are compacted to avoid empty space.
 - Log dashboards are tagged `logs` for easy search.
 - Overview page is the default home with pinned links.
+
+## Showcase Screenshots (Non‑Sensitive)
+These images intentionally **exclude** logs, security, network, tshark, and identity dashboards.
+
+### Overview
+![Overview](docs/screenshots/overview.png)
+
+### Executive Summary
+![Executive Summary](docs/screenshots/executive-summary.png)
+
+### Mac System: Core Health
+![Mac System Core Health](docs/screenshots/mac-system-core-health.png)
+
+### Prometheus: Self‑Monitoring
+![Prometheus Self Monitoring](docs/screenshots/prometheus-self.png)

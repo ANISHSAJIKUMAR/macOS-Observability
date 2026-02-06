@@ -80,3 +80,7 @@ sudo launchctl print system/observability.wdutil_metrics
 - All Prometheus panels have safe no‑data fallbacks.
 - Log dashboards tagged with `logs` for search.
 - Overview page updated with pinned navigation.
+
+## Showcase Screenshots (Non‑Sensitive)
+See full gallery in:
+`/Users/anishskumar/Anish-DevOps-Lab/observability/README.md`
