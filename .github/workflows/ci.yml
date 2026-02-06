@@ -1,6 +1,7 @@
+---
 name: ci
 
-on:
+"on":
   push:
   pull_request:
 
@@ -83,5 +84,3 @@ jobs:
 
       - name: Gitleaks (secrets scan)
         uses: gitleaks/gitleaks-action@v2
-        with:
-          args: detect --source=. --no-git -v
