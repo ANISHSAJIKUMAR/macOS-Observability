@@ -6,9 +6,9 @@ Personal DevOps workspace for my Mac. The primary project is a full local **obse
 Use these scripts to start or stop everything without deleting any data:
 
 ```bash
-./stop_all.sh
-./start_all.sh
-./status_all.sh
+./observability/stop_all.sh
+./observability/start_all.sh
+./observability/status_all.sh
 ```
 
 ## Observability Folder (Summary)
@@ -31,12 +31,12 @@ Docs:
 ## Notes
 - Grafana runs on HTTPS with a self‑signed certificate.
 - Root LaunchDaemons (Wi‑Fi, SMART, fan/thermal, promtail, tshark) require sudo.
-- Use `sudo -v` once per session if you want root exporters to start from `start_all.sh`.
+- Use `sudo -v` once per session if you want root exporters to start from `observability/start_all.sh`.
 
 ## Folder Structure (Top Level)
 - `observability/` — full monitoring stack (metrics + logs)
 - `output/` — generated artifacts (screenshots/exports)
-- `start_all.sh` / `stop_all.sh` — start/stop everything
+- `observability/start_all.sh` / `observability/stop_all.sh` — start/stop everything
 
 ## Demo Links (Quick Navigation)
 - Overview: https://localhost:3000/d/overview/anish-laptop3a-overview
