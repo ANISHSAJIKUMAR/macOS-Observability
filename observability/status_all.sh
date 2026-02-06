@@ -3,8 +3,8 @@ set -euo pipefail
 
 OBS_BASE="${OBS_BASE:-$(cd "$(dirname "$0")" && pwd)}"
 ENV_FILE="${OBS_ENV_FILE:-$OBS_BASE/.env}"
-LAUNCH_AGENTS_DIR="${LAUNCH_AGENTS_DIR:-${LAUNCH_AGENTS_DIR}}"
-LAUNCH_DAEMONS_DIR="${LAUNCH_DAEMONS_DIR:-${LAUNCH_DAEMONS_DIR}}"
+LAUNCH_AGENTS_DIR="${LAUNCH_AGENTS_DIR:-$HOME/Library/LaunchAgents}"
+LAUNCH_DAEMONS_DIR="${LAUNCH_DAEMONS_DIR:-/Library/LaunchDaemons}"
 if [ -f "$ENV_FILE" ]; then
   set -a
   # shellcheck disable=SC1090
@@ -64,7 +64,7 @@ for svc in \
   observability.launchd_metrics \
   observability.grafana_health \
   observability.prom_config_checksum \
-  observability.battery_metrics
+  observability.battery_metrics \
   observability.vmware_fusion_metrics
   do
     launchctl print "$USER_DOMAIN/$svc" 2>/dev/null | awk '/state =|last exit code =/' | head -n 2 | sed "s/^/[agent] $svc /" || true
