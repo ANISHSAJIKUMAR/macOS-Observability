@@ -241,3 +241,7 @@ These images intentionally **exclude** logs, security, network, tshark, and iden
 - Dashboard: https://localhost:3000/d/vmware-fusion/vmware-fusion3a-vm-health
 - Exporter: /Users/anishskumar/Anish-DevOps-Lab/observability/exporters/observability_vmware_fusion_metrics.py
 - LaunchAgent: /Users/anishskumar/Library/LaunchAgents/observability.vmware_fusion_metrics.plist
+
+
+## VMware Folder
+- /Users/anishskumar/Anish-DevOps-Lab/observability/vmware/README.md
