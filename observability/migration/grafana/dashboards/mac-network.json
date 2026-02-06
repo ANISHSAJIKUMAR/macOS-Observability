@@ -63,7 +63,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -115,7 +115,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -167,7 +167,7 @@
         "h": 4,
         "w": 4,
         "x": 8,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -201,7 +201,7 @@
         "h": 4,
         "w": 4,
         "x": 12,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -235,7 +235,7 @@
         "h": 4,
         "w": 4,
         "x": 16,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -268,7 +268,7 @@
         "h": 4,
         "w": 2,
         "x": 20,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -319,8 +319,8 @@
       "gridPos": {
         "h": 4,
         "w": 2,
-        "x": 22,
-        "y": 4
+        "x": 4,
+        "y": 9
       },
       "options": {
         "graphMode": "area",
@@ -348,7 +348,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 13
       },
       "options": {
         "content": "## Read Me\nThis Grafana workspace monitors Anish's personal Mac with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health \u2014 CPU, memory, disk usage (including AnishSSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi\u2011Fi \u2014 throughput, errors/drops, ping health, Wi\u2011Fi signal/rates\n- Mac Info: Identity & Status \u2014 system identity, key specs, running launchd services\n- All Metrics: Live Explorer \u2014 all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, mac_system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi\u2011Fi metrics\n",
@@ -363,7 +363,7 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 19
       },
       "options": {
         "content": "Includes:\n- Throughput RX/TX (all or selected interfaces)\n- Packets RX/TX\n- Errors RX/TX\n- Drops RX/TX\n- Multicast\n- Total bytes\n- Top interfaces by throughput\n- Average packet size\n- Connectivity (ping latency/loss)\n- Interface link state (en0/en1)\n- Wi\u2011Fi signal (RSSI/Noise/SNR), rates, CCA, MCS, NSS",
@@ -384,7 +384,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 23
       },
       "targets": [
         {
@@ -411,7 +411,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 31
       },
       "targets": [
         {
@@ -438,7 +438,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 39
       },
       "targets": [
         {
@@ -465,7 +465,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 39
       },
       "targets": [
         {
@@ -492,7 +492,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 43
+        "y": 47
       },
       "targets": [
         {
@@ -519,7 +519,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 43
+        "y": 47
       },
       "targets": [
         {
@@ -546,7 +546,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 51
+        "y": 55
       },
       "targets": [
         {
@@ -569,7 +569,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 55
       },
       "targets": [
         {
@@ -596,7 +596,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 59
+        "y": 63
       },
       "targets": [
         {
@@ -623,7 +623,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 59
+        "y": 63
       },
       "targets": [
         {
@@ -647,7 +647,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 67
+        "y": 71
       },
       "targets": [
         {
@@ -682,7 +682,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 67
+        "y": 71
       },
       "targets": [
         {
@@ -708,7 +708,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 75
+        "y": 79
       },
       "targets": [
         {
@@ -730,7 +730,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 75
+        "y": 79
       },
       "targets": [
         {
@@ -756,7 +756,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 82
+        "y": 86
       },
       "targets": [
         {
@@ -778,7 +778,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 82
+        "y": 86
       },
       "targets": [
         {
@@ -825,8 +825,8 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 20,
-        "y": 4
+        "x": 0,
+        "y": 9
       },
       "targets": [
         {
@@ -843,7 +843,7 @@
       "description": "Shows which system command is providing Wi\u2011Fi metrics (wdutil or system_profiler). Helpful for debugging metric availability.",
       "gridPos": {
         "x": 0,
-        "y": 90,
+        "y": 93,
         "w": 6,
         "h": 7
       },

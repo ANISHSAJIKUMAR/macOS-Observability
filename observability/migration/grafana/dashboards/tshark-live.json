@@ -262,7 +262,7 @@
       "description": "Top IP conversations by bytes. This is the closest \u201cflow view\u201d in Grafana without a full packet viewer.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "gridPos": {
         "x": 0,
-        "y": 30,
+        "y": 29,
         "w": 24,
         "h": 10
       },
@@ -290,7 +290,7 @@
       "description": "Potential risk indicators from live capture: SYNs, resets, retransmissions, DNS/ARP/ICMP.",
       "gridPos": {
         "x": 0,
-        "y": 40,
+        "y": 39,
         "w": 12,
         "h": 10
       },
@@ -318,7 +318,7 @@
       "description": "Byte volume by security\u2011related filter.",
       "gridPos": {
         "x": 12,
-        "y": 40,
+        "y": 39,
         "w": 12,
         "h": 10
       },
@@ -346,7 +346,7 @@
       "description": "Trends of security-related packet signals over time (SYN, RST, retransmissions, DNS, TLS, QUIC).",
       "gridPos": {
         "x": 0,
-        "y": 51,
+        "y": 49,
         "w": 24,
         "h": 9
       },

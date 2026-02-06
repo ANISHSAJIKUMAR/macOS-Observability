@@ -62,7 +62,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -114,7 +114,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -166,7 +166,7 @@
         "h": 4,
         "w": 4,
         "x": 8,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -200,7 +200,7 @@
         "h": 4,
         "w": 4,
         "x": 12,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -234,7 +234,7 @@
         "h": 4,
         "w": 4,
         "x": 16,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -267,7 +267,7 @@
         "h": 4,
         "w": 2,
         "x": 20,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -318,8 +318,8 @@
       "gridPos": {
         "h": 4,
         "w": 2,
-        "x": 22,
-        "y": 4
+        "x": 4,
+        "y": 9
       },
       "options": {
         "graphMode": "area",
@@ -347,7 +347,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 13
       },
       "options": {
         "content": "## Read Me\nThis Grafana workspace monitors Anish's personal Mac with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health \u2014 CPU, memory, disk usage (including AnishSSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi\u2011Fi \u2014 throughput, errors/drops, ping health, Wi\u2011Fi signal/rates\n- Mac Info: Identity & Status \u2014 system identity, key specs, running launchd services\n- All Metrics: Live Explorer \u2014 all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, mac_system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi\u2011Fi metrics\n",
@@ -367,7 +367,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 15
+        "y": 19
       },
       "targets": [
         {
@@ -384,7 +384,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 15
+        "y": 19
       },
       "targets": [
         {
@@ -406,7 +406,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 15
+        "y": 19
       },
       "targets": [
         {
@@ -430,7 +430,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 15
+        "y": 19
       },
       "targets": [
         {
@@ -454,7 +454,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 19
+        "y": 23
       },
       "targets": [
         {
@@ -478,7 +478,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 19
+        "y": 23
       },
       "targets": [
         {
@@ -502,7 +502,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 19
+        "y": 23
       },
       "targets": [
         {
@@ -543,7 +543,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 27
+        "y": 31
       },
       "targets": [
         {
@@ -585,7 +585,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 27
+        "y": 31
       },
       "targets": [
         {
@@ -609,7 +609,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 39
       },
       "targets": [
         {
@@ -626,7 +626,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 39
       },
       "targets": [
         {
@@ -658,7 +658,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 43
+        "y": 47
       },
       "targets": [
         {
@@ -680,7 +680,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 43
+        "y": 47
       },
       "targets": [
         {
@@ -710,7 +710,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 51
+        "y": 55
       },
       "targets": [
         {
@@ -733,7 +733,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 55
       },
       "targets": [
         {
@@ -760,7 +760,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 59
+        "y": 63
       },
       "targets": [
         {
@@ -787,7 +787,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 59
+        "y": 63
       },
       "targets": [
         {
@@ -814,7 +814,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 67
+        "y": 81
       },
       "targets": [
         {
@@ -857,8 +857,8 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 20,
-        "y": 4
+        "x": 0,
+        "y": 9
       },
       "targets": [
         {
@@ -881,7 +881,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 60
+        "y": 71
       },
       "targets": [
         {
@@ -903,7 +903,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 60
+        "y": 71
       },
       "targets": [
         {
@@ -933,7 +933,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 60
+        "y": 71
       },
       "targets": [
         {
@@ -975,7 +975,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 60
+        "y": 71
       },
       "targets": [
         {
@@ -991,7 +991,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 64
+        "y": 75
       },
       "targets": [
         {
@@ -1025,8 +1025,8 @@
       "title": "Battery Charge (%)",
       "description": "Shows current battery percentage. Below ~20% plan to plug in soon. Below 10% save work to avoid shutdown.",
       "gridPos": {
-        "x": 0,
-        "y": 76,
+        "x": 12,
+        "y": 81,
         "w": 6,
         "h": 7
       },
@@ -1077,8 +1077,8 @@
       "title": "Battery Health Max Capacity (%)",
       "description": "Health of the battery compared to when it was new. 100% = new, lower means reduced capacity. If it drops below ~80%, consider battery service.",
       "gridPos": {
-        "x": 6,
-        "y": 76,
+        "x": 18,
+        "y": 81,
         "w": 6,
         "h": 7
       },
@@ -1129,8 +1129,8 @@
       "title": "Battery Cycle Count",
       "description": "Number of full charge cycles. Higher counts mean the battery is older. Apple batteries are typically rated around 1000 cycles.",
       "gridPos": {
-        "x": 12,
-        "y": 76,
+        "x": 0,
+        "y": 89,
         "w": 6,
         "h": 7
       },
@@ -1164,8 +1164,8 @@
       "title": "Charger Connected",
       "description": "Whether a charger is connected. Useful to confirm power source during long workloads.",
       "gridPos": {
-        "x": 18,
-        "y": 76,
+        "x": 6,
+        "y": 89,
         "w": 6,
         "h": 7
       },
@@ -1212,8 +1212,8 @@
       "title": "Power Source (AC/Battery)",
       "description": "Shows if the Mac is currently running on AC power or battery.",
       "gridPos": {
-        "x": 0,
-        "y": 83,
+        "x": 12,
+        "y": 89,
         "w": 6,
         "h": 7
       },
@@ -1247,8 +1247,8 @@
       "title": "Battery Condition",
       "description": "Battery health label from macOS (e.g., Good). If it shows Service Recommended, plan a replacement.",
       "gridPos": {
-        "x": 6,
-        "y": 83,
+        "x": 18,
+        "y": 89,
         "w": 6,
         "h": 7
       },
@@ -1282,8 +1282,8 @@
       "title": "Thermal Pressure Level",
       "description": "How hard the system is working thermally. Nominal is normal, Moderate/Heavy/Critical indicate heat throttling risk.",
       "gridPos": {
-        "x": 12,
-        "y": 83,
+        "x": 0,
+        "y": 96,
         "w": 6,
         "h": 7
       },
@@ -1353,8 +1353,8 @@
       "title": "Thermal Pressure State",
       "description": "Human-readable thermal state from macOS. Helps explain CPU slowdowns during sustained load.",
       "gridPos": {
-        "x": 18,
-        "y": 83,
+        "x": 6,
+        "y": 96,
         "w": 6,
         "h": 7
       },
@@ -1388,8 +1388,8 @@
       "title": "CPU Temperature Available",
       "description": "Whether CPU temperature is readable on this Mac. Some Apple Silicon models do not expose this metric.",
       "gridPos": {
-        "x": 0,
-        "y": 90,
+        "x": 12,
+        "y": 96,
         "w": 6,
         "h": 7
       },
@@ -1436,8 +1436,8 @@
       "title": "Fan Speed Available",
       "description": "Whether fan speed is readable on this Mac. Some models do not expose this metric.",
       "gridPos": {
-        "x": 6,
-        "y": 90,
+        "x": 18,
+        "y": 96,
         "w": 6,
         "h": 7
       },
@@ -1484,8 +1484,8 @@
       "title": "SMART Status (Label)",
       "description": "SMART drive health label from diskutil (e.g., Verified). Indicates if storage is reporting normal health.",
       "gridPos": {
-        "x": 12,
-        "y": 90,
+        "x": 0,
+        "y": 103,
         "w": 6,
         "h": 7
       },
@@ -1519,8 +1519,8 @@
       "title": "SMART Health OK",
       "description": "Overall SMART health reported by the disk when available. 1 means OK.",
       "gridPos": {
-        "x": 18,
-        "y": 90,
+        "x": 6,
+        "y": 103,
         "w": 6,
         "h": 7
       },
@@ -1567,8 +1567,8 @@
       "title": "SMART Supported",
       "description": "Shows if SMART monitoring is supported on the disk. Some Apple SSDs report via diskutil instead.",
       "gridPos": {
-        "x": 0,
-        "y": 97,
+        "x": 12,
+        "y": 103,
         "w": 6,
         "h": 7
       },

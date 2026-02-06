@@ -83,7 +83,7 @@
       "title": "Read Me: How to Use Logs",
       "gridPos": {
         "x": 0,
-        "y": 5,
+        "y": 0,
         "w": 24,
         "h": 6
       },
@@ -150,8 +150,8 @@
       "title": "Log Ingestion Health",
       "description": "Promtail shipping status. If this is 0, Promtail is not sending logs to Loki.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
       "gridPos": {
-        "x": 6,
-        "y": 6,
+        "x": 0,
+        "y": 17,
         "w": 6,
         "h": 5
       },
@@ -201,7 +201,7 @@
       "title": "Read Me: How to Use Logs",
       "gridPos": {
         "x": 0,
-        "y": 6,
+        "y": 11,
         "w": 24,
         "h": 6
       },
@@ -221,7 +221,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 17,
+        "y": 22,
         "w": 24,
         "h": 16
       },
@@ -263,7 +263,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 33,
+        "y": 38,
         "w": 12,
         "h": 10
       },
@@ -305,7 +305,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 33,
+        "y": 38,
         "w": 12,
         "h": 10
       },
@@ -348,7 +348,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 44,
+        "y": 48,
         "w": 12,
         "h": 10
       },
@@ -385,7 +385,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 55,
+        "y": 58,
         "w": 24,
         "h": 10
       },
@@ -418,7 +418,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 66,
+        "y": 68,
         "w": 24,
         "h": 10
       },
@@ -451,7 +451,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 76,
+        "y": 78,
         "w": 24,
         "h": 10
       },
@@ -484,7 +484,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 87,
+        "y": 88,
         "w": 12,
         "h": 9
       },
@@ -517,7 +517,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 87,
+        "y": 88,
         "w": 12,
         "h": 9
       },
@@ -550,7 +550,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 96,
+        "y": 97,
         "w": 12,
         "h": 9
       },
@@ -583,7 +583,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 96,
+        "y": 97,
         "w": 12,
         "h": 9
       },
@@ -616,7 +616,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 105,
+        "y": 106,
         "w": 12,
         "h": 9
       },

@@ -13,8 +13,8 @@
         "h": 6
       },
       "options": {
-        "mode": "markdown",
-        "content": "## Anish Laptop Observability\nThis landing page is your quick map. Start with the pinned dashboards below.\n\n### Pinned Dashboards (Start Here)\n- [Executive Summary](https://localhost:3000/d/exec-summary/executive-summary3a-anish-laptop) \u2014 interview\u2011friendly story\n- [Mac System: Core Health](https://localhost:3000/d/mac-system-all/mac-system3a-core-health) \u2014 CPU, memory, disks, battery, thermal\n- [Mac Network: Connectivity & Wi\u2011Fi](https://localhost:3000/d/mac-network/mac-network3a-connectivity-and-wie28091-fi) \u2014 throughput, drops, Wi\u2011Fi quality\n- [Mac Logs: System & Apps](https://localhost:3000/d/mac-logs/mac-logs3a-system-apps-and-observability) \u2014 system + app logs\n- [Mac Security: Activity & Risk Signals](https://localhost:3000/d/mac-security/mac-security3a-activity-and-risk-signals) \u2014 auth failures + security signals\n- [Prometheus: Self\u2011Monitoring](https://localhost:3000/d/prometheus-self/prometheus3a-selfe28091-monitoring) \u2014 scrape health, TSDB, WAL\n\n### Deep Dives\n- [Mac Info: Identity & Status](https://localhost:3000/d/mac-info/mac-info3a-identity-and-status) \u2014 system identity + launchd\n- [All Metrics: Live Explorer](https://localhost:3000/d/all-metrics-full/all-metrics3a-live-explorer) \u2014 raw metrics\n- [Live Capture (tshark)](https://localhost:3000/d/tshark-live/mac-network3a-live-capture-tshark) \u2014 packet\u2011level analysis\n\nTip: Start here, then drill down when a metric looks abnormal."
+        "mode": "html",
+        "content": "<div style=\"font-size: 15px; line-height: 1.5;\">\n  <div style=\"font-size: 22px; font-weight: 700; margin-bottom: 6px;\">Anish Laptop Observability</div>\n  <div style=\"opacity: 0.85; margin-bottom: 12px;\">Your personal, end\u2011to\u2011end monitoring command center.</div>\n  <div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 12px;\">\n    <div>\n      <div style=\"font-weight: 700; margin-bottom: 6px;\">Pinned Dashboards (Start Here)</div>\n      <ul>\n        <li><a href=\"https://localhost:3000/d/exec-summary/executive-summary3a-anish-laptop\">Executive Summary</a> \u2014 interview\u2011friendly story</li>\n        <li><a href=\"https://localhost:3000/d/mac-system-all/mac-system3a-core-health\">Mac System: Core Health</a> \u2014 CPU, memory, disks, battery, thermal</li>\n        <li><a href=\"https://localhost:3000/d/mac-network/mac-network3a-connectivity-and-wie28091-fi\">Mac Network: Connectivity & Wi\u2011Fi</a> \u2014 throughput, drops, Wi\u2011Fi quality</li>\n        <li><a href=\"https://localhost:3000/d/mac-logs/mac-logs3a-system-apps-and-observability\">Mac Logs: System & Apps</a> \u2014 system + app logs</li>\n        <li><a href=\"https://localhost:3000/d/mac-security/mac-security3a-activity-and-risk-signals\">Mac Security: Activity & Risk Signals</a> \u2014 auth failures + security signals</li>\n        <li><a href=\"https://localhost:3000/d/prometheus-self/prometheus3a-selfe28091-monitoring\">Prometheus: Self\u2011Monitoring</a> \u2014 scrape health, TSDB, WAL</li>\n      </ul>\n    </div>\n    <div>\n      <div style=\"font-weight: 700; margin-bottom: 6px;\">Deep Dives</div>\n      <ul>\n        <li><a href=\"https://localhost:3000/d/mac-info/mac-info3a-identity-and-status\">Mac Info: Identity & Status</a> \u2014 identity + launchd</li>\n        <li><a href=\"https://localhost:3000/d/all-metrics-full/all-metrics3a-live-explorer\">All Metrics: Live Explorer</a> \u2014 raw metrics</li>\n        <li><a href=\"https://localhost:3000/d/tshark-live/mac-network3a-live-capture-tshark\">Live Capture (tshark)</a> \u2014 packet\u2011level analysis</li>\n      </ul>\n      <div style=\"margin-top: 10px; opacity: 0.85;\">Tip: Start here, then drill down when a metric looks abnormal.</div>\n    </div>\n  </div>\n</div>"
       },
       "transparent": true
     },
@@ -218,7 +218,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 0,
+        "x": 4,
         "y": 20
       },
       "options": {
@@ -268,7 +268,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 4,
+        "x": 8,
         "y": 20
       },
       "options": {
@@ -318,7 +318,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 8,
+        "x": 12,
         "y": 20
       },
       "options": {
@@ -368,7 +368,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 12,
+        "x": 16,
         "y": 20
       },
       "options": {
@@ -466,8 +466,8 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 20,
-        "y": 14
+        "x": 0,
+        "y": 20
       },
       "targets": [
         {
@@ -484,7 +484,7 @@
       "description": "Shows current battery percentage. Below ~20% plan to plug in soon. Below 10% save work to avoid shutdown.",
       "gridPos": {
         "x": 0,
-        "y": 32,
+        "y": 31,
         "w": 6,
         "h": 7
       },
@@ -536,7 +536,7 @@
       "description": "Health of the battery compared to when it was new. 100% = new, lower means reduced capacity. If it drops below ~80%, consider battery service.",
       "gridPos": {
         "x": 6,
-        "y": 32,
+        "y": 31,
         "w": 6,
         "h": 7
       },
@@ -588,7 +588,7 @@
       "description": "Number of full charge cycles. Higher counts mean the battery is older. Apple batteries are typically rated around 1000 cycles.",
       "gridPos": {
         "x": 12,
-        "y": 32,
+        "y": 31,
         "w": 6,
         "h": 7
       },
@@ -623,7 +623,7 @@
       "description": "Whether a charger is connected. Useful to confirm power source during long workloads.",
       "gridPos": {
         "x": 18,
-        "y": 32,
+        "y": 31,
         "w": 6,
         "h": 7
       },
@@ -671,7 +671,7 @@
       "description": "Shows if the Mac is currently running on AC power or battery.",
       "gridPos": {
         "x": 0,
-        "y": 39,
+        "y": 38,
         "w": 6,
         "h": 7
       },
@@ -706,7 +706,7 @@
       "description": "Battery health label from macOS (e.g., Good). If it shows Service Recommended, plan a replacement.",
       "gridPos": {
         "x": 6,
-        "y": 39,
+        "y": 38,
         "w": 6,
         "h": 7
       },
@@ -741,7 +741,7 @@
       "description": "How hard the system is working thermally. Nominal is normal, Moderate/Heavy/Critical indicate heat throttling risk.",
       "gridPos": {
         "x": 12,
-        "y": 39,
+        "y": 38,
         "w": 6,
         "h": 7
       },
@@ -812,7 +812,7 @@
       "description": "Human-readable thermal state from macOS. Helps explain CPU slowdowns during sustained load.",
       "gridPos": {
         "x": 18,
-        "y": 39,
+        "y": 38,
         "w": 6,
         "h": 7
       },
@@ -847,7 +847,7 @@
       "description": "Whether CPU temperature is readable on this Mac. Some Apple Silicon models do not expose this metric.",
       "gridPos": {
         "x": 0,
-        "y": 46,
+        "y": 45,
         "w": 6,
         "h": 7
       },
@@ -895,7 +895,7 @@
       "description": "Whether fan speed is readable on this Mac. Some models do not expose this metric.",
       "gridPos": {
         "x": 6,
-        "y": 46,
+        "y": 45,
         "w": 6,
         "h": 7
       },
@@ -943,7 +943,7 @@
       "description": "SMART drive health label from diskutil (e.g., Verified). Indicates if storage is reporting normal health.",
       "gridPos": {
         "x": 12,
-        "y": 46,
+        "y": 45,
         "w": 6,
         "h": 7
       },
@@ -978,7 +978,7 @@
       "description": "Overall SMART health reported by the disk when available. 1 means OK.",
       "gridPos": {
         "x": 18,
-        "y": 46,
+        "y": 45,
         "w": 6,
         "h": 7
       },
@@ -1026,7 +1026,7 @@
       "description": "Shows if SMART monitoring is supported on the disk. Some Apple SSDs report via diskutil instead.",
       "gridPos": {
         "x": 0,
-        "y": 53,
+        "y": 52,
         "w": 6,
         "h": 7
       },

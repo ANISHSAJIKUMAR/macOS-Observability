@@ -62,7 +62,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -114,7 +114,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -166,7 +166,7 @@
         "h": 4,
         "w": 4,
         "x": 8,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -200,7 +200,7 @@
         "h": 4,
         "w": 4,
         "x": 12,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -234,7 +234,7 @@
         "h": 4,
         "w": 4,
         "x": 16,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -267,7 +267,7 @@
         "h": 4,
         "w": 2,
         "x": 20,
-        "y": 4
+        "y": 5
       },
       "options": {
         "graphMode": "area",
@@ -318,8 +318,8 @@
       "gridPos": {
         "h": 4,
         "w": 2,
-        "x": 22,
-        "y": 4
+        "x": 4,
+        "y": 9
       },
       "options": {
         "graphMode": "area",
@@ -347,7 +347,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 13
       },
       "options": {
         "content": "## Read Me\nThis Grafana workspace monitors Anish's personal Mac with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health \u2014 CPU, memory, disk usage (including AnishSSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi\u2011Fi \u2014 throughput, errors/drops, ping health, Wi\u2011Fi signal/rates\n- Mac Info: Identity & Status \u2014 system identity, key specs, running launchd services\n- All Metrics: Live Explorer \u2014 all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, mac_system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi\u2011Fi metrics\n",
@@ -362,7 +362,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 19
       },
       "targets": [
         {
@@ -401,7 +401,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 23
+        "y": 27
       },
       "targets": [
         {
@@ -418,7 +418,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 23
+        "y": 27
       },
       "targets": [
         {
@@ -440,7 +440,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 23
+        "y": 27
       },
       "targets": [
         {
@@ -464,7 +464,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 23
+        "y": 27
       },
       "targets": [
         {
@@ -487,7 +487,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 27
+        "y": 31
       },
       "targets": [
         {
@@ -522,7 +522,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 27
+        "y": 31
       },
       "targets": [
         {
@@ -539,7 +539,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 27
+        "y": 31
       },
       "targets": [
         {
@@ -556,7 +556,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 39
       },
       "targets": [
         {
@@ -612,8 +612,8 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 20,
-        "y": 4
+        "x": 0,
+        "y": 9
       },
       "targets": [
         {
@@ -630,7 +630,7 @@
       "description": "Shows current battery percentage. Below ~20% plan to plug in soon. Below 10% save work to avoid shutdown.",
       "gridPos": {
         "x": 0,
-        "y": 46,
+        "y": 49,
         "w": 6,
         "h": 7
       },
@@ -682,7 +682,7 @@
       "description": "Health of the battery compared to when it was new. 100% = new, lower means reduced capacity. If it drops below ~80%, consider battery service.",
       "gridPos": {
         "x": 6,
-        "y": 46,
+        "y": 49,
         "w": 6,
         "h": 7
       },
@@ -734,7 +734,7 @@
       "description": "Number of full charge cycles. Higher counts mean the battery is older. Apple batteries are typically rated around 1000 cycles.",
       "gridPos": {
         "x": 12,
-        "y": 46,
+        "y": 49,
         "w": 6,
         "h": 7
       },
@@ -769,7 +769,7 @@
       "description": "Whether a charger is connected. Useful to confirm power source during long workloads.",
       "gridPos": {
         "x": 18,
-        "y": 46,
+        "y": 49,
         "w": 6,
         "h": 7
       },
@@ -817,7 +817,7 @@
       "description": "Shows if the Mac is currently running on AC power or battery.",
       "gridPos": {
         "x": 0,
-        "y": 53,
+        "y": 56,
         "w": 6,
         "h": 7
       },
@@ -852,7 +852,7 @@
       "description": "Battery health label from macOS (e.g., Good). If it shows Service Recommended, plan a replacement.",
       "gridPos": {
         "x": 6,
-        "y": 53,
+        "y": 56,
         "w": 6,
         "h": 7
       },
@@ -887,7 +887,7 @@
       "description": "How hard the system is working thermally. Nominal is normal, Moderate/Heavy/Critical indicate heat throttling risk.",
       "gridPos": {
         "x": 12,
-        "y": 53,
+        "y": 56,
         "w": 6,
         "h": 7
       },
@@ -958,7 +958,7 @@
       "description": "Human-readable thermal state from macOS. Helps explain CPU slowdowns during sustained load.",
       "gridPos": {
         "x": 18,
-        "y": 53,
+        "y": 56,
         "w": 6,
         "h": 7
       },
@@ -993,7 +993,7 @@
       "description": "Whether CPU temperature is readable on this Mac. Some Apple Silicon models do not expose this metric.",
       "gridPos": {
         "x": 0,
-        "y": 60,
+        "y": 63,
         "w": 6,
         "h": 7
       },
@@ -1041,7 +1041,7 @@
       "description": "Whether fan speed is readable on this Mac. Some models do not expose this metric.",
       "gridPos": {
         "x": 6,
-        "y": 60,
+        "y": 63,
         "w": 6,
         "h": 7
       },
@@ -1089,7 +1089,7 @@
       "description": "SMART drive health label from diskutil (e.g., Verified). Indicates if storage is reporting normal health.",
       "gridPos": {
         "x": 12,
-        "y": 60,
+        "y": 63,
         "w": 6,
         "h": 7
       },
@@ -1124,7 +1124,7 @@
       "description": "Overall SMART health reported by the disk when available. 1 means OK.",
       "gridPos": {
         "x": 18,
-        "y": 60,
+        "y": 63,
         "w": 6,
         "h": 7
       },
@@ -1172,7 +1172,7 @@
       "description": "Shows if SMART monitoring is supported on the disk. Some Apple SSDs report via diskutil instead.",
       "gridPos": {
         "x": 0,
-        "y": 67,
+        "y": 70,
         "w": 6,
         "h": 7
       },
