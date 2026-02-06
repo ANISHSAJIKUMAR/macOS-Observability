@@ -324,7 +324,11 @@
         "wrapLogMessage": true,
         "dedupStrategy": "signature",
         "enableLogDetails": true,
-        "prettifyLogMessage": true
+        "prettifyLogMessage": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "showCommonLabels": false,
+        "logLevelField": "level"
       }
     },
     {
@@ -351,7 +355,13 @@
       "options": {
         "showLabels": true,
         "wrapLogMessage": true,
-        "enableLogDetails": true
+        "enableLogDetails": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "showCommonLabels": false,
+        "prettifyLogMessage": true,
+        "logLevelField": "level",
+        "dedupStrategy": "signature"
       }
     },
     {
@@ -382,7 +392,13 @@
       "options": {
         "showLabels": true,
         "wrapLogMessage": true,
-        "enableLogDetails": true
+        "enableLogDetails": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "showCommonLabels": false,
+        "prettifyLogMessage": true,
+        "logLevelField": "level",
+        "dedupStrategy": "signature"
       }
     },
     {
@@ -413,7 +429,13 @@
       "options": {
         "showLabels": true,
         "wrapLogMessage": true,
-        "enableLogDetails": true
+        "enableLogDetails": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "showCommonLabels": false,
+        "prettifyLogMessage": true,
+        "logLevelField": "level",
+        "dedupStrategy": "signature"
       }
     },
     {
