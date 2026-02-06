@@ -51,10 +51,10 @@ def main():
     out_lines.append("# TYPE launchd_job_status gauge")
 
     for label, pid, status in jobs:
-        l = esc(label)
-        out_lines.append(f'launchd_job_running{{label="{l}"}} {1 if pid > 0 else 0}')
-        out_lines.append(f'launchd_job_pid{{label="{l}"}} {pid}')
-        out_lines.append(f'launchd_job_status{{label="{l}"}} {status}')
+        label_esc = esc(label)
+        out_lines.append(f'launchd_job_running{{label="{label_esc}"}} {1 if pid > 0 else 0}')
+        out_lines.append(f'launchd_job_pid{{label="{label_esc}"}} {pid}')
+        out_lines.append(f'launchd_job_status{{label="{label_esc}"}} {status}')
 
     out_lines.append("# HELP launchd_jobs_total Total launchd jobs")
     out_lines.append("# TYPE launchd_jobs_total gauge")

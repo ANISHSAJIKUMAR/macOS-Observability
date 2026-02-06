@@ -1,3 +1,4 @@
+---
 groups:
   - name: laptop_recording_rules
     interval: 30s
