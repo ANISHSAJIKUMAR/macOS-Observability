@@ -8,6 +8,7 @@ Use these scripts to start or stop everything without deleting any data:
 ```bash
 ./stop_all.sh
 ./start_all.sh
+./status_all.sh
 ```
 
 ## Observability Folder (Summary)

@@ -28,6 +28,9 @@ Includes configuration, dashboards, exporters, and demo flow.
 # Stop everything
 ./stop_all.sh
 
+# Status (services + exporters)
+./status_all.sh
+
 # If you need root LaunchDaemons to start, run once per terminal session:
 sudo -v
 ```

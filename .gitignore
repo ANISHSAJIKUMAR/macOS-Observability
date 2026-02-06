@@ -25,3 +25,6 @@ observability/promtail/positions.yaml
 # Any exported secrets files
 *.env
 *.secret
+
+# Local artifacts
+output/
