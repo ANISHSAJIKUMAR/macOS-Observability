@@ -83,7 +83,11 @@ for svc in \
   observability.battery_metrics \
   observability.vmware_fusion_metrics
   do
-    launchctl print "$USER_DOMAIN/$svc" 2>/dev/null | awk '/state =|last exit code =/' | head -n 2 | sed "s/^/[agent] $svc /" || true
+    if launchctl print "$USER_DOMAIN/$svc" 2>/dev/null | awk '/state =|last exit code =/' | head -n 2 | sed "s/^/[agent] $svc /"; then
+      true
+    else
+      echo "[agent] $svc state = not loaded"
+    fi
   done
 
 log "LaunchDaemons (root)"

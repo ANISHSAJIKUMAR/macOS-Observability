@@ -27,7 +27,7 @@
         },
         "query": "label_values(job)",
         "includeAll": true,
-        "allValue": ".*",
+        "allValue": ".+",
         "multi": true,
         "current": {
           "text": "All",
@@ -43,7 +43,7 @@
         },
         "query": "label_values(log_type)",
         "includeAll": true,
-        "allValue": ".*",
+        "allValue": ".+",
         "multi": true,
         "current": {
           "text": "All",
@@ -95,7 +95,7 @@
       },
       "targets": [
         {
-          "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|sudo|auth|login|password|keychain|gatekeeper|quarantine)\"[1h]))) or on() vector(0)",
+          "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|sudo|auth|login|password|keychain|gatekeeper|quarantine)\"[1h])))",
           "refId": "A"
         }
       ],
@@ -150,7 +150,7 @@
       },
       "targets": [
         {
-          "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|auth)\"[1h]))) or on() vector(0)",
+          "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|auth)\"[1h])))",
           "refId": "A"
         }
       ],
@@ -205,7 +205,7 @@
       },
       "targets": [
         {
-          "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(sudo|root|privilege|authorization)\"[1h]))) or on() vector(0)",
+          "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(sudo|root|privilege|authorization)\"[1h])))",
           "refId": "A"
         }
       ],
@@ -315,7 +315,7 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|auth|login|sudo|root|gatekeeper|quarantine|keychain|firewall)\") or on() vector(0)",
+          "expr": "({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|auth|login|sudo|root|gatekeeper|quarantine|keychain|firewall)\")",
           "refId": "A"
         }
       ],
@@ -348,7 +348,7 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"$job\"} |~ \"(?i)(login|logout|session|launch|started|opened|signed in)\") or on() vector(0)",
+          "expr": "({job=~\"$job\"} |~ \"(?i)(login|logout|session|launch|started|opened|signed in)\")",
           "refId": "A"
         }
       ],

@@ -35,6 +35,14 @@ scrape_configs:
 - **job_name: node_exporter**: scrape system metrics from node_exporter.
 - **targets: ["localhost:9100"]**: the node_exporter HTTP endpoint.
 
+```yaml
+  - job_name: "promtail"
+    static_configs:
+    - targets: ["localhost:9080"]
+```
+- **job_name: promtail**: scrape log shipper metrics (log ingestion health).
+- **targets: ["localhost:9080"]**: the promtail metrics endpoint.
+
 ## prometheus.args (Line‑by‑Line)
 ```
 /Users/anishskumar/Anish-DevOps-Lab/observability/prometheus/prometheus.args

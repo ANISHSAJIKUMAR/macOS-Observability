@@ -31,7 +31,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "allValue": ".*"
+        "allValue": ".+"
       },
       {
         "name": "log_type",
@@ -47,7 +47,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "allValue": ".*"
+        "allValue": ".+"
       },
       {
         "name": "filename",
@@ -156,8 +156,8 @@
         "h": 5
       },
       "datasource": {
-        "type": "loki",
-        "uid": "efccujve04lxca"
+        "type": "prometheus",
+        "uid": "ffcch6jnmfvnka"
       },
       "targets": [
         {
@@ -227,7 +227,7 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"$job\",log_type=~\"$log_type\"}) or on() vector(0)",
+          "expr": "({job=~\"$job\",log_type=~\"$log_type\"})",
           "refId": "A"
         }
       ],
@@ -269,7 +269,7 @@
       },
       "targets": [
         {
-          "expr": "({job=\"system\"}) or on() vector(0)",
+          "expr": "({job=\"system\"})",
           "refId": "A"
         }
       ],
@@ -311,7 +311,7 @@
       },
       "targets": [
         {
-          "expr": "({job=\"observability\"}) or on() vector(0)",
+          "expr": "({job=\"observability\"})",
           "refId": "A"
         }
       ],
@@ -391,7 +391,7 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"} |~ \"$search\") or on() vector(0)",
+          "expr": "({job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"} |~ \"$search\")",
           "refId": "A"
         }
       ],
@@ -424,7 +424,7 @@
       },
       "targets": [
         {
-          "expr": "({job=\"system\"} |~ \"(?i)(error|warn|failed|denied)\") or on() vector(0)",
+          "expr": "({job=\"system\"} |~ \"(?i)(error|warn|failed|denied)\")",
           "refId": "A"
         }
       ],
@@ -457,7 +457,7 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"}) or on() vector(0)",
+          "expr": "({job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"})",
           "refId": "A"
         }
       ],
@@ -490,7 +490,7 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)chrome\") or on() vector(0)",
+          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)chrome\")",
           "refId": "A"
         }
       ],
@@ -523,7 +523,7 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)zoom\") or on() vector(0)",
+          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)zoom\")",
           "refId": "A"
         }
       ],
@@ -556,7 +556,7 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)docker\") or on() vector(0)",
+          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)docker\")",
           "refId": "A"
         }
       ],
@@ -589,7 +589,7 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)(vscode|visual\\s*studio\\s*code|code)\") or on() vector(0)",
+          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)(vscode|visual\\s*studio\\s*code|code)\")",
           "refId": "A"
         }
       ],
@@ -622,7 +622,7 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)xcode\") or on() vector(0)",
+          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)xcode\")",
           "refId": "A"
         }
       ],
