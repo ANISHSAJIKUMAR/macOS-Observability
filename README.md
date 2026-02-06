@@ -20,3 +20,8 @@ Run from the root or any folder:
 - Root folder is kept minimal on purpose.
 - All project scripts, configs, dashboards, and outputs live under `observability/`.
 - This setup is built and tested for macOS. Linux/Windows require different service managers and paths.
+
+
+## CI/CD (GitHub Actions)
+- Validates YAML/JSON, shell scripts, exporters, and Prometheus config.
+- Workflow: `.github/workflows/ci.yml`

@@ -272,3 +272,8 @@ If you move this repo, update `OBS_BASE` in `.env` and run:
 - `TEXTFILE_DIR` — node_exporter textfile output
 - `LAUNCH_AGENTS_DIR` — launch agents path
 - `LAUNCH_DAEMONS_DIR` — launch daemons path
+
+
+## CI/CD (GitHub Actions)
+- Runs YAML/JSON validation, shellcheck, Python syntax checks, and promtool.
+- Workflow file: `/Users/anishskumar/Anish-DevOps-Lab/.github/workflows/ci.yml`

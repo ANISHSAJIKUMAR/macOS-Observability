@@ -1,0 +1,49 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq shellcheck curl
+          python3 -m pip install --upgrade pip
+          python3 -m pip install yamllint
+
+      - name: Validate YAML
+        run: |
+          yamllint -d '{extends: default, rules: {line-length: {max: 200}}}' \
+            observability/**/*.yml observability/**/*.yaml .github/workflows/*.yml
+
+      - name: Validate JSON dashboards
+        run: |
+          for f in observability/grafana/dashboards/*.json observability/migration/grafana/dashboards/*.json; do
+            [ -f "$f" ] || continue
+            jq -e . "$f" >/dev/null
+          done
+
+      - name: Shellcheck scripts
+        run: |
+          shellcheck observability/*.sh observability/tools/*.sh || true
+
+      - name: Python syntax check (exporters)
+        run: |
+          python3 -m py_compile observability/exporters/*.py
+
+      - name: Prometheus config check
+        run: |
+          PROM_VER=2.52.0
+          curl -L -o /tmp/prom.tar.gz "https://github.com/prometheus/prometheus/releases/download/v${PROM_VER}/prometheus-${PROM_VER}.linux-amd64.tar.gz"
+          tar -xzf /tmp/prom.tar.gz -C /tmp
+          /tmp/prometheus-${PROM_VER}.linux-amd64/promtool check config observability/prometheus/prometheus.yml
+          if [ -d observability/prometheus/rules ]; then
+            /tmp/prometheus-${PROM_VER}.linux-amd64/promtool check rules observability/prometheus/rules/*.yml || true
+          fi
