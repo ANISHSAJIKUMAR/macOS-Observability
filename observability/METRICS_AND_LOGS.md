@@ -109,3 +109,15 @@ It’s intended as a quick reference for what each metric/log is used for.
 ## Notes
 - Some metrics (e.g., CPU temperature, fan RPM) may be unavailable on Apple Silicon.
 - Binary logs (legacy `.asl`, Wi‑Fi analytics `.out`) are excluded because they render unreadable.
+
+
+## VMware Fusion Metrics
+- `vmware_fusion_vm_running` — VM power state (1 running, 0 stopped)
+- `vmware_fusion_vm_cpu_percent` — VM CPU usage percent (vmware-vmx process)
+- `vmware_fusion_vm_mem_mb` — VM RSS memory (MB)
+- `vmware_fusion_vm_config_vcpus` — Configured vCPU count from .vmx
+- `vmware_fusion_vm_config_mem_mb` — Configured memory (MB) from .vmx
+- `vmware_fusion_vm_vmdk_bytes` — Total VMDK size in bytes
+- `vmware_fusion_vm_snapshot_count` — Snapshot count (.vmsn/.vmss)
+- `vmware_fusion_vm_guest_tools` — VMware Tools detected via guest IP
+- `vmware_fusion_metrics_timestamp_seconds` — Export timestamp

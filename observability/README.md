@@ -78,6 +78,7 @@ graph TD
 ## Dashboard Inventory
 Grafana folder: **Anish Laptop**
 
+- **VMware Fusion: VM Health** — VM inventory, CPU/RAM usage, snapshots, VMDK size
 - **Mac System: Core Health** — CPU, memory, disk usage (AnishSSD + Time Machine), disk I/O
 - **Mac Network: Connectivity & Wi‑Fi** — throughput, errors/drops, ping health, Wi‑Fi signal/rates
 - **Mac Network: Live Capture (tshark)** — live traffic analysis (top talkers, protocol mix)
@@ -234,3 +235,9 @@ These images intentionally **exclude** logs, security, network, tshark, and iden
 
 ### Prometheus: Self‑Monitoring
 ![Prometheus Self Monitoring](docs/screenshots/prometheus-self.png)
+
+
+## VMware Fusion Monitoring
+- Dashboard: https://localhost:3000/d/vmware-fusion/vmware-fusion3a-vm-health
+- Exporter: /Users/anishskumar/Anish-DevOps-Lab/observability/exporters/observability_vmware_fusion_metrics.py
+- LaunchAgent: /Users/anishskumar/Library/LaunchAgents/observability.vmware_fusion_metrics.plist

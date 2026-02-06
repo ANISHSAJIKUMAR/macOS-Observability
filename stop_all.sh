@@ -19,6 +19,7 @@ LAUNCH_AGENTS=(
   "$HOME/Library/LaunchAgents/observability.grafana_health.plist"
   "$HOME/Library/LaunchAgents/observability.prom_config_checksum.plist"
   "$HOME/Library/LaunchAgents/observability.battery_metrics.plist"
+  "$HOME/Library/LaunchAgents/observability.vmware_fusion_metrics.plist"
 )
 for agent in "${LAUNCH_AGENTS[@]}"; do
   if [ -f "$agent" ]; then

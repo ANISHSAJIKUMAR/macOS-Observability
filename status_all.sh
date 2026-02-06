@@ -55,6 +55,7 @@ for svc in \
   observability.grafana_health \
   observability.prom_config_checksum \
   observability.battery_metrics
+  observability.vmware_fusion_metrics
   do
     launchctl print "$USER_DOMAIN/$svc" 2>/dev/null | awk '/state =|last exit code =/' | head -n 2 | sed "s/^/[agent] $svc /" || true
   done

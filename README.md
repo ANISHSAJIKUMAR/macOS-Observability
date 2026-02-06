@@ -84,3 +84,9 @@ sudo launchctl print system/observability.wdutil_metrics
 ## Showcase Screenshots (Non‑Sensitive)
 See full gallery in:
 `/Users/anishskumar/Anish-DevOps-Lab/observability/README.md`
+
+
+## VMware Fusion Monitoring
+- Dashboard: https://localhost:3000/d/vmware-fusion/vmware-fusion3a-vm-health
+- Exporter: /Users/anishskumar/Anish-DevOps-Lab/observability/exporters/observability_vmware_fusion_metrics.py
+- LaunchAgent: /Users/anishskumar/Library/LaunchAgents/observability.vmware_fusion_metrics.plist

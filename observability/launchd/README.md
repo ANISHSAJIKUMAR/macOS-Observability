@@ -63,3 +63,5 @@ sudo launchctl bootstrap system /Library/LaunchDaemons/observability.promtail.pl
 sudo launchctl bootout system /Library/LaunchDaemons/observability.tshark_metrics.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/observability.tshark_metrics.plist
 ```
+
+- `observability.vmware_fusion_metrics` — VMware Fusion metrics (user LaunchAgent)

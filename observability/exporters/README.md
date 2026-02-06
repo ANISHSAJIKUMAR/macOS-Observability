@@ -31,6 +31,8 @@ These scripts emit Prometheus metrics into the textfile directory for node_expor
   - Live packet capture metrics (throughput, top talkers, protocol mix)
   - Requires root (LaunchDaemon)
   - Requires root (LaunchDaemon)
+- `observability_vmware_fusion_metrics.py`
+  - VMware Fusion VM inventory and host-side metrics (CPU/RAM, snapshots, disk size)
 
 ## What You Can Change
 - Targets in `observability_net_connectivity_metrics.py`
