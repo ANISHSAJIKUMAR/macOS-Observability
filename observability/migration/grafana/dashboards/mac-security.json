@@ -12,9 +12,9 @@
     "to": "now"
   },
   "tags": [
-    "security",
     "logs",
-    "mac"
+    "mac",
+    "security"
   ],
   "templating": {
     "list": [
