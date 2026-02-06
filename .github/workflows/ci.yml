@@ -63,7 +63,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: .github/workflows/ci.yml
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -73,38 +80,107 @@ jobs:
           cache-dependency-path: |
             .github/workflows/ci.yml
 
+      - name: Cache apt
+        uses: actions/cache@v4
+        with:
+          path: |
+            /var/cache/apt
+            /var/lib/apt/lists
+          key: apt-${{ runner.os }}-${{ hashFiles('.github/workflows/ci.yml') }}
+
+      - name: Cache Homebrew (macOS only)
+        if: runner.os == 'macOS'
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/Homebrew
+          key: brew-${{ runner.os }}-${{ hashFiles('.github/workflows/ci.yml') }}
+
+      - name: Determine changed files
+        id: changed
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            base="${{ github.event.pull_request.base.sha }}"
+            git fetch --no-tags --depth=1 origin "$base"
+            files=$(git diff --name-only "$base" "${{ github.sha }}")
+          else
+            before="${{ github.event.before }}"
+            if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
+              files=$(git ls-files)
+            else
+              files=$(git diff --name-only "$before" "${{ github.sha }}")
+            fi
+          fi
+          printf "%s\n" "$files" > /tmp/changed_files.txt
+          echo "count=$(wc -l < /tmp/changed_files.txt)" >> "$GITHUB_OUTPUT"
+
       - name: Install tools
         run: |
           sudo apt-get update -y
           sudo apt-get install -y --no-install-recommends jq shellcheck
           python3 -m pip install --upgrade pip
-          python3 -m pip install --upgrade --quiet yamllint ruff
+          python3 -m pip install --upgrade --quiet yamllint ruff pytest
 
       - name: YAML lint
         run: |
-          files=$(find observability .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \))
+          files=$(grep -E '\.ya?ml$' /tmp/changed_files.txt || true)
+          if [ -z "$files" ]; then
+            files=$(find observability .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \))
+          fi
           if [ -n "$files" ]; then
             yamllint -d '{extends: default, rules: {line-length: {max: 200}}}' $files
           fi
 
       - name: JSON validation (dashboards)
         run: |
-          for f in observability/grafana/dashboards/*.json observability/migration/grafana/dashboards/*.json; do
+          files=$(grep -E 'grafana/.+\\.json$' /tmp/changed_files.txt || true)
+          if [ -z "$files" ]; then
+            files="observability/grafana/dashboards/*.json observability/migration/grafana/dashboards/*.json"
+          fi
+          for f in $files; do
             [ -f "$f" ] || continue
             jq -e . "$f" >/dev/null
           done
 
+      - name: Grafana dashboard schema validation
+        run: |
+          files=$(grep -E 'grafana/.+\\.json$' /tmp/changed_files.txt || true)
+          if [ -z "$files" ]; then
+            files="observability/grafana/dashboards/*.json observability/migration/grafana/dashboards/*.json"
+          fi
+          for f in $files; do
+            [ -f "$f" ] || continue
+            npx --yes ajv-cli validate -s observability/grafana/schema/dashboard.schema.json -d "$f"
+          done
+
       - name: Shellcheck
         run: |
-          shellcheck observability/*.sh observability/tools/*.sh
+          files=$(grep -E '\\.sh$' /tmp/changed_files.txt || true)
+          if [ -z "$files" ]; then
+            files="observability/*.sh observability/tools/*.sh"
+          fi
+          shellcheck $files
 
       - name: Python syntax check
         run: |
-          python3 -m py_compile observability/exporters/*.py
+          files=$(grep -E 'observability/exporters/.+\\.py$' /tmp/changed_files.txt || true)
+          if [ -z "$files" ]; then
+            files="observability/exporters/*.py"
+          fi
+          python3 -m py_compile $files
 
       - name: Python lint (ruff)
         run: |
-          ruff check observability/exporters
+          files=$(grep -E 'observability/exporters/.+\\.py$' /tmp/changed_files.txt || true)
+          if [ -z "$files" ]; then
+            ruff check observability/exporters
+          else
+            ruff check $files
+          fi
+
+      - name: Exporter unit tests (pytest)
+        run: |
+          pytest -q observability/exporters/tests
 
   prometheus-validate:
     needs: changes

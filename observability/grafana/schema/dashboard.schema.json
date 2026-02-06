@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Grafana Dashboard (minimal schema)",
+  "type": "object",
+  "required": ["title", "schemaVersion"],
+  "properties": {
+    "id": { "type": ["integer", "null"] },
+    "uid": { "type": ["string", "null"] },
+    "title": { "type": "string", "minLength": 1 },
+    "schemaVersion": { "type": "integer" },
+    "version": { "type": "integer" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "timezone": { "type": "string" },
+    "time": {
+      "type": "object",
+      "properties": {
+        "from": { "type": "string" },
+        "to": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "refresh": { "type": ["string", "null"] },
+    "panels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "title"],
+        "properties": {
+          "type": { "type": "string" },
+          "title": { "type": "string" },
+          "datasource": { "type": ["object", "string", "null"] },
+          "targets": { "type": "array" },
+          "gridPos": { "type": "object" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "templating": { "type": "object" },
+    "annotations": { "type": "object" }
+  },
+  "additionalProperties": true
+}

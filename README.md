@@ -1,6 +1,8 @@
 # Anish DevOps Lab (Root)
 
-[![CI Status](https://github.com/ANISHSAJIKUMAR/anish-devops-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/ANISHSAJIKUMAR/anish-devops-lab/actions/workflows/ci.yml)
+[![CI](https://github.com/ANISHSAJIKUMAR/anish-devops-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/ANISHSAJIKUMAR/anish-devops-lab/actions/workflows/ci.yml)
+[![Last Release](https://img.shields.io/github/v/release/ANISHSAJIKUMAR/anish-devops-lab)](https://github.com/ANISHSAJIKUMAR/anish-devops-lab/releases)
+[![License: Proprietary](https://img.shields.io/badge/license-proprietary-red)](https://github.com/ANISHSAJIKUMAR/anish-devops-lab)
 
 **Owner:** Anish Kumar (change `OWNER_NAME` in `observability/.env`)
 
