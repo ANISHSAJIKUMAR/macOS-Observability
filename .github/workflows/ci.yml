@@ -201,7 +201,6 @@ jobs:
 
   prometheus-validate:
     needs: changes
-    if: ${{ needs.changes.outputs.prom == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -231,7 +230,6 @@ jobs:
 
   docker-validate:
     needs: changes
-    if: ${{ needs.changes.outputs.docker == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
