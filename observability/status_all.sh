@@ -21,17 +21,33 @@ fi
 
 log "Core services (brew)"
 if command -v brew >/dev/null 2>&1; then
-  brew services list | egrep 'grafana|prometheus|loki|node_exporter' || true
+  brew services list | grep -E 'grafana|prometheus|loki|node_exporter' || true
 else
   log "brew not found"
 fi
 
 log "HTTP health checks"
 if command -v curl >/dev/null 2>&1; then
-  curl -sf http://localhost:9090/-/ready >/dev/null && log "Prometheus ready" || log "Prometheus not ready"
-  curl -sf http://localhost:9100/metrics >/dev/null && log "node_exporter OK" || log "node_exporter not responding"
-  curl -sf http://localhost:3100/ready >/dev/null && log "Loki ready" || log "Loki not ready"
-  curl -skf https://localhost:3000/api/health >/dev/null && log "Grafana OK" || log "Grafana not responding"
+  if curl -sf http://localhost:9090/-/ready >/dev/null; then
+    log "Prometheus ready"
+  else
+    log "Prometheus not ready"
+  fi
+  if curl -sf http://localhost:9100/metrics >/dev/null; then
+    log "node_exporter OK"
+  else
+    log "node_exporter not responding"
+  fi
+  if curl -sf http://localhost:3100/ready >/dev/null; then
+    log "Loki ready"
+  else
+    log "Loki not ready"
+  fi
+  if curl -skf https://localhost:3000/api/health >/dev/null; then
+    log "Grafana OK"
+  else
+    log "Grafana not responding"
+  fi
 fi
 
 log "Prometheus targets"

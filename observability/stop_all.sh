@@ -39,20 +39,20 @@ done
 
 log "Stopping Wi‑Fi LaunchDaemon (root) if available..."
 if [ "$CAN_SUDO" -eq 1 ]; then
-  if [ -f ${LAUNCH_DAEMONS_DIR}/observability.wdutil_metrics.plist ]; then
-    $SUDO launchctl bootout system ${LAUNCH_DAEMONS_DIR}/observability.wdutil_metrics.plist || true
+  if [ -f "${LAUNCH_DAEMONS_DIR}/observability.wdutil_metrics.plist" ]; then
+    $SUDO launchctl bootout system "${LAUNCH_DAEMONS_DIR}/observability.wdutil_metrics.plist" || true
   fi
-  if [ -f ${LAUNCH_DAEMONS_DIR}/observability.cpu_fan_metrics.plist ]; then
-    $SUDO launchctl bootout system ${LAUNCH_DAEMONS_DIR}/observability.cpu_fan_metrics.plist || true
+  if [ -f "${LAUNCH_DAEMONS_DIR}/observability.cpu_fan_metrics.plist" ]; then
+    $SUDO launchctl bootout system "${LAUNCH_DAEMONS_DIR}/observability.cpu_fan_metrics.plist" || true
   fi
-  if [ -f ${LAUNCH_DAEMONS_DIR}/observability.smart_metrics.plist ]; then
-    $SUDO launchctl bootout system ${LAUNCH_DAEMONS_DIR}/observability.smart_metrics.plist || true
+  if [ -f "${LAUNCH_DAEMONS_DIR}/observability.smart_metrics.plist" ]; then
+    $SUDO launchctl bootout system "${LAUNCH_DAEMONS_DIR}/observability.smart_metrics.plist" || true
   fi
-  if [ -f ${LAUNCH_DAEMONS_DIR}/observability.promtail.plist ]; then
-    $SUDO launchctl bootout system ${LAUNCH_DAEMONS_DIR}/observability.promtail.plist || true
+  if [ -f "${LAUNCH_DAEMONS_DIR}/observability.promtail.plist" ]; then
+    $SUDO launchctl bootout system "${LAUNCH_DAEMONS_DIR}/observability.promtail.plist" || true
   fi
-  if [ -f ${LAUNCH_DAEMONS_DIR}/observability.tshark_metrics.plist ]; then
-    $SUDO launchctl bootout system ${LAUNCH_DAEMONS_DIR}/observability.tshark_metrics.plist || true
+  if [ -f "${LAUNCH_DAEMONS_DIR}/observability.tshark_metrics.plist" ]; then
+    $SUDO launchctl bootout system "${LAUNCH_DAEMONS_DIR}/observability.tshark_metrics.plist" || true
   fi
 else
   log "Skipping root LaunchDaemons (sudo -n not available)."
@@ -67,10 +67,26 @@ brew services stop node_exporter || true
 
 log "Status checks..."
 if command -v curl >/dev/null 2>&1; then
-  curl -sf http://localhost:9090/-/ready >/dev/null && log "Prometheus still running" || log "Prometheus stopped"
-  curl -sf http://localhost:9100/metrics >/dev/null && log "node_exporter still running" || log "node_exporter stopped"
-  curl -sf http://localhost:3100/ready >/dev/null && log "Loki still running" || log "Loki stopped"
-  curl -skf https://localhost:3000/api/health >/dev/null && log "Grafana still running" || log "Grafana stopped"
+  if curl -sf http://localhost:9090/-/ready >/dev/null; then
+    log "Prometheus still running"
+  else
+    log "Prometheus stopped"
+  fi
+  if curl -sf http://localhost:9100/metrics >/dev/null; then
+    log "node_exporter still running"
+  else
+    log "node_exporter stopped"
+  fi
+  if curl -sf http://localhost:3100/ready >/dev/null; then
+    log "Loki still running"
+  else
+    log "Loki stopped"
+  fi
+  if curl -skf https://localhost:3000/api/health >/dev/null; then
+    log "Grafana still running"
+  else
+    log "Grafana stopped"
+  fi
 fi
 
 log "All services stopped."

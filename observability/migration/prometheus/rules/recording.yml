@@ -31,3 +31,4 @@ groups:
 
       - record: job:node_network_transmit_mb_s
         expr: rate(node_network_transmit_bytes_total[5m]) / 1024 / 1024
+---
