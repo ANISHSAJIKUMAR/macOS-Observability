@@ -1,5 +1,7 @@
 # Anish DevOps Lab (Root)
 
+[![CI Status](https://github.com/ANISHSAJIKUMAR/anish-devops-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/ANISHSAJIKUMAR/anish-devops-lab/actions/workflows/ci.yml)
+
 **Owner:** Anish Kumar (change `OWNER_NAME` in `observability/.env`)
 
 This repository hosts my personal DevOps workspace. The active project is **Observability** for **macOS (Mac)**.
