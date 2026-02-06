@@ -27,7 +27,7 @@
       },
       "targets": [
         {
-          "expr": "sum(vmware_fusion_vm_running)"
+          "expr": "(sum(vmware_fusion_vm_running)) or on() vector(0)"
         }
       ],
       "gridPos": {
@@ -48,7 +48,7 @@
       },
       "targets": [
         {
-          "expr": "sum(vmware_fusion_vm_config_vcpus)"
+          "expr": "(sum(vmware_fusion_vm_config_vcpus)) or on() vector(0)"
         }
       ],
       "gridPos": {
@@ -69,7 +69,7 @@
       },
       "targets": [
         {
-          "expr": "sum(vmware_fusion_vm_config_mem_mb) / 1024"
+          "expr": "(sum(vmware_fusion_vm_config_mem_mb) / 1024) or on() vector(0)"
         }
       ],
       "gridPos": {
@@ -90,7 +90,7 @@
       },
       "targets": [
         {
-          "expr": "sum(vmware_fusion_vm_guest_tools)"
+          "expr": "(sum(vmware_fusion_vm_guest_tools)) or on() vector(0)"
         }
       ],
       "gridPos": {
@@ -111,7 +111,7 @@
       },
       "targets": [
         {
-          "expr": "vmware_fusion_vm_cpu_percent"
+          "expr": "(vmware_fusion_vm_cpu_percent) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
         }
       ],
       "gridPos": {
@@ -132,7 +132,7 @@
       },
       "targets": [
         {
-          "expr": "vmware_fusion_vm_mem_mb"
+          "expr": "(vmware_fusion_vm_mem_mb) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
         }
       ],
       "gridPos": {
@@ -153,7 +153,7 @@
       },
       "targets": [
         {
-          "expr": "vmware_fusion_vm_config_vcpus"
+          "expr": "(vmware_fusion_vm_config_vcpus) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
         }
       ],
       "gridPos": {
@@ -174,7 +174,7 @@
       },
       "targets": [
         {
-          "expr": "vmware_fusion_vm_config_mem_mb / 1024"
+          "expr": "(vmware_fusion_vm_config_mem_mb / 1024) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
         }
       ],
       "gridPos": {
@@ -195,7 +195,7 @@
       },
       "targets": [
         {
-          "expr": "vmware_fusion_vm_vmdk_bytes / 1024 / 1024 / 1024"
+          "expr": "(vmware_fusion_vm_vmdk_bytes / 1024 / 1024 / 1024) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
         }
       ],
       "gridPos": {
@@ -216,7 +216,7 @@
       },
       "targets": [
         {
-          "expr": "vmware_fusion_vm_snapshot_count"
+          "expr": "(vmware_fusion_vm_snapshot_count) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
         }
       ],
       "gridPos": {
@@ -237,7 +237,7 @@
       },
       "targets": [
         {
-          "expr": "vmware_fusion_vm_guest_tools"
+          "expr": "(vmware_fusion_vm_guest_tools) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
         }
       ],
       "gridPos": {
@@ -258,7 +258,7 @@
       },
       "targets": [
         {
-          "expr": "vmware_fusion_vm_running"
+          "expr": "(vmware_fusion_vm_running) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
         }
       ],
       "gridPos": {

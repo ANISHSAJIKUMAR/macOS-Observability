@@ -475,9 +475,9 @@
     },
     {
       "id": 12,
-      "type": "logs",
+      "type": "stat",
       "title": "Chrome Logs",
-      "description": "Application-specific logs for Chrome. Uses filename match to keep the panel readable.",
+      "description": "Application-specific logs for Chrome. Uses filename match to keep the panel readable.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
       "datasource": {
         "type": "loki",
         "uid": "efccujve04lxca"
@@ -490,27 +490,41 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)chrome\")",
+          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)chrome\"[1h])) or on() vector(0)",
           "refId": "A"
         }
       ],
       "options": {
-        "showLabels": true,
-        "wrapLogMessage": true,
-        "enableLogDetails": true,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "showCommonLabels": false,
-        "prettifyLogMessage": true,
-        "logLevelField": "level",
-        "dedupStrategy": "signature"
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
       }
     },
     {
       "id": 13,
-      "type": "logs",
+      "type": "stat",
       "title": "Zoom Logs",
-      "description": "Application-specific logs for Zoom. Uses filename match to keep the panel readable.",
+      "description": "Application-specific logs for Zoom. Uses filename match to keep the panel readable.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
       "datasource": {
         "type": "loki",
         "uid": "efccujve04lxca"
@@ -523,27 +537,41 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)zoom\")",
+          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)zoom\"[1h])) or on() vector(0)",
           "refId": "A"
         }
       ],
       "options": {
-        "showLabels": true,
-        "wrapLogMessage": true,
-        "enableLogDetails": true,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "showCommonLabels": false,
-        "prettifyLogMessage": true,
-        "logLevelField": "level",
-        "dedupStrategy": "signature"
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
       }
     },
     {
       "id": 14,
-      "type": "logs",
+      "type": "stat",
       "title": "Docker Logs",
-      "description": "Application-specific logs for Docker. Uses filename match to keep the panel readable.",
+      "description": "Application-specific logs for Docker. Uses filename match to keep the panel readable.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
       "datasource": {
         "type": "loki",
         "uid": "efccujve04lxca"
@@ -556,27 +584,41 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)docker\")",
+          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)docker\"[1h])) or on() vector(0)",
           "refId": "A"
         }
       ],
       "options": {
-        "showLabels": true,
-        "wrapLogMessage": true,
-        "enableLogDetails": true,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "showCommonLabels": false,
-        "prettifyLogMessage": true,
-        "logLevelField": "level",
-        "dedupStrategy": "signature"
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
       }
     },
     {
       "id": 15,
-      "type": "logs",
+      "type": "stat",
       "title": "VS Code Logs",
-      "description": "Application-specific logs for VS Code. Uses filename match to keep the panel readable.",
+      "description": "Application-specific logs for VS Code. Uses filename match to keep the panel readable.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
       "datasource": {
         "type": "loki",
         "uid": "efccujve04lxca"
@@ -589,27 +631,41 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)(vscode|visual\\s*studio\\s*code|code)\")",
+          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(vscode|visual[[:space:]]*studio[[:space:]]*code|code)\"[1h])) or on() vector(0)",
           "refId": "A"
         }
       ],
       "options": {
-        "showLabels": true,
-        "wrapLogMessage": true,
-        "enableLogDetails": true,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "showCommonLabels": false,
-        "prettifyLogMessage": true,
-        "logLevelField": "level",
-        "dedupStrategy": "signature"
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
       }
     },
     {
       "id": 16,
-      "type": "logs",
+      "type": "stat",
       "title": "Xcode Logs",
-      "description": "Application-specific logs for Xcode. Uses filename match to keep the panel readable.",
+      "description": "Application-specific logs for Xcode. Uses filename match to keep the panel readable.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
       "datasource": {
         "type": "loki",
         "uid": "efccujve04lxca"
@@ -622,20 +678,34 @@
       },
       "targets": [
         {
-          "expr": "({job=~\"user|system\",log_type=~\"app|system\"} |~ \"(?i)xcode\")",
+          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)xcode\"[1h])) or on() vector(0)",
           "refId": "A"
         }
       ],
       "options": {
-        "showLabels": true,
-        "wrapLogMessage": true,
-        "enableLogDetails": true,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "showCommonLabels": false,
-        "prettifyLogMessage": true,
-        "logLevelField": "level",
-        "dedupStrategy": "signature"
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
       }
     }
   ],

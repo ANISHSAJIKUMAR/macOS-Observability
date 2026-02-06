@@ -366,9 +366,9 @@
     },
     {
       "id": 8,
-      "type": "logs",
+      "type": "stat",
       "title": "Network / Wi\u2011Fi Security Signals",
-      "description": "Focus on Wi\u2011Fi and network logs for disconnects, auth failures, or unusual changes.",
+      "description": "Focus on Wi\u2011Fi and network logs for disconnects, auth failures, or unusual changes.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
       "datasource": {
         "type": "loki",
         "uid": "efccujve04lxca"
@@ -381,24 +381,34 @@
       },
       "targets": [
         {
-          "expr": "{log_type=~\"wifi\"} |~ \"(?i)(disconnect|auth|denied|failed|ssid|bssid|security)\"",
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "efccujve04lxca"
-          }
+          "expr": "sum(count_over_time({log_type=~\\\"wifi\\\"} |~ \\\"(?i)(disconnect|auth|denied|failed|ssid|bssid|security)\\\"[1h])) or on() vector(0)",
+          "refId": "A"
         }
       ],
       "options": {
-        "showLabels": true,
-        "wrapLogMessage": true,
-        "enableLogDetails": true,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "showCommonLabels": false,
-        "prettifyLogMessage": true,
-        "logLevelField": "level",
-        "dedupStrategy": "signature"
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
       }
     },
     {
