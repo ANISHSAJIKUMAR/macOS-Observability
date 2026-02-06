@@ -46,9 +46,9 @@ print('Updated paths in config files to', obs_base)
 PY
 
 echo "Copying LaunchAgents/Daemons..."
-cp -f "$OBS_BASE/launchd"/*.plist "$HOME/Library/LaunchAgents/" 2>/dev/null || true
+cp -f "$OBS_BASE/launchd"/*.plist "${LAUNCH_AGENTS_DIR:-$HOME/Library/LaunchAgents}/" 2>/dev/null || true
 if command -v sudo >/dev/null 2>&1; then
-  sudo cp -f "$OBS_BASE/launchd"/*.plist /Library/LaunchDaemons/ 2>/dev/null || true
+  sudo cp -f "$OBS_BASE/launchd"/*.plist "${LAUNCH_DAEMONS_DIR:-/Library/LaunchDaemons}/" 2>/dev/null || true
 fi
 
 echo "Done."

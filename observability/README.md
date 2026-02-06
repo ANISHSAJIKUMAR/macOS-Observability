@@ -260,3 +260,11 @@ If you move this repo, update `OBS_BASE` in `.env` and run:
 ```bash
 ./tools/update_paths.sh
 ```
+
+
+## Central Variables (.env)
+- `OBS_BASE` — root folder for observability
+- `EXPORTERS_DIR` — exporter scripts
+- `TEXTFILE_DIR` — node_exporter textfile output
+- `LAUNCH_AGENTS_DIR` — launch agents path
+- `LAUNCH_DAEMONS_DIR` — launch daemons path

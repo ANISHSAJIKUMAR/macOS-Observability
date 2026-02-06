@@ -3,6 +3,8 @@ set -euo pipefail
 
 OBS_BASE="${OBS_BASE:-$(cd "$(dirname "$0")" && pwd)}"
 ENV_FILE="${OBS_ENV_FILE:-$OBS_BASE/.env}"
+LAUNCH_AGENTS_DIR="${LAUNCH_AGENTS_DIR:-${LAUNCH_AGENTS_DIR}}"
+LAUNCH_DAEMONS_DIR="${LAUNCH_DAEMONS_DIR:-${LAUNCH_DAEMONS_DIR}}"
 if [ -f "$ENV_FILE" ]; then
   set -a
   # shellcheck disable=SC1090
@@ -28,13 +30,13 @@ brew services start grafana
 log "Starting LaunchAgents..."
 USER_DOMAIN="gui/$(id -u)"
 LAUNCH_AGENTS=(
-  "$HOME/Library/LaunchAgents/observability.net_connectivity.plist"
-  "$HOME/Library/LaunchAgents/observability.mac_system_info.plist"
-  "$HOME/Library/LaunchAgents/observability.launchd_metrics.plist"
-  "$HOME/Library/LaunchAgents/observability.grafana_health.plist"
-  "$HOME/Library/LaunchAgents/observability.prom_config_checksum.plist"
-  "$HOME/Library/LaunchAgents/observability.battery_metrics.plist"
-  "$HOME/Library/LaunchAgents/observability.vmware_fusion_metrics.plist"
+  "${LAUNCH_AGENTS_DIR}/observability.net_connectivity.plist"
+  "${LAUNCH_AGENTS_DIR}/observability.mac_system_info.plist"
+  "${LAUNCH_AGENTS_DIR}/observability.launchd_metrics.plist"
+  "${LAUNCH_AGENTS_DIR}/observability.grafana_health.plist"
+  "${LAUNCH_AGENTS_DIR}/observability.prom_config_checksum.plist"
+  "${LAUNCH_AGENTS_DIR}/observability.battery_metrics.plist"
+  "${LAUNCH_AGENTS_DIR}/observability.vmware_fusion_metrics.plist"
 )
 for agent in "${LAUNCH_AGENTS[@]}"; do
   if [ -f "$agent" ]; then
@@ -45,20 +47,20 @@ done
 
 log "Starting Wi‑Fi LaunchDaemon (root) if available..."
 if [ "$CAN_SUDO" -eq 1 ]; then
-  if [ -f /Library/LaunchDaemons/observability.wdutil_metrics.plist ]; then
-    $SUDO launchctl bootstrap system /Library/LaunchDaemons/observability.wdutil_metrics.plist || true
+  if [ -f ${LAUNCH_DAEMONS_DIR}/observability.wdutil_metrics.plist ]; then
+    $SUDO launchctl bootstrap system ${LAUNCH_DAEMONS_DIR}/observability.wdutil_metrics.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/observability.cpu_fan_metrics.plist ]; then
-    $SUDO launchctl bootstrap system /Library/LaunchDaemons/observability.cpu_fan_metrics.plist || true
+  if [ -f ${LAUNCH_DAEMONS_DIR}/observability.cpu_fan_metrics.plist ]; then
+    $SUDO launchctl bootstrap system ${LAUNCH_DAEMONS_DIR}/observability.cpu_fan_metrics.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/observability.smart_metrics.plist ]; then
-    $SUDO launchctl bootstrap system /Library/LaunchDaemons/observability.smart_metrics.plist || true
+  if [ -f ${LAUNCH_DAEMONS_DIR}/observability.smart_metrics.plist ]; then
+    $SUDO launchctl bootstrap system ${LAUNCH_DAEMONS_DIR}/observability.smart_metrics.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/observability.promtail.plist ]; then
-    $SUDO launchctl bootstrap system /Library/LaunchDaemons/observability.promtail.plist || true
+  if [ -f ${LAUNCH_DAEMONS_DIR}/observability.promtail.plist ]; then
+    $SUDO launchctl bootstrap system ${LAUNCH_DAEMONS_DIR}/observability.promtail.plist || true
   fi
-  if [ -f /Library/LaunchDaemons/observability.tshark_metrics.plist ]; then
-    $SUDO launchctl bootstrap system /Library/LaunchDaemons/observability.tshark_metrics.plist || true
+  if [ -f ${LAUNCH_DAEMONS_DIR}/observability.tshark_metrics.plist ]; then
+    $SUDO launchctl bootstrap system ${LAUNCH_DAEMONS_DIR}/observability.tshark_metrics.plist || true
   fi
 else
   log "Skipping root LaunchDaemons (sudo -n not available)."
