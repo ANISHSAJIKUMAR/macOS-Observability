@@ -26,6 +26,15 @@ jobs:
       docker: ${{ steps.filter.outputs.docker }}
       security: ${{ steps.filter.outputs.security }}
     steps:
+      - name: Force full run on main
+        id: force
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ] && [ "${{ github.event_name }}" = "push" ]; then
+            echo "all=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "all=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -54,6 +63,14 @@ jobs:
               - 'observability/**'
               - '!observability/docs/**'
               - '!observability/output/**'
+
+      - name: Override outputs (main push)
+        if: ${{ steps.force.outputs.all == 'true' }}
+        run: |
+          echo "lint=true" >> "$GITHUB_OUTPUT"
+          echo "prom=true" >> "$GITHUB_OUTPUT"
+          echo "docker=true" >> "$GITHUB_OUTPUT"
+          echo "security=true" >> "$GITHUB_OUTPUT"
 
   lint-and-validate:
     needs: changes
