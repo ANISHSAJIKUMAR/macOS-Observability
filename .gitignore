@@ -31,3 +31,6 @@ observability/output/
 
 # Track central config
 !observability/.env
+
+# Ignore Grafana annotated config docs
+observability/grafana/*.annotated.md
