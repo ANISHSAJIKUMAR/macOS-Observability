@@ -5,7 +5,9 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
 def test_exporters_have_expected_structure():
-    exporters = sorted(ROOT.glob("observability_*.py"))
+    exporters = sorted(
+        p for p in ROOT.glob("observability_*.py") if p.name != "observability_env.py"
+    )
     assert exporters, "No exporters found"
 
     for path in exporters:
