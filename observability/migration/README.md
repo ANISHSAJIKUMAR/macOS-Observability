@@ -19,7 +19,7 @@ docker compose up -d
 - Grafana: http://localhost:3000
 - Prometheus: http://localhost:9090
 - node_exporter: http://localhost:9100/metrics
-- Loki: http://localhost:3100 (if enabled)
+- Loki: http://localhost:3100
 - tshark live capture: dashboard only (requires root daemon on macOS)
 
 ### 4. Notes
@@ -28,6 +28,8 @@ docker compose up -d
 - Default Grafana creds (change immediately):
   - user: `admin`
   - pass: `changeme`
+- Logs in Docker are limited on macOS because host log paths are not available inside Docker Desktop.
+  Use the non‑Docker setup for full system/app logs.
 
 ### 5. Stop
 ```bash
@@ -70,7 +72,7 @@ Files to update:
 - `observability/prometheus/prometheus.args`
 - `observability/node_exporter/node_exporter.args`
 - `observability/launchd/*.plist`
-- `observability/exporters/*.py`
+- `observability/exporters/observability_*.py`
 
 ### 5. Start services
 ```bash
@@ -82,12 +84,12 @@ brew services start loki
 
 ### 6. Load launchd jobs
 ```bash
-launchctl load ~/Library/LaunchAgents/observability.net_connectivity.plist
-launchctl load ~/Library/LaunchAgents/observability.mac_system_info.plist
-launchctl load ~/Library/LaunchAgents/observability.launchd_metrics.plist
-launchctl load ~/Library/LaunchAgents/observability.grafana_health.plist
-launchctl load ~/Library/LaunchAgents/observability.prom_config_checksum.plist
-launchctl load ~/Library/LaunchAgents/observability.battery_metrics.plist
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/observability.net_connectivity.plist
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/observability.mac_system_info.plist
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/observability.launchd_metrics.plist
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/observability.grafana_health.plist
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/observability.prom_config_checksum.plist
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/observability.battery_metrics.plist
 
 # root daemons (Wi‑Fi / SMART / Thermal)
 sudo launchctl bootstrap system /Library/LaunchDaemons/observability.wdutil_metrics.plist
@@ -109,3 +111,4 @@ curl http://localhost:3100/ready
 ## Notes
 - Docker version is **for demo/testing** only.
 - The non‑Docker setup is the **recommended permanent install** on macOS.
+- Run `./status_all.sh` to verify everything quickly.

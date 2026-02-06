@@ -44,6 +44,18 @@ services:
       - ./grafana/provisioning:/etc/grafana/provisioning:ro
     restart: unless-stopped
 
+  loki:
+    image: grafana/loki:latest
+    container_name: anish_loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/loki-config.yml
+    volumes:
+      - ./loki/loki-config.yml:/etc/loki/loki-config.yml:ro
+      - loki_data:/loki
+    restart: unless-stopped
+
 volumes:
   prometheus_data:
   grafana_data:
+  loki_data:

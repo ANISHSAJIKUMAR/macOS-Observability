@@ -214,3 +214,8 @@ curl -sf http://localhost:9100/metrics | head -n 5
 curl -sf http://localhost:3100/ready
 curl -skf https://localhost:3000/api/health
 ```
+
+## Final Notes
+- Dashboard layouts are compacted to avoid empty space.
+- Log dashboards are tagged `logs` for easy search.
+- Overview page is the default home with pinned links.

@@ -74,3 +74,9 @@ launchctl print gui/$(id -u)/observability.net_connectivity
 # Check LaunchDaemon status (root)
 sudo launchctl print system/observability.wdutil_metrics
 ```
+
+## Final Status
+- Dashboards compacted and cleaned (no empty grid gaps).
+- All Prometheus panels have safe no‑data fallbacks.
+- Log dashboards tagged with `logs` for search.
+- Overview page updated with pinned navigation.
