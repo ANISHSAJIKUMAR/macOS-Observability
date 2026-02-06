@@ -3,26 +3,82 @@ name: ci
 
 "on":
   push:
+    paths-ignore:
+      - "**/*.md"
+      - "observability/docs/**"
+      - "observability/output/**"
   pull_request:
+    paths-ignore:
+      - "**/*.md"
+      - "observability/docs/**"
+      - "observability/output/**"
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      lint: ${{ steps.filter.outputs.lint }}
+      prom: ${{ steps.filter.outputs.prom }}
+      docker: ${{ steps.filter.outputs.docker }}
+      security: ${{ steps.filter.outputs.security }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Detect changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            lint:
+              - '.github/workflows/**'
+              - 'observability/**/*.yml'
+              - 'observability/**/*.yaml'
+              - 'observability/**/*.json'
+              - 'observability/**/*.sh'
+              - 'observability/**/*.py'
+            prom:
+              - 'observability/prometheus/**'
+              - 'observability/migration/prometheus/**'
+            docker:
+              - 'observability/migration/docker-compose.yml'
+              - 'observability/migration/**'
+            security:
+              - '.github/workflows/**'
+              - '.gitleaks.toml'
+              - 'observability/**'
+              - '!observability/docs/**'
+              - '!observability/output/**'
+
   lint-and-validate:
+    needs: changes
+    if: ${{ needs.changes.outputs.lint == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: |
+            .github/workflows/ci.yml
 
       - name: Install tools
         run: |
-          sudo apt-get update
-          sudo apt-get install -y jq shellcheck curl
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends jq shellcheck
           python3 -m pip install --upgrade pip
-          python3 -m pip install yamllint ruff
+          python3 -m pip install --upgrade --quiet yamllint ruff
 
       - name: YAML lint
         run: |
@@ -51,36 +107,58 @@ jobs:
           ruff check observability/exporters
 
   prometheus-validate:
+    needs: changes
+    if: ${{ needs.changes.outputs.prom == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Cache promtool
+        uses: actions/cache@v4
+        with:
+          path: /tmp/promtool
+          key: promtool-2.52.0
 
       - name: Prometheus promtool check
         run: |
           PROM_VER=2.52.0
-          curl -L -o /tmp/prom.tar.gz "https://github.com/prometheus/prometheus/releases/download/v${PROM_VER}/prometheus-${PROM_VER}.linux-amd64.tar.gz"
-          tar -xzf /tmp/prom.tar.gz -C /tmp
-          /tmp/prometheus-${PROM_VER}.linux-amd64/promtool check config observability/prometheus/prometheus.yml
+          if [ ! -x /tmp/promtool/promtool ]; then
+            curl -L -o /tmp/prom.tar.gz "https://github.com/prometheus/prometheus/releases/download/v${PROM_VER}/prometheus-${PROM_VER}.linux-amd64.tar.gz"
+            tar -xzf /tmp/prom.tar.gz -C /tmp
+            mkdir -p /tmp/promtool
+            cp "/tmp/prometheus-${PROM_VER}.linux-amd64/promtool" /tmp/promtool/promtool
+          fi
+          /tmp/promtool/promtool check config observability/prometheus/prometheus.yml
           if [ -d observability/prometheus/rules ]; then
-            /tmp/prometheus-${PROM_VER}.linux-amd64/promtool check rules observability/prometheus/rules/*.yml || true
+            /tmp/promtool/promtool check rules observability/prometheus/rules/*.yml || true
           fi
 
   docker-validate:
+    needs: changes
+    if: ${{ needs.changes.outputs.docker == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Docker Compose config
         run: |
           docker compose -f observability/migration/docker-compose.yml config -q
 
   security-scan:
+    needs: changes
+    if: ${{ needs.changes.outputs.security == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Gitleaks (secrets scan)
         uses: gitleaks/gitleaks-action@v2
