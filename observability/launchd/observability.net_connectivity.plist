@@ -6,7 +6,7 @@
     <string>observability.net_connectivity</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/net_connectivity_metrics.py</string>
+      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/observability_net_connectivity_metrics.py</string>
     </array>
     <key>StartInterval</key>
     <integer>30</integer>

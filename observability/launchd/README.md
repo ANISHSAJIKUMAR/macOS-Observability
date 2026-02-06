@@ -22,7 +22,7 @@
 
 <key>ProgramArguments</key>      # Executable path and args
 <array>
-  <string>.../exporters/net_connectivity_metrics.py</string>
+  <string>.../exporters/observability_net_connectivity_metrics.py</string>
 </array>
 
 <key>StartInterval</key>         # How often to run (seconds)

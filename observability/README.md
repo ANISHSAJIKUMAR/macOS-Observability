@@ -146,7 +146,7 @@ sudo launchctl print system/observability.smart_metrics
 
 ## Troubleshooting
 - **No data in Grafana**: check Prometheus and node_exporter are running and `http://localhost:9100/metrics` works.
-- **Wi‑Fi panels empty**: ensure the root LaunchDaemon is loaded and `wdutil_metrics.py` runs with sudo. Wi‑Fi metrics use `wdutil` and `system_profiler` (airport is not used).
+- **Wi‑Fi panels empty**: ensure the root LaunchDaemon is loaded and `observability_wdutil_metrics.py` runs with sudo. Wi‑Fi metrics use `wdutil` and `system_profiler` (airport is not used).
 - **Exporter metrics missing**: verify the textfile directory is correct and readable.
 - **Logs missing**: confirm Loki and promtail are running and the Loki datasource is healthy in Grafana.
 

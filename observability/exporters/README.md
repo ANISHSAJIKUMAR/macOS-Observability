@@ -4,37 +4,37 @@
 These scripts emit Prometheus metrics into the textfile directory for node_exporter.
 
 ## Files & Behavior
-- `battery_metrics.py`
+- `observability_battery_metrics.py`
   - Battery charge %, cycle count, charger connected
   - Battery health max capacity %, condition label, power source
-- `net_connectivity_metrics.py`
+- `observability_net_connectivity_metrics.py`
   - Pings public targets
   - Exposes latency and loss
-- `mac_system_info_metrics.py`
+- `observability_mac_system_info_metrics.py`
   - Exposes identity and hardware facts (CPU, memory, OS, IP, SSID)
-- `launchd_metrics.py`
+- `observability_launchd_metrics.py`
   - Lists running launchd jobs
-- `cpu_fan_metrics.py`
+- `observability_cpu_fan_metrics.py`
   - Thermal pressure level/state (proxy for CPU heat)
   - Availability flags for CPU temperature and fan speed (some Macs do not expose these)
-- `smart_metrics.py`
+- `observability_smart_metrics.py`
   - Disk SMART overall health
   - Disk SMART status via diskutil (Verified/Not Supported)
-- `grafana_health_metrics.py`
+- `observability_grafana_health_metrics.py`
   - Checks Grafana API health (up/down)
-- `prom_config_checksum.py`
+- `observability_prom_config_checksum.py`
   - Calculates SHA256 checksums of Prometheus config files
-- `wdutil_metrics.py`
+- `observability_wdutil_metrics.py`
   - Wi‑Fi RSSI, noise, SNR, link rate, CCA, MCS, NSS
   - Adds `wifi_metrics_source` to show data source (wdutil/system_profiler)
-- `tshark_metrics.py`
+- `observability_tshark_metrics.py`
   - Live packet capture metrics (throughput, top talkers, protocol mix)
   - Requires root (LaunchDaemon)
   - Requires root (LaunchDaemon)
 
 ## What You Can Change
-- Targets in `net_connectivity_metrics.py`
-- Fields emitted in `mac_system_info_metrics.py`
+- Targets in `observability_net_connectivity_metrics.py`
+- Fields emitted in `observability_mac_system_info_metrics.py`
 - Sampling interval via launchd `StartInterval`
 
 ## Apply Changes

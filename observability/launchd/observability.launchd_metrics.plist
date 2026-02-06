@@ -6,7 +6,7 @@
     <string>observability.launchd_metrics</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/launchd_metrics.py</string>
+      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/observability_launchd_metrics.py</string>
     </array>
     <key>StartInterval</key>
     <integer>60</integer>

@@ -6,7 +6,7 @@
     <string>observability.mac_system_info</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/mac_system_info_metrics.py</string>
+      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/observability_mac_system_info_metrics.py</string>
     </array>
     <key>StartInterval</key>
     <integer>60</integer>

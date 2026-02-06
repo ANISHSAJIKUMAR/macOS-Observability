@@ -6,7 +6,7 @@
     <string>observability.battery_metrics</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/battery_metrics.py</string>
+      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/observability_battery_metrics.py</string>
     </array>
     <key>StartInterval</key>
     <integer>60</integer>
