@@ -1,21 +1,30 @@
-# Anish Devops Lab
+# DevOps Observability Lab
 
-`anish-devops-lab` is maintained by **ANISHSAJIKUMAR**.
+[![CI](https://github.com/ANISHSAJIKUMAR/devops-observability-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/ANISHSAJIKUMAR/devops-observability-lab/actions/workflows/ci.yml)
+[![Last Release](https://img.shields.io/github/v/release/ANISHSAJIKUMAR/devops-observability-lab)](https://github.com/ANISHSAJIKUMAR/devops-observability-lab/releases)
+[![License: Proprietary](https://img.shields.io/badge/license-proprietary-red)](https://github.com/ANISHSAJIKUMAR/devops-observability-lab)
 
-## Overview
+**Owner:** Anish Kumar (change `OWNER_NAME` in `observability/.env`)
 
-This repository contains project source code, configuration, and related assets.
+This repository hosts my personal DevOps workspace. The active project is **Observability** for **macOS (Mac)**.
 
-## Getting Started
+## Go To Project
+- Main project folder: `/Users/anishskumar/devops-observability-lab/observability` (macOS only)
+- Full setup guide: `/Users/anishskumar/devops-observability-lab/observability/README.md`
 
-```text
-Add concrete setup and run steps for this repository.
+## Common Commands
+Run from the root or any folder:
+```bash
+./observability/start_all.sh
+./observability/stop_all.sh
+./observability/status_all.sh
 ```
 
-## Maintenance
+## Notes
+- Root folder is kept minimal on purpose.
+- All project scripts, configs, dashboards, and outputs live under `observability/`.
+- This setup is built and tested for macOS. Linux/Windows require different service managers and paths.
 
-- Keep secrets out of git.
-- Run tests/lint before push.
-- Update this README when the project evolves.
-
-_README refreshed on 2026-04-15._
+## CI/CD (GitHub Actions)
+- Validates YAML/JSON, shell scripts, exporters, and Prometheus config.
+- Workflow: `.github/workflows/ci.yml`
