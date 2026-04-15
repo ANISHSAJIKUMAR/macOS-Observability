@@ -1,27 +1,21 @@
-# Anish DevOps Lab
+# Anish Devops Lab
 
-Personal DevOps workspace for infrastructure, observability, and automation experiments.
+`anish-devops-lab` is maintained by **ANISHSAJIKUMAR**.
 
-## Focus Areas
+## Overview
 
-- Observability stack workflows
-- DevOps scripts and repeatable local operations
-- CI/CD and infra experimentation
+This repository contains project source code, configuration, and related assets.
 
-## Structure
+## Getting Started
 
-- `observability/`: primary active project area
-- `.github/`: automation/workflow config
-- `.pre-commit-config.yaml`, `.gitleaks.toml`: repo quality/security tooling
-
-## Typical Commands
-
-```bash
-./observability/start_all.sh
-./observability/stop_all.sh
-./observability/status_all.sh
+```text
+Add concrete setup and run steps for this repository.
 ```
 
-## Notes
+## Maintenance
 
-This repository is maintained as a private personal lab.
+- Keep secrets out of git.
+- Run tests/lint before push.
+- Update this README when the project evolves.
+
+_README refreshed on 2026-04-15._
