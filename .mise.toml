@@ -1,0 +1,20 @@
+[tools]
+node = "25.8.2"
+python = "3.14.3"
+java = "openjdk-25.0.2"
+
+[tasks.start]
+description = "Start observability stack"
+run = "./observability/start_all.sh"
+
+[tasks.stop]
+description = "Stop observability stack"
+run = "./observability/stop_all.sh"
+
+[tasks.status]
+description = "Show observability status"
+run = "./observability/status_all.sh"
+
+[tasks.update-paths]
+description = "Refresh observability paths"
+run = "./observability/tools/update_paths.sh"

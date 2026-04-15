@@ -14,7 +14,7 @@ fi
 # Non-interactive: do not prompt for sudo
 SUDO="sudo -n"
 CAN_SUDO=1
-if ! $SUDO -v >/dev/null 2>&1; then
+if ! $SUDO -v > /dev/null 2>&1; then
   CAN_SUDO=0
 fi
 
@@ -33,7 +33,7 @@ LAUNCH_AGENTS=(
 )
 for agent in "${LAUNCH_AGENTS[@]}"; do
   if [ -f "$agent" ]; then
-    launchctl bootout "$USER_DOMAIN" "$agent" >/dev/null 2>&1 || true
+    launchctl bootout "$USER_DOMAIN" "$agent" > /dev/null 2>&1 || true
   fi
 done
 
@@ -66,23 +66,23 @@ brew services stop prometheus || true
 brew services stop node_exporter || true
 
 log "Status checks..."
-if command -v curl >/dev/null 2>&1; then
-  if curl -sf http://localhost:9090/-/ready >/dev/null; then
+if command -v curl > /dev/null 2>&1; then
+  if curl -sf http://localhost:9090/-/ready > /dev/null; then
     log "Prometheus still running"
   else
     log "Prometheus stopped"
   fi
-  if curl -sf http://localhost:9100/metrics >/dev/null; then
+  if curl -sf http://localhost:9100/metrics > /dev/null; then
     log "node_exporter still running"
   else
     log "node_exporter stopped"
   fi
-  if curl -sf http://localhost:3100/ready >/dev/null; then
+  if curl -sf http://localhost:3100/ready > /dev/null; then
     log "Loki still running"
   else
     log "Loki stopped"
   fi
-  if curl -skf https://localhost:3000/api/health >/dev/null; then
+  if curl -skf https://localhost:3000/api/health > /dev/null; then
     log "Grafana still running"
   else
     log "Grafana stopped"

@@ -1,5 +1,7 @@
 # Promtail (Log Collector)
 
+This stack uses a locally pinned binary at `~/.local/bin/promtail` so it no longer depends on the Homebrew keg.
+
 ## Purpose
 Tails system and app logs and ships them to Loki for Grafana to query.
 

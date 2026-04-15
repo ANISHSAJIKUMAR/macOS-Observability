@@ -5,6 +5,7 @@ OBS_BASE="${OBS_BASE:-$(cd "$(dirname "$0")" && pwd)}"
 ENV_FILE="${OBS_ENV_FILE:-$OBS_BASE/.env}"
 LAUNCH_AGENTS_DIR="${LAUNCH_AGENTS_DIR:-$HOME/Library/LaunchAgents}"
 LAUNCH_DAEMONS_DIR="${LAUNCH_DAEMONS_DIR:-/Library/LaunchDaemons}"
+PROMTAIL_BIN="${PROMTAIL_BIN:-$HOME/.local/bin/promtail}"
 if [ -f "$ENV_FILE" ]; then
   set -a
   # shellcheck disable=SC1090
@@ -15,35 +16,35 @@ log() { printf "[status] %s\n" "$*"; }
 
 SUDO="sudo -n"
 CAN_SUDO=1
-if ! $SUDO -v >/dev/null 2>&1; then
+if ! $SUDO -v > /dev/null 2>&1; then
   CAN_SUDO=0
 fi
 
 log "Core services (brew)"
-if command -v brew >/dev/null 2>&1; then
+if command -v brew > /dev/null 2>&1; then
   brew services list | grep -E 'grafana|prometheus|loki|node_exporter' || true
 else
   log "brew not found"
 fi
 
 log "HTTP health checks"
-if command -v curl >/dev/null 2>&1; then
-  if curl -sf http://localhost:9090/-/ready >/dev/null; then
+if command -v curl > /dev/null 2>&1; then
+  if curl -sf http://localhost:9090/-/ready > /dev/null; then
     log "Prometheus ready"
   else
     log "Prometheus not ready"
   fi
-  if curl -sf http://localhost:9100/metrics >/dev/null; then
+  if curl -sf http://localhost:9100/metrics > /dev/null; then
     log "node_exporter OK"
   else
     log "node_exporter not responding"
   fi
-  if curl -sf http://localhost:3100/ready >/dev/null; then
+  if curl -sf http://localhost:3100/ready > /dev/null; then
     log "Loki ready"
   else
     log "Loki not ready"
   fi
-  if curl -skf https://localhost:3000/api/health >/dev/null; then
+  if curl -skf https://localhost:3000/api/health > /dev/null; then
     log "Grafana OK"
   else
     log "Grafana not responding"
@@ -51,8 +52,8 @@ if command -v curl >/dev/null 2>&1; then
 fi
 
 log "Prometheus targets"
-if command -v curl >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1; then
-  python3 - <<'PY'
+if command -v curl > /dev/null 2>&1 && command -v python3 > /dev/null 2>&1; then
+  python3 - << 'PY'
 import json, subprocess, sys
 try:
     raw = subprocess.check_output(['curl','-sf','http://localhost:9090/api/v1/targets'])
@@ -81,14 +82,13 @@ for svc in \
   observability.grafana_health \
   observability.prom_config_checksum \
   observability.battery_metrics \
-  observability.vmware_fusion_metrics
-  do
-    if launchctl print "$USER_DOMAIN/$svc" 2>/dev/null | awk '/state =|last exit code =/' | head -n 2 | sed "s/^/[agent] $svc /"; then
-      true
-    else
-      echo "[agent] $svc state = not loaded"
-    fi
-  done
+  observability.vmware_fusion_metrics; do
+  if launchctl print "$USER_DOMAIN/$svc" 2> /dev/null | awk '/state =|last exit code =/' | head -n 2 | sed "s/^/[agent] $svc /"; then
+    true
+  else
+    echo "[agent] $svc state = not loaded"
+  fi
+done
 
 log "LaunchDaemons (root)"
 if [ "$CAN_SUDO" -eq 1 ]; then
@@ -97,18 +97,21 @@ if [ "$CAN_SUDO" -eq 1 ]; then
     observability.cpu_fan_metrics \
     observability.smart_metrics \
     observability.promtail \
-    observability.tshark_metrics
-    do
-      $SUDO launchctl print system/$svc 2>/dev/null | awk '/state =|last exit code =/' | head -n 2 | sed "s/^/[daemon] $svc /" || true
-    done
+    observability.tshark_metrics; do
+    if [ "$svc" = "observability.promtail" ] && [ ! -x "$PROMTAIL_BIN" ]; then
+      echo "[daemon] $svc binary missing at $PROMTAIL_BIN"
+      continue
+    fi
+    $SUDO launchctl print system/$svc 2> /dev/null | awk '/state =|last exit code =/' | head -n 2 | sed "s/^/[daemon] $svc /" || true
+  done
 else
   log "root checks skipped (sudo -n not available)"
 fi
 
 log "Textfile exporter freshness"
 TEXTDIR="${TEXTFILE_DIR:-$OBS_BASE/node_exporter/textfile}"
-if command -v python3 >/dev/null 2>&1; then
-  python3 - <<PY
+if command -v python3 > /dev/null 2>&1; then
+  python3 - << PY
 import os, time, glob
 text_dir="$TEXTDIR"
 now=time.time()

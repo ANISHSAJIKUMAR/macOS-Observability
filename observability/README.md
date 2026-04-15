@@ -10,7 +10,7 @@ Includes configuration, dashboards, exporters, and demo flow.
 - Prometheus (metrics storage)
 - Grafana (dashboards + visualization)
 - Loki (log storage)
-- Promtail (log collector)
+- Promtail (log collector, local binary at `~/.local/bin/promtail`)
 - node_exporter (system metrics)
 - Custom Python exporters (network, system info, launchd, Wi‑Fi, battery, thermal, SMART, Grafana health, tshark)
 - launchd / LaunchDaemon (scheduling & background services)
@@ -127,6 +127,7 @@ Loki keeps **14 days** of logs.
 /Users/anishskumar/Anish-DevOps-Lab/observability/launchd/
 /Users/anishskumar/Anish-DevOps-Lab/observability/loki/loki-config.yml
 /Users/anishskumar/Anish-DevOps-Lab/observability/promtail/promtail-config.yml
+/Users/anishskumar/.local/bin/promtail
 ```
 
 ## Directory Map
@@ -137,6 +138,7 @@ Loki keeps **14 days** of logs.
 - `launchd/` — LaunchAgents/Daemons for exporters
 - `loki/` — Loki config (log storage)
 - `promtail/` — Promtail config (log collection)
+- `.local/bin/promtail` — local Promtail binary used by launchd
 - `migration/` — Docker + new‑Mac setup files
 
 ## Permissions & Launchd
@@ -159,7 +161,7 @@ sudo launchctl print system/observability.smart_metrics
 - **No data in Grafana**: check Prometheus and node_exporter are running and `http://localhost:9100/metrics` works.
 - **Wi‑Fi panels empty**: ensure the root LaunchDaemon is loaded and `observability_wdutil_metrics.py` runs with sudo. Wi‑Fi metrics use `wdutil` and `system_profiler` (airport is not used).
 - **Exporter metrics missing**: verify the textfile directory is correct and readable.
-- **Logs missing**: confirm Loki and promtail are running and the Loki datasource is healthy in Grafana.
+- **Logs missing**: confirm Loki and promtail are running, and that `~/.local/bin/promtail` exists and is executable.
 
 ## Common Changes
 - Change data retention in `prometheus.args`

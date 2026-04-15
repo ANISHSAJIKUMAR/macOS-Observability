@@ -12,7 +12,7 @@
 - `observability.wdutil_metrics.plist`
 - `observability.cpu_fan_metrics.plist`
 - `observability.smart_metrics.plist`
-- `observability.promtail.plist`
+- `observability.promtail.plist` (uses `~/.local/bin/promtail`)
 - `observability.tshark_metrics.plist`
 
 ## Example Plist (Line‑by‑Line)

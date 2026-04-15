@@ -1,36 +1,8 @@
-# Local runtime state
-.DS_Store
+# Local runtime state\n.DS_Store\n__pycache__/\n*.pyc\n\n# Grafana local config may include secrets if customized\nobservability/grafana/grafana.ini\n\n# Local TLS certs (self‑signed)\nobservability/grafana/certs/*.key\nobservability/grafana/certs/*.crt\n\n# Local Grafana data/db (not tracked)\nobservability/grafana/data/\n\n# Prometheus TSDB data (not tracked)\nobservability/prometheus/data/\n\n# node_exporter textfile output (generated)\nobservability/node_exporter/textfile/*.prom\n\n# Promtail positions (generated)\nobservability/promtail/positions.yaml\n\n# Any exported secrets files\n*.env\n*.secret\n\n# Local artifacts\nobservability/output/\n\n# Track central config\n!observability/.env\n\n# Ignore Grafana annotated config docs\nobservability/grafana/*.annotated.md\n__pycache__/\n*.pyc\n.venv/\nvenv/\nnode_modules/\n.DS_Store\n._*\n
 __pycache__/
 *.pyc
-
-# Grafana local config may include secrets if customized
-observability/grafana/grafana.ini
-
-# Local TLS certs (self‑signed)
-observability/grafana/certs/*.key
-observability/grafana/certs/*.crt
-
-# Local Grafana data/db (not tracked)
-observability/grafana/data/
-
-# Prometheus TSDB data (not tracked)
-observability/prometheus/data/
-
-# node_exporter textfile output (generated)
-observability/node_exporter/textfile/*.prom
-
-# Promtail positions (generated)
-observability/promtail/positions.yaml
-
-# Any exported secrets files
-*.env
-*.secret
-
-# Local artifacts
-observability/output/
-
-# Track central config
-!observability/.env
-
-# Ignore Grafana annotated config docs
-observability/grafana/*.annotated.md
+.venv/
+venv/
+node_modules/
+.DS_Store
+._*

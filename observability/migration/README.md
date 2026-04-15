@@ -47,7 +47,7 @@ Use `.env` to centralize paths (update `OBS_BASE` if your repo is in a different
 
 ### 2. Install
 ```bash
-brew install prometheus grafana node_exporter smartmontools loki promtail wireshark
+brew install prometheus grafana node_exporter smartmontools loki wireshark
 ```
 
 Note: `wireshark` installs `tshark` (CLI) which is required for the Live Capture dashboard.
@@ -97,7 +97,7 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/observability.battery_me
 sudo launchctl bootstrap system /Library/LaunchDaemons/observability.wdutil_metrics.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/observability.cpu_fan_metrics.plist
 sudo launchctl bootstrap system /Library/LaunchDaemons/observability.smart_metrics.plist
-sudo launchctl bootstrap system /Library/LaunchDaemons/observability.promtail.plist
+# Promtail is managed locally by the observability stack at ~/.local/bin/promtail
 sudo launchctl bootstrap system /Library/LaunchDaemons/observability.tshark_metrics.plist
 ```
 

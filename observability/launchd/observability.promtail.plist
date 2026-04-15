@@ -6,7 +6,7 @@
     <string>observability.promtail</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/opt/homebrew/opt/promtail/bin/promtail</string>
+      <string>/Users/anishskumar/.local/bin/promtail</string>
       <string>-config.file=/Users/anishskumar/Anish-DevOps-Lab/observability/promtail/promtail-config.yml</string>
     </array>
     <key>RunAtLoad</key>
@@ -14,8 +14,8 @@
     <key>KeepAlive</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/opt/homebrew/var/log/promtail.log</string>
+    <string>/Users/anishskumar/.local/var/log/promtail.log</string>
     <key>StandardErrorPath</key>
-    <string>/opt/homebrew/var/log/promtail.err.log</string>
+    <string>/Users/anishskumar/.local/var/log/promtail.err.log</string>
   </dict>
 </plist>
