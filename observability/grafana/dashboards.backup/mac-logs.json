@@ -1,0 +1,713 @@
+{
+  "id": null,
+  "uid": "mac-logs",
+  "title": "Mac Logs: System, Apps & Observability",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "15s",
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "tags": [
+    "logs",
+    "loki",
+    "mac"
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "job",
+        "type": "query",
+        "datasource": {
+          "type": "loki",
+          "uid": "efccujve04lxca"
+        },
+        "query": "label_values(job)",
+        "includeAll": true,
+        "multi": true,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "allValue": ".+"
+      },
+      {
+        "name": "log_type",
+        "type": "query",
+        "datasource": {
+          "type": "loki",
+          "uid": "efccujve04lxca"
+        },
+        "query": "label_values(log_type)",
+        "includeAll": true,
+        "multi": true,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "allValue": ".+"
+      },
+      {
+        "name": "filename",
+        "type": "query",
+        "datasource": {
+          "type": "loki",
+          "uid": "efccujve04lxca"
+        },
+        "query": "label_values(filename)",
+        "includeAll": true,
+        "multi": true,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "allValue": ".*"
+      },
+      {
+        "name": "search",
+        "type": "textbox",
+        "query": "",
+        "current": {
+          "text": "",
+          "value": ""
+        }
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 5,
+      "type": "text",
+      "title": "Read Me: How to Use Logs",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 6
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "## Mac Logs \u2014 Quick Guide\nThis dashboard shows **system**, **app**, and **observability** logs in one place.\n\n**Best starting point**\n- Time range: **Last 1 hour**\n- job: **system**\n- log_type: **system** or **wifi**\n\n**Common searches**\n- `error`, `failed`, `panic`, `crash`\n- App names (e.g., `Chrome`, `Docker`, `Zoom`)\n\n**What each filter means**\n- **job**: system vs user vs observability\n- **log_type**: category like wifi/install/diagnostics/app\n- **filename**: exact file you want to tail\n- **search**: keyword in the log message\n\nTip: Expand a log row to see full metadata and the file path."
+      },
+      "transparent": true
+    },
+    {
+      "id": 6,
+      "type": "stat",
+      "title": "Active Log Streams",
+      "description": "Approximate number of active log streams ingested into Loki. If this is 0, logs are not being ingested.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "gridPos": {
+        "x": 0,
+        "y": 6,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "targets": [
+        {
+          "expr": "(count(count_over_time({job=~\"$job\",log_type=~\"$log_type\"}[5m]))) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 7,
+      "type": "stat",
+      "title": "Log Ingestion Health",
+      "description": "Promtail shipping status. If this is 0, Promtail is not sending logs to Loki.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "gridPos": {
+        "x": 0,
+        "y": 17,
+        "w": 6,
+        "h": 5
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ffcch6jnmfvnka"
+      },
+      "targets": [
+        {
+          "expr": "(sum(rate(promtail_sent_bytes_total[5m]))) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 1,
+      "type": "text",
+      "title": "Read Me: How to Use Logs",
+      "gridPos": {
+        "x": 0,
+        "y": 11,
+        "w": 24,
+        "h": 6
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "## Mac Logs \u2014 Quick Guide\nThis dashboard shows **system**, **app**, and **observability** logs in one place.\n\n**Best starting point**\n- Time range: **Last 1 hour**\n- job: **system**\n- log_type: **system** or **wifi**\n\n**Common searches**\n- `error`, `failed`, `panic`, `crash`\n- App names (e.g., `Chrome`, `Docker`, `Zoom`)\n\n**What each filter means**\n- **job**: system vs user vs observability\n- **log_type**: category like wifi/install/diagnostics/app\n- **filename**: exact file you want to tail\n- **search**: keyword in the log message\n\nTip: Expand a log row to see full metadata and the file path."
+      },
+      "transparent": true
+    },
+    {
+      "id": 2,
+      "type": "logs",
+      "title": "All Logs (Raw by Job/Type)",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 22,
+        "w": 24,
+        "h": 16
+      },
+      "targets": [
+        {
+          "expr": "({job=~\"$job\",log_type=~\"$log_type\"})",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "dedupStrategy": "signature",
+        "enableLogDetails": true,
+        "prettifyLogMessage": true,
+        "showCommonLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "logLevelField": "level"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "lineLimit": 500,
+            "showTime": true,
+            "showLabels": true
+          }
+        }
+      },
+      "description": "Guaranteed log stream for selected job/log_type. Use keyword/search panels for filtering."
+    },
+    {
+      "id": 3,
+      "type": "logs",
+      "title": "System Logs (All)",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 38,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "({job=\"system\"})",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "dedupStrategy": "signature",
+        "enableLogDetails": true,
+        "prettifyLogMessage": true,
+        "showCommonLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "logLevelField": "level"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "lineLimit": 500,
+            "showTime": true,
+            "showLabels": true
+          }
+        }
+      },
+      "description": "All system logs. Use keyword panel below to filter for errors/warnings.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples."
+    },
+    {
+      "id": 4,
+      "type": "logs",
+      "title": "Observability Logs (Grafana/Prom/Exporter)",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 38,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "({job=\"observability\"})",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "dedupStrategy": "signature",
+        "enableLogDetails": true,
+        "prettifyLogMessage": true,
+        "showCommonLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "logLevelField": "level"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "lineLimit": 500,
+            "showTime": true,
+            "showLabels": true
+          }
+        }
+      },
+      "description": "Auto\u2011fallback to 0 if metric is missing or has no recent samples."
+    },
+    {
+      "id": 8,
+      "type": "logs",
+      "title": "Wi\u2011Fi Logs (network issues)",
+      "description": "Focused view of Wi\u2011Fi and network related logs. Use this when connectivity feels slow or unstable.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 48,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "{log_type=~\"wifi\"}",
+          "refId": "A",
+          "datasource": {
+            "type": "loki",
+            "uid": "efccujve04lxca"
+          }
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "showCommonLabels": false,
+        "prettifyLogMessage": true,
+        "logLevelField": "level",
+        "dedupStrategy": "signature"
+      }
+    },
+    {
+      "id": 9,
+      "type": "logs",
+      "title": "Keyword Search Results",
+      "description": "Keyword search results. If search is empty or no matches, this panel can be empty.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 58,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "({job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"} |~ \"$search\")",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "showCommonLabels": false,
+        "prettifyLogMessage": true,
+        "logLevelField": "level",
+        "dedupStrategy": "signature"
+      }
+    },
+    {
+      "id": 10,
+      "type": "logs",
+      "title": "System Errors (keyword filter)",
+      "description": "Filtered view for errors/warnings. Change keywords as needed.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 68,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "({job=\"system\"} |~ \"(?i)(error|warn|failed|denied)\")",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "showCommonLabels": false,
+        "prettifyLogMessage": true,
+        "logLevelField": "level",
+        "dedupStrategy": "signature"
+      }
+    },
+    {
+      "id": 11,
+      "type": "logs",
+      "title": "Logs by Filename",
+      "description": "Use the filename filter at the top to view a specific file.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 78,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "({job=~\"$job\",log_type=~\"$log_type\",filename=~\"$filename\"})",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "enableLogDetails": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "showCommonLabels": false,
+        "prettifyLogMessage": true,
+        "logLevelField": "level",
+        "dedupStrategy": "signature"
+      }
+    },
+    {
+      "id": 12,
+      "type": "stat",
+      "title": "Chrome Logs",
+      "description": "Application-specific logs for Chrome. Uses filename match to keep the panel readable.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 88,
+        "w": 12,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)chrome\"[1h])) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 13,
+      "type": "stat",
+      "title": "Zoom Logs",
+      "description": "Application-specific logs for Zoom. Uses filename match to keep the panel readable.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 88,
+        "w": 12,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)zoom\"[1h])) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 14,
+      "type": "stat",
+      "title": "Docker Logs",
+      "description": "Application-specific logs for Docker. Uses filename match to keep the panel readable.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 97,
+        "w": 12,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)docker\"[1h])) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 15,
+      "type": "stat",
+      "title": "VS Code Logs",
+      "description": "Application-specific logs for VS Code. Uses filename match to keep the panel readable.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 97,
+        "w": 12,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(vscode|visual[[:space:]]*studio[[:space:]]*code|code)\"[1h])) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 16,
+      "type": "stat",
+      "title": "Xcode Logs",
+      "description": "Application-specific logs for Xcode. Uses filename match to keep the panel readable.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
+      "datasource": {
+        "type": "loki",
+        "uid": "efccujve04lxca"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 106,
+        "w": 12,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)xcode\"[1h])) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "description": "A human\u2011friendly log viewer for macOS\u2019s Mac. Use it to troubleshoot system issues, app crashes, and observability stack health. Filters at the top let you narrow by log source (system/user/observability), category (wifi/install/diagnostics/app), specific filename, and keyword search.\n\nHow to use: Start with the last 1 hour, set job=system, log_type=system. If you see a spike or error, open the row to read context and the exact file path."
+}

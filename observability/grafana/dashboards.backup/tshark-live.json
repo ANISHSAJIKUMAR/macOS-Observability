@@ -1,0 +1,366 @@
+{
+  "id": null,
+  "uid": "tshark-live",
+  "title": "Mac Network: Live Capture (tshark)",
+  "description": "Live packet capture analytics from tshark. Use this to see real\u2011time throughput, top talkers, and protocol mix. This runs a short capture every minute on en0.",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "tags": [
+    "network",
+    "tshark",
+    "pcap"
+  ],
+  "panels": [
+    {
+      "id": 1,
+      "type": "text",
+      "title": "Read Me",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 5
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "## Live Capture Overview\nThis dashboard uses **tshark** to sample traffic for 5 seconds every minute. It shows live throughput, protocol mix, and top conversations.\n\nIf you see **0** values, check that the interface is active (default `en0`) and tshark is running."
+      },
+      "transparent": true
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Capture Success",
+      "gridPos": {
+        "x": 0,
+        "y": 5,
+        "w": 6,
+        "h": 5
+      },
+      "targets": [
+        {
+          "expr": "(tshark_capture_success) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Packets/sec",
+      "gridPos": {
+        "x": 6,
+        "y": 5,
+        "w": 6,
+        "h": 5
+      },
+      "targets": [
+        {
+          "expr": "(tshark_capture_pps) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "pps"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Bytes/sec",
+      "gridPos": {
+        "x": 12,
+        "y": 5,
+        "w": 6,
+        "h": 5
+      },
+      "targets": [
+        {
+          "expr": "(tshark_capture_bps) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": "stat",
+      "title": "Frames Captured (window)",
+      "gridPos": {
+        "x": 18,
+        "y": 5,
+        "w": 6,
+        "h": 5
+      },
+      "targets": [
+        {
+          "expr": "(tshark_capture_frames_total) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "textMode": "value"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Live Throughput (B/s)",
+      "gridPos": {
+        "x": 0,
+        "y": 10,
+        "w": 24,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "(tshark_capture_bps) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "type": "bargauge",
+      "title": "Top Conversations by Bytes",
+      "gridPos": {
+        "x": 0,
+        "y": 19,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "(topk(5, tshark_conv_bytes_total)) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "displayName": "{{src}} \u2192 {{dst}}"
+        }
+      },
+      "description": "Auto\u2011fallback to 0 if metric is missing or has no recent samples."
+    },
+    {
+      "id": 8,
+      "type": "bargauge",
+      "title": "Protocol Mix (Bytes)",
+      "gridPos": {
+        "x": 12,
+        "y": 19,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "(topk(8, tshark_proto_bytes_total)) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "displayName": "{{proto}}"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "type": "table",
+      "title": "Packet Flow (Top Conversations)",
+      "description": "Top IP conversations by bytes. This is the closest \u201cflow view\u201d in Grafana without a full packet viewer.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "gridPos": {
+        "x": 0,
+        "y": 29,
+        "w": 24,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "(topk(10, tshark_conv_bytes_total)) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showHeader": true
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "displayName": "{{src}} \u2192 {{dst}}"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 10,
+      "type": "bargauge",
+      "title": "Security Signals (Frames)",
+      "description": "Potential risk indicators from live capture: SYNs, resets, retransmissions, DNS/ARP/ICMP.",
+      "gridPos": {
+        "x": 0,
+        "y": 39,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "(tshark_sec_frames_total) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "displayName": "{{filter}}"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "type": "bargauge",
+      "title": "Security Signals (Bytes)",
+      "description": "Byte volume by security\u2011related filter.",
+      "gridPos": {
+        "x": 12,
+        "y": 39,
+        "w": 12,
+        "h": 10
+      },
+      "targets": [
+        {
+          "expr": "(tshark_sec_bytes_total) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "displayName": "{{filter}}"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "type": "timeseries",
+      "title": "Security Signals Over Time",
+      "description": "Trends of security-related packet signals over time (SYN, RST, retransmissions, DNS, TLS, QUIC).",
+      "gridPos": {
+        "x": 0,
+        "y": 49,
+        "w": 24,
+        "h": 9
+      },
+      "targets": [
+        {
+          "expr": "(tshark_sec_frames_total) or on() vector(0)",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      }
+    }
+  ]
+}
