@@ -9,10 +9,6 @@
       <string>PROJECT_ROOT_PLACEHOLDER/.local/bin/promtail</string>
       <string>-config.file=PROJECT_ROOT_PLACEHOLDER/observability/promtail/promtail-config.yml</string>
     </array>
-    <key>UserName</key>
-    <string>anishskumar</string>
-    <key>GroupName</key>
-    <string>staff</string>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
@@ -21,5 +17,10 @@
     <string>PROJECT_ROOT_PLACEHOLDER/.local/var/log/promtail.log</string>
     <key>StandardErrorPath</key>
     <string>PROJECT_ROOT_PLACEHOLDER/.local/var/log/promtail.err.log</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
   </dict>
 </plist>
