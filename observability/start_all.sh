@@ -108,3 +108,59 @@ if command -v curl > /dev/null 2>&1; then
 fi
 
 log "All services started."
+
+# Start Promtail if binary exists
+if [ -x "$HOME/.local/bin/promtail" ]; then
+  log "Starting Promtail LaunchDaemon..."
+  if [ "$CAN_SUDO" -eq 1 ]; then
+    PROMTAIL_PLIST="/Library/LaunchDaemons/observability.promtail.plist"
+    if [ -f "$PROMTAIL_PLIST" ]; then
+      $SUDO launchctl bootstrap system "$PROMTAIL_PLIST" 2>/dev/null || log "Promtail already running"
+    else
+      log "Promtail not configured. Run: ./start_promtail.sh"
+    fi
+  else
+    log "Promtail requires sudo. Run: ./start_promtail.sh"
+  fi
+else
+  log "Promtail binary not found (install: brew install promtail)"
+fi
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🌐 Opening macOS Observatory in browser..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# Give services a moment to fully initialize
+sleep 2
+
+# Open main dashboards in browser
+echo "Opening Grafana..."
+open http://localhost:3000
+sleep 1
+
+echo "Opening Prometheus..."
+open http://localhost:9090
+sleep 1
+
+echo "Opening Prometheus Targets..."
+open http://localhost:9090/targets
+
+echo ""
+echo "✅ Browser tabs opened!"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🔭 macOS Observatory - All URLs:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "📈 Grafana:     http://localhost:3000 (admin/admin)"
+echo "🔍 Prometheus:  http://localhost:9090"
+echo "🎯 Targets:     http://localhost:9090/targets"
+echo "📊 Query:       http://localhost:9090/graph"
+echo "🚨 Alerts:      http://localhost:9090/alerts"
+echo "📝 Loki:        http://localhost:3100/ready"
+echo "📡 Node:        http://localhost:9100/metrics"
+echo ""
+echo "🎊 Your complete macOS observation platform is ready!"
+echo ""

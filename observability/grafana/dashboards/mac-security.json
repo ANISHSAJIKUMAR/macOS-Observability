@@ -2,7 +2,7 @@
   "id": null,
   "uid": "mac-security",
   "title": "Mac Security: Activity & Risk Signals",
-  "description": "Security\u2011focused view for Anish\u2019s Mac. This dashboard surfaces log signals that can indicate suspicious activity (failed logins, privilege changes, unexpected network events) and summarizes user activity and system changes. Use it as a triage panel; drill into logs for details.",
+  "description": "Security\u2011focused view for macOS\u2019s Mac. This dashboard surfaces log signals that can indicate suspicious activity (failed logins, privilege changes, unexpected network events) and summarizes user activity and system changes. Use it as a triage panel; drill into logs for details.",
   "timezone": "browser",
   "schemaVersion": 39,
   "version": 1,

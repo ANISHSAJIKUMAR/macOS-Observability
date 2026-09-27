@@ -11,7 +11,7 @@
         "y": 0
       },
       "options": {
-        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, AnishSSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
+        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, External-SSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
         "mode": "markdown"
       },
       "title": "What to Watch",
@@ -350,7 +350,7 @@
         "y": 13
       },
       "options": {
-        "content": "## Read Me\nThis Grafana workspace monitors Anish's personal Mac with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health \u2014 CPU, memory, disk usage (including AnishSSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi\u2011Fi \u2014 throughput, errors/drops, ping health, Wi\u2011Fi signal/rates\n- Mac Info: Identity & Status \u2014 system identity, key specs, running launchd services\n- All Metrics: Live Explorer \u2014 all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, mac_system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi\u2011Fi metrics\n",
+        "content": "## Read Me\nThis Grafana workspace monitors your macOS system with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health \u2014 CPU, memory, disk usage (including External-SSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi\u2011Fi \u2014 throughput, errors/drops, ping health, Wi\u2011Fi signal/rates\n- Mac Info: Identity & Status \u2014 system identity, key specs, running launchd services\n- All Metrics: Live Explorer \u2014 all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi\u2011Fi metrics\n",
         "mode": "markdown"
       },
       "title": "Read Me",
@@ -388,7 +388,7 @@
       },
       "targets": [
         {
-          "expr": "(mac_system_kv{key=\"cpu_cores\"}) or on() vector(0)",
+          "expr": "(system_kv{key=\"cpu_cores\"}) or on() vector(0)",
           "legendFormat": ""
         }
       ],
@@ -458,11 +458,11 @@
       },
       "targets": [
         {
-          "expr": "((node_filesystem_size_bytes{mountpoint=\"/Volumes/AnishSSD\"} - node_filesystem_avail_bytes{mountpoint=\"/Volumes/AnishSSD\"}) / node_filesystem_size_bytes{mountpoint=\"/Volumes/AnishSSD\"} * 100) or on() vector(0)",
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/Volumes/External-SSD\"} - node_filesystem_avail_bytes{mountpoint=\"/Volumes/External-SSD\"}) / node_filesystem_size_bytes{mountpoint=\"/Volumes/External-SSD\"} * 100) or on() vector(0)",
           "legendFormat": ""
         }
       ],
-      "title": "AnishSSD Used (%)",
+      "title": "External-SSD Used (%)",
       "type": "stat"
     },
     {

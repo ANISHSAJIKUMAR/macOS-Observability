@@ -6,7 +6,7 @@
   <string>observability.vmware_fusion_metrics</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/observability_vmware_fusion_metrics.py</string>
+    <string>/Users/anishskumar/Projects/Active/devops-observability-lab/observability/exporters/observability_vmware_fusion_metrics.py</string>
   </array>
   <key>RunAtLoad</key>
   <true/>

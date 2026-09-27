@@ -6,16 +6,20 @@
     <string>observability.promtail</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/.local/bin/promtail</string>
-      <string>-config.file=/Users/anishskumar/Anish-DevOps-Lab/observability/promtail/promtail-config.yml</string>
+      <string>PROJECT_ROOT_PLACEHOLDER/.local/bin/promtail</string>
+      <string>-config.file=PROJECT_ROOT_PLACEHOLDER/observability/promtail/promtail-config.yml</string>
     </array>
+    <key>UserName</key>
+    <string>anishskumar</string>
+    <key>GroupName</key>
+    <string>staff</string>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/Users/anishskumar/.local/var/log/promtail.log</string>
+    <string>PROJECT_ROOT_PLACEHOLDER/.local/var/log/promtail.log</string>
     <key>StandardErrorPath</key>
-    <string>/Users/anishskumar/.local/var/log/promtail.err.log</string>
+    <string>PROJECT_ROOT_PLACEHOLDER/.local/var/log/promtail.err.log</string>
   </dict>
 </plist>

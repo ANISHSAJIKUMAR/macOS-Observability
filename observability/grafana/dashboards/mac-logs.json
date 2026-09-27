@@ -709,5 +709,5 @@
       }
     }
   ],
-  "description": "A human\u2011friendly log viewer for Anish\u2019s Mac. Use it to troubleshoot system issues, app crashes, and observability stack health. Filters at the top let you narrow by log source (system/user/observability), category (wifi/install/diagnostics/app), specific filename, and keyword search.\n\nHow to use: Start with the last 1 hour, set job=system, log_type=system. If you see a spike or error, open the row to read context and the exact file path."
+  "description": "A human\u2011friendly log viewer for macOS\u2019s Mac. Use it to troubleshoot system issues, app crashes, and observability stack health. Filters at the top let you narrow by log source (system/user/observability), category (wifi/install/diagnostics/app), specific filename, and keyword search.\n\nHow to use: Start with the last 1 hour, set job=system, log_type=system. If you see a spike or error, open the row to read context and the exact file path."
 }

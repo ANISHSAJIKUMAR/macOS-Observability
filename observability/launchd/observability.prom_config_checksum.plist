@@ -6,7 +6,7 @@
     <string>observability.prom_config_checksum</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/anishskumar/Anish-DevOps-Lab/observability/exporters/observability_prom_config_checksum.py</string>
+      <string>/Users/anishskumar/Projects/Active/devops-observability-lab/observability/exporters/observability_prom_config_checksum.py</string>
     </array>
     <key>StartInterval</key>
     <integer>60</integer>

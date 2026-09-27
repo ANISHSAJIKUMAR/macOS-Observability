@@ -14,7 +14,7 @@
       },
       "options": {
         "mode": "html",
-        "content": "<div style=\"font-size: 15px; line-height: 1.5;\">\n  <div style=\"font-size: 22px; font-weight: 700; margin-bottom: 6px;\">Anish Laptop Observability</div>\n  <div style=\"opacity: 0.85; margin-bottom: 12px;\">Your personal, end\u2011to\u2011end monitoring command center.</div>\n  <div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 12px;\">\n    <div>\n      <div style=\"font-weight: 700; margin-bottom: 6px;\">Pinned Dashboards (Start Here)</div>\n      <ul>\n        <li><a href=\"https://localhost:3000/d/exec-summary/executive-summary3a-anish-laptop\">Executive Summary</a> \u2014 interview\u2011friendly story</li>\n        <li><a href=\"https://localhost:3000/d/mac-system-all/mac-system3a-core-health\">Mac System: Core Health</a> \u2014 CPU, memory, disks, battery, thermal</li>\n        <li><a href=\"https://localhost:3000/d/mac-network/mac-network3a-connectivity-and-wie28091-fi\">Mac Network: Connectivity & Wi\u2011Fi</a> \u2014 throughput, drops, Wi\u2011Fi quality</li>\n        <li><a href=\"https://localhost:3000/d/mac-logs/mac-logs3a-system-apps-and-observability\">Mac Logs: System & Apps</a> \u2014 system + app logs</li>\n        <li><a href=\"https://localhost:3000/d/mac-security/mac-security3a-activity-and-risk-signals\">Mac Security: Activity & Risk Signals</a> \u2014 auth failures + security signals</li>\n        <li><a href=\"https://localhost:3000/d/prometheus-self/prometheus3a-selfe28091-monitoring\">Prometheus: Self\u2011Monitoring</a> \u2014 scrape health, TSDB, WAL</li>\n      </ul>\n    </div>\n    <div>\n      <div style=\"font-weight: 700; margin-bottom: 6px;\">Deep Dives</div>\n      <ul>\n        <li><a href=\"https://localhost:3000/d/mac-info/mac-info3a-identity-and-status\">Mac Info: Identity & Status</a> \u2014 identity + launchd</li>\n        <li><a href=\"https://localhost:3000/d/all-metrics-full/all-metrics3a-live-explorer\">All Metrics: Live Explorer</a> \u2014 raw metrics</li>\n        <li><a href=\"https://localhost:3000/d/tshark-live/mac-network3a-live-capture-tshark\">Live Capture (tshark)</a> \u2014 packet\u2011level analysis</li>\n        <li><a href=\"https://localhost:3000/d/vmware-fusion/vmware-fusion3a-vm-health\">VMware Fusion: VM Health</a> \u2014 VMs, CPU/RAM, snapshots</li>\n      </ul>\n      <div style=\"margin-top: 10px; opacity: 0.85;\">Tip: Start here, then drill down when a metric looks abnormal.</div>\n    </div>\n  </div>\n</div>"
+        "content": "<div style=\"font-size: 15px; line-height: 1.5;\">\n  <div style=\"font-size: 22px; font-weight: 700; margin-bottom: 6px;\">macOS System Observability</div>\n  <div style=\"opacity: 0.85; margin-bottom: 12px;\">Your personal, end\u2011to\u2011end monitoring command center.</div>\n  <div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 12px;\">\n    <div>\n      <div style=\"font-weight: 700; margin-bottom: 6px;\">Pinned Dashboards (Start Here)</div>\n      <ul>\n        <li><a href=\"https://localhost:3000/d/exec-summary/executive-summary3a-macos-system\">Executive Summary</a> \u2014 interview\u2011friendly story</li>\n        <li><a href=\"https://localhost:3000/d/mac-system-all/mac-system3a-core-health\">Mac System: Core Health</a> \u2014 CPU, memory, disks, battery, thermal</li>\n        <li><a href=\"https://localhost:3000/d/mac-network/mac-network3a-connectivity-and-wie28091-fi\">Mac Network: Connectivity & Wi\u2011Fi</a> \u2014 throughput, drops, Wi\u2011Fi quality</li>\n        <li><a href=\"https://localhost:3000/d/mac-logs/mac-logs3a-system-apps-and-observability\">Mac Logs: System & Apps</a> \u2014 system + app logs</li>\n        <li><a href=\"https://localhost:3000/d/mac-security/mac-security3a-activity-and-risk-signals\">Mac Security: Activity & Risk Signals</a> \u2014 auth failures + security signals</li>\n        <li><a href=\"https://localhost:3000/d/prometheus-self/prometheus3a-selfe28091-monitoring\">Prometheus: Self\u2011Monitoring</a> \u2014 scrape health, TSDB, WAL</li>\n      </ul>\n    </div>\n    <div>\n      <div style=\"font-weight: 700; margin-bottom: 6px;\">Deep Dives</div>\n      <ul>\n        <li><a href=\"https://localhost:3000/d/mac-info/mac-info3a-identity-and-status\">Mac Info: Identity & Status</a> \u2014 identity + launchd</li>\n        <li><a href=\"https://localhost:3000/d/all-metrics-full/all-metrics3a-live-explorer\">All Metrics: Live Explorer</a> \u2014 raw metrics</li>\n        <li><a href=\"https://localhost:3000/d/tshark-live/mac-network3a-live-capture-tshark\">Live Capture (tshark)</a> \u2014 packet\u2011level analysis</li>\n        <li><a href=\"https://localhost:3000/d/vmware-fusion/vmware-fusion3a-vm-health\">VMware Fusion: VM Health</a> \u2014 VMs, CPU/RAM, snapshots</li>\n      </ul>\n      <div style=\"margin-top: 10px; opacity: 0.85;\">Tip: Start here, then drill down when a metric looks abnormal.</div>\n    </div>\n  </div>\n</div>"
       },
       "transparent": true
     },
@@ -168,7 +168,7 @@
         "y": 10
       },
       "options": {
-        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, AnishSSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
+        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, External-SSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
         "mode": "markdown"
       },
       "title": "What to Watch",
@@ -183,7 +183,7 @@
         "y": 14
       },
       "options": {
-        "content": "## Dashboards\n- [Executive Summary](#/d/exec-summary/executive-summary3a-anish-laptop)\n- [Mac System: Core Health](#/d/mac-system-all/mac-system3a-core-health)\n- [Mac Network: Connectivity & Wi\u2011Fi](#/d/mac-network/mac-network3a-connectivity-and-wie28091-fi)\n- [Mac Info: Identity & Status](#/d/mac-info/mac-info3a-identity-and-status)\n- [All Metrics: Live Explorer](#/d/all-metrics-full/all-metrics3a-live-explorer)\n\n**Retention:** 14 days, 20 GB cap.",
+        "content": "## Dashboards\n- [Executive Summary](#/d/exec-summary/executive-summary3a-macos-system)\n- [Mac System: Core Health](#/d/mac-system-all/mac-system3a-core-health)\n- [Mac Network: Connectivity & Wi\u2011Fi](#/d/mac-network/mac-network3a-connectivity-and-wie28091-fi)\n- [Mac Info: Identity & Status](#/d/mac-info/mac-info3a-identity-and-status)\n- [All Metrics: Live Explorer](#/d/all-metrics-full/all-metrics3a-live-explorer)\n\n**Retention:** 14 days, 20 GB cap.",
         "mode": "markdown"
       },
       "title": "Quick Links",
@@ -1098,7 +1098,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Anish Laptop: Overview",
+  "title": "macOS System: Overview",
   "uid": "overview",
   "version": 5
 }

@@ -151,7 +151,7 @@
         "y": 4
       },
       "options": {
-        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, AnishSSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
+        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, External-SSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
         "mode": "markdown"
       },
       "title": "What to Watch",
@@ -490,7 +490,7 @@
         "y": 17
       },
       "options": {
-        "content": "This executive summary provides a high\u2011level health view of Anish's personal Mac: system load, memory, storage, network, and Wi\u2011Fi signal quality. Data retention is 14 days (20 GB cap).",
+        "content": "This executive summary provides a high\u2011level health view of your macOS system: system load, memory, storage, network, and Wi\u2011Fi signal quality. Data retention is 14 days (20 GB cap).",
         "mode": "markdown"
       },
       "title": "Read Me",
@@ -745,7 +745,7 @@
       },
       "targets": [
         {
-          "expr": "(mac_system_kv) or on() vector(0)",
+          "expr": "(system_kv) or on() vector(0)",
           "instant": true
         }
       ],
@@ -1495,7 +1495,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Executive Summary: Anish Laptop",
+  "title": "Executive Summary: macOS System",
   "uid": "exec-summary",
   "version": 9
 }
