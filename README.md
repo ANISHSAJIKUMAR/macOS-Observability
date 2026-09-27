@@ -1,11 +1,10 @@
 # 🔭 macOS Observatory
 
 [![macOS](https://img.shields.io/badge/platform-macOS-lightgrey?logo=apple)](https://www.apple.com/macos/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Prometheus](https://img.shields.io/badge/prometheus-v3.15-orange?logo=prometheus)](https://prometheus.io/)
 [![Grafana](https://img.shields.io/badge/grafana-latest-blue?logo=grafana)](https://grafana.com/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![GitHub stars](https://img.shields.io/github/stars/ANISHSAJIKUMAR/macos-observatory?style=social)](https://github.com/ANISHSAJIKUMAR/macos-observatory/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/ANISHSAJIKUMAR/macOS-Observability?style=social)](https://github.com/ANISHSAJIKUMAR/macOS-Observability/stargazers)
 
 > **Your complete macOS observation platform.** Production-grade monitoring with Prometheus, Grafana, Loki, and 100+ custom macOS metrics. Monitor CPU, memory, disk, network, battery health, temperature, and more with beautiful dashboards and automatic alerting.
 
@@ -20,8 +19,8 @@
 brew install prometheus grafana loki node_exporter promtail
 
 # 2. Clone and setup
-git clone https://github.com/ANISHSAJIKUMAR/macos-observatory.git
-cd macos-observatory/observability
+git clone https://github.com/ANISHSAJIKUMAR/macOS-Observability.git
+cd macOS-Observability/observability
 ./setup.sh
 
 # 3. Start monitoring
@@ -57,19 +56,28 @@ Unlike generic monitoring solutions, this includes **macOS-specific metrics**:
 
 ---
 
-## 📸 Screenshots
+## 📸 Live Grafana dashboards
 
-### Grafana Dashboard
-![Grafana Dashboard](screenshots/grafana-dashboard.png)
-*Real-time macOS system monitoring with custom metrics*
+Captured from the running local stack on September 28, 2026. These PNGs are
+stored in this repository so GitHub can display them without a local server.
+Click an image to view it at full resolution. Values reflect this Mac at capture time;
+availability of hardware metrics depends on the Mac and enabled collectors.
 
-### Prometheus Targets
-![Prometheus Targets](screenshots/prometheus-targets.png)
-*All exporters healthy and collecting metrics*
+### macOS overview
+[![Live macOS overview in Grafana](docs/screenshots/overview.png)](docs/screenshots/overview.png)
 
-### CPU & Memory Monitoring
-![System Metrics](screenshots/system-metrics.png)
-*Track CPU, memory, disk, and network usage over time*
+### System core health
+[![CPU, memory, disk and network metrics in Grafana](docs/screenshots/mac-system-core-health.png)](docs/screenshots/mac-system-core-health.png)
+
+### Prometheus self-monitoring
+[![Prometheus storage and scrape metrics in Grafana](docs/screenshots/prometheus-self.png)](docs/screenshots/prometheus-self.png)
+
+### Executive summary
+[![macOS executive summary in Grafana](docs/screenshots/executive-summary.png)](docs/screenshots/executive-summary.png)
+
+Open [local Grafana](http://localhost:3000) to explore the live dashboards.
+If your Grafana configuration enables TLS, use `https://localhost:3000` instead.
+See the [screenshot guide](docs/TAKE_SCREENSHOTS.md) to refresh these images.
 
 ---
 
@@ -186,8 +194,8 @@ brew install prometheus grafana loki node_exporter promtail
 
 #### 2. Clone Repository
 ```bash
-git clone https://github.com/ANISHSAJIKUMAR/macos-observatory.git
-cd macos-observatory
+git clone https://github.com/ANISHSAJIKUMAR/macOS-Observability.git
+cd macOS-Observability
 ```
 
 #### 3. Run Setup Script
@@ -227,8 +235,8 @@ The setup script will:
 - `node_load1`, `node_load5`, `node_load15` - Load averages
 
 **Memory:**
-- `node_memory_MemTotal_bytes` - Total RAM
-- `node_memory_MemAvailable_bytes` - Available RAM
+- `node_memory_total_bytes` - Total RAM
+- `node_memory_free_bytes` - Available RAM
 - `node_memory_SwapTotal_bytes` - Swap size
 
 **Disk:**
@@ -283,7 +291,7 @@ The setup script will:
 
 ### Memory Usage
 ```promql
-(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
+(node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100
 ```
 
 ### Disk Space Used
@@ -366,7 +374,7 @@ brew services list
 - **[SETUP.md](SETUP.md)** - Complete setup guide with troubleshooting
 - **[METRICS_CATALOG.md](METRICS_CATALOG.md)** - All 100+ metrics with examples
 - **[PROMETHEUS_AUTO_RESTART.md](observability/PROMETHEUS_AUTO_RESTART.md)** - Auto-restart feature
-- **[SCREENSHOT_GUIDE.md](SCREENSHOT_GUIDE.md)** - How to capture screenshots
+- **[Screenshot guide](docs/TAKE_SCREENSHOTS.md)** - How to capture screenshots
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - Contribution guidelines
 
 ---
@@ -532,13 +540,6 @@ If this project helped you, please consider:
 - **< 5 minutes** to full setup
 - **100% portable** - works on any Mac
 - **Auto-restart** monitoring included
-- **MIT License** - completely free
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -580,12 +581,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ for the DevOps community**
 
-[![GitHub stars](https://img.shields.io/github/stars/ANISHSAJIKUMAR/macos-observatory?style=social)](https://github.com/ANISHSAJIKUMAR/macos-observatory/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/ANISHSAJIKUMAR/macos-observatory?style=social)](https://github.com/ANISHSAJIKUMAR/macos-observatory/network/members)
-[![GitHub watchers](https://img.shields.io/github/watchers/ANISHSAJIKUMAR/macos-observatory?style=social)](https://github.com/ANISHSAJIKUMAR/macos-observatory/watchers)
+[![GitHub stars](https://img.shields.io/github/stars/ANISHSAJIKUMAR/macOS-Observability?style=social)](https://github.com/ANISHSAJIKUMAR/macOS-Observability/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/ANISHSAJIKUMAR/macOS-Observability?style=social)](https://github.com/ANISHSAJIKUMAR/macOS-Observability/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/ANISHSAJIKUMAR/macOS-Observability?style=social)](https://github.com/ANISHSAJIKUMAR/macOS-Observability/watchers)
 
 **⭐ Star this repo if you find it helpful!**
 
-[Report Bug](https://github.com/ANISHSAJIKUMAR/macos-observatory/issues) · [Request Feature](https://github.com/ANISHSAJIKUMAR/macos-observatory/issues) · [Contribute](CONTRIBUTING.md)
+[Report Bug](https://github.com/ANISHSAJIKUMAR/macOS-Observability/issues) · [Request Feature](https://github.com/ANISHSAJIKUMAR/macOS-Observability/issues) · [Contribute](CONTRIBUTING.md)
 
 </div>
