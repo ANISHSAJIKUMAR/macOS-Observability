@@ -18,6 +18,8 @@ scrape_configs:
     # Note: node_exporter includes custom macOS metrics via textfile collector
     # Available metrics: battery, network connectivity, system info, LaunchD, etc.
 
-  - job_name: "promtail"
-    static_configs:
-      - targets: ["localhost:9080"]
+  # Promtail (disabled - Mac Logs dashboard optional)
+  # Uncomment when promtail LaunchDaemon is working
+  #- job_name: "promtail"
+  #  static_configs:
+  #    - targets: ["localhost:9080"]
