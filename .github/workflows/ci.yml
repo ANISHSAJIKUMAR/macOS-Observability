@@ -150,7 +150,7 @@ jobs:
 
       - name: JSON validation (dashboards)
         run: |
-          files=$(grep -E 'grafana/.+\.json$' /tmp/changed_files.txt || true)
+          files=$(grep -E '^observability/(migration/)?grafana/dashboards/[^/]+\.json$' /tmp/changed_files.txt || true)
           if [ -z "$files" ]; then
             files="observability/grafana/dashboards/*.json observability/migration/grafana/dashboards/*.json"
           fi
@@ -161,7 +161,7 @@ jobs:
 
       - name: Grafana dashboard schema validation
         run: |
-          files=$(grep -E 'grafana/.+\.json$' /tmp/changed_files.txt || true)
+          files=$(grep -E '^observability/(migration/)?grafana/dashboards/[^/]+\.json$' /tmp/changed_files.txt || true)
           if [ -z "$files" ]; then
             files="observability/grafana/dashboards/*.json observability/migration/grafana/dashboards/*.json"
           fi
