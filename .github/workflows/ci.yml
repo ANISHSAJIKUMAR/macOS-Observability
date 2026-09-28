@@ -121,7 +121,7 @@ jobs:
             files=$(git diff --diff-filter=ACMR --name-only "$base" "${{ github.sha }}")
           else
             before="${{ github.event.before }}"
-            if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
+            if [ -z "$before" ] || ! git cat-file -e "$before^{commit}" 2>/dev/null; then
               files=$(git ls-files)
             else
               files=$(git diff --diff-filter=ACMR --name-only "$before" "${{ github.sha }}")
