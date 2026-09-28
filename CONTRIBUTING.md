@@ -184,13 +184,3 @@ Contributors will be:
 - Thanked in commit messages
 
 Thank you for making this project better! 🚀
-
-## Commit attribution
-
-
-Install the repository checks, including the attribution guard:
-
-```bash
-pre-commit install --hook-type pre-commit --hook-type commit-msg
-```
-

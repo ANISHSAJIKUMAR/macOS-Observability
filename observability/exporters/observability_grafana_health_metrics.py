@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 import json
-import ssl
-import urllib.request
-import time
+import logging
 import os
-from observability_env import load_env, get_textfile_dir
+import ssl
+import time
+import urllib.request
+
+from observability_env import get_textfile_dir, load_env
+
 load_env()
 
 OUTFILE = os.path.join(get_textfile_dir(), "grafana_health.prom")
@@ -22,6 +25,7 @@ def fetch_health():
                 data = json.load(r)
                 return 1, data
         except Exception:
+            logging.getLogger(__name__).exception("Metric collection failed")
             continue
     return 0, {}
 

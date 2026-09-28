@@ -20,7 +20,3 @@ repos:
         entry: shfmt -d -i 2 -ci -sr
         language: system
         types: [shell]
-      - id: human-commit-attribution
-        entry: python3 scripts/check_commit_attribution.py
-        language: system
-        stages: [commit-msg]

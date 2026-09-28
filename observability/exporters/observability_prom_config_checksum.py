@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 import hashlib
-import time
 import os
-from observability_env import load_env, get_textfile_dir
+import time
+
+from observability_env import get_obs_base, get_textfile_dir, load_env
+
 load_env()
 
 OUTFILE = os.path.join(get_textfile_dir(), "prom_config_checksum.prom")
-FILES = [
-    "/Users/anishskumar/Anish-DevOps-Lab/observability/prometheus/prometheus.yml",
-    "/Users/anishskumar/Anish-DevOps-Lab/observability/prometheus/prometheus.args",
-    "/Users/anishskumar/Anish-DevOps-Lab/observability/prometheus/rules/recording.yml",
-]
+FILES = [os.path.join(get_obs_base(), "prometheus", name) for name in
+         ("prometheus.yml", "prometheus.args", "rules/recording.yml")]
+
 
 
 def sha256(path):

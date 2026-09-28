@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
+import logging
 import os
 import re
 import subprocess
 import time
-from observability_env import load_env, get_textfile_dir
+
+from observability_env import get_textfile_dir, load_env
+
 load_env()
 
 OUTFILE = os.path.join(get_textfile_dir(), "tshark.prom")
@@ -82,12 +85,13 @@ def parse_io_stats(text: str):
     frames = 0
     bytes_ = 0
     for line in text.splitlines():
-        m = re.search(r"\|\s*\d+\s*<>\s*\d+\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|", line)
+        m = re.search(r"\|\s*\d+(?:\.\d+)?\s*<>\s*\d+(?:\.\d+)?\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|", line)
         if m:
             try:
                 frames += int(m.group(1))
                 bytes_ += int(m.group(2))
             except Exception:
+                logging.getLogger(__name__).exception("Metric collection failed")
                 continue
     return frames, bytes_
 
@@ -108,6 +112,7 @@ def parse_conversations(text: str):
             frames_total = int(m.group(7))
             bytes_total = parse_size(m.group(8))
         except Exception:
+            logging.getLogger(__name__).exception("Metric collection failed")
             continue
         conv.append((bytes_total, frames_total, src, dst))
     conv.sort(reverse=True, key=lambda x: x[0])
@@ -127,6 +132,7 @@ def parse_protocols(text: str):
             frames = int(m.group(2))
             bytes_ = int(m.group(3))
         except Exception:
+            logging.getLogger(__name__).exception("Metric collection failed")
             continue
         protos.append((proto, frames, bytes_))
     return protos
@@ -149,7 +155,7 @@ def parse_security_stats(text: str):
                     bytes_ = int(parts[2])
                     stats[current_filter] = (frames, bytes_)
                 except Exception:
-                    pass
+                    logging.getLogger(__name__).exception("Metric collection failed")
             current_filter = None
     return stats
 
@@ -211,12 +217,14 @@ def main():
             lines.append(f'tshark_sec_bytes_total{{filter="{flt_label}",iface="{IFACE}"}} {bcount}')
 
     except Exception as e:
+
+        logging.getLogger(__name__).exception("Metric collection failed")
         lines.append("tshark_capture_success 0")
         try:
             import sys
             sys.stderr.write(f"tshark_metrics error: {e}\\n")
         except Exception:
-            pass
+            logging.getLogger(__name__).exception("Metric collection failed")
 
     lines.append("# HELP tshark_metrics_timestamp_seconds Export timestamp")
     lines.append("# TYPE tshark_metrics_timestamp_seconds gauge")

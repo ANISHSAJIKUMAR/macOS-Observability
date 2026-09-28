@@ -2,7 +2,7 @@
   "id": null,
   "uid": "tshark-live",
   "title": "Mac Network: Live Capture (tshark)",
-  "description": "Live packet capture analytics from tshark. Use this to see real\u2011time throughput, top talkers, and protocol mix. This runs a short capture every minute on en0.",
+  "description": "Live packet metrics require BPF capture permission. Capture success=0 means capture failed; absent traffic series must not be interpreted as zero traffic. Exporter age should stay below 120 seconds.",
   "timezone": "browser",
   "schemaVersion": 39,
   "version": 1,
@@ -45,8 +45,10 @@
       },
       "targets": [
         {
-          "expr": "(tshark_capture_success) or on() vector(0)",
-          "refId": "A"
+          "expr": "(tshark_capture_success)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "options": {
@@ -75,9 +77,11 @@
                 "value": 1
               }
             ]
-          }
+          },
+          "noValue": "Unavailable"
         }
-      }
+      },
+      "description": "Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples."
     },
     {
       "id": 3,
@@ -91,8 +95,10 @@
       },
       "targets": [
         {
-          "expr": "(tshark_capture_pps) or on() vector(0)",
-          "refId": "A"
+          "expr": "(tshark_capture_pps)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "options": {
@@ -108,9 +114,11 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "pps"
+          "unit": "pps",
+          "noValue": "Unavailable"
         }
-      }
+      },
+      "description": "Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples."
     },
     {
       "id": 4,
@@ -124,8 +132,10 @@
       },
       "targets": [
         {
-          "expr": "(tshark_capture_bps) or on() vector(0)",
-          "refId": "A"
+          "expr": "(tshark_capture_bps)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "options": {
@@ -141,9 +151,11 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "Bps"
+          "unit": "Bps",
+          "noValue": "Unavailable"
         }
-      }
+      },
+      "description": "Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples."
     },
     {
       "id": 5,
@@ -157,8 +169,10 @@
       },
       "targets": [
         {
-          "expr": "(tshark_capture_frames_total) or on() vector(0)",
-          "refId": "A"
+          "expr": "(tshark_capture_frames_total)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "options": {
@@ -174,9 +188,11 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
         }
-      }
+      },
+      "description": "Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples."
     },
     {
       "id": 6,
@@ -190,15 +206,17 @@
       },
       "targets": [
         {
-          "expr": "(tshark_capture_bps) or on() vector(0)",
+          "expr": "(tshark_capture_bps)",
           "refId": "A"
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "Bps"
+          "unit": "Bps",
+          "noValue": "Unavailable"
         }
-      }
+      },
+      "description": "Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples."
     },
     {
       "id": 7,
@@ -212,7 +230,7 @@
       },
       "targets": [
         {
-          "expr": "(topk(5, tshark_conv_bytes_total)) or on() vector(0)",
+          "expr": "(topk(5, tshark_conv_bytes_total))",
           "refId": "A"
         }
       ],
@@ -223,10 +241,11 @@
       "fieldConfig": {
         "defaults": {
           "unit": "bytes",
-          "displayName": "{{src}} \u2192 {{dst}}"
+          "displayName": "{{src}} → {{dst}}",
+          "noValue": "Unavailable"
         }
       },
-      "description": "Auto\u2011fallback to 0 if metric is missing or has no recent samples."
+      "description": "Auto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples."
     },
     {
       "id": 8,
@@ -240,7 +259,7 @@
       },
       "targets": [
         {
-          "expr": "(topk(8, tshark_proto_bytes_total)) or on() vector(0)",
+          "expr": "(topk(8, tshark_proto_bytes_total))",
           "refId": "A"
         }
       ],
@@ -251,15 +270,17 @@
       "fieldConfig": {
         "defaults": {
           "unit": "bytes",
-          "displayName": "{{proto}}"
+          "displayName": "{{proto}}",
+          "noValue": "Unavailable"
         }
-      }
+      },
+      "description": "Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples."
     },
     {
       "id": 9,
       "type": "table",
       "title": "Packet Flow (Top Conversations)",
-      "description": "Top IP conversations by bytes. This is the closest \u201cflow view\u201d in Grafana without a full packet viewer.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "Top IP conversations by bytes. This is the closest “flow view” in Grafana without a full packet viewer.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 29,
@@ -268,8 +289,10 @@
       },
       "targets": [
         {
-          "expr": "(topk(10, tshark_conv_bytes_total)) or on() vector(0)",
-          "refId": "A"
+          "expr": "(topk(10, tshark_conv_bytes_total))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "options": {
@@ -278,7 +301,8 @@
       "fieldConfig": {
         "defaults": {
           "unit": "bytes",
-          "displayName": "{{src}} \u2192 {{dst}}"
+          "displayName": "{{src}} → {{dst}}",
+          "noValue": "Unavailable"
         },
         "overrides": []
       }
@@ -287,7 +311,7 @@
       "id": 10,
       "type": "bargauge",
       "title": "Security Signals (Frames)",
-      "description": "Potential risk indicators from live capture: SYNs, resets, retransmissions, DNS/ARP/ICMP.",
+      "description": "Potential risk indicators from live capture: SYNs, resets, retransmissions, DNS/ARP/ICMP. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 39,
@@ -296,7 +320,7 @@
       },
       "targets": [
         {
-          "expr": "(tshark_sec_frames_total) or on() vector(0)",
+          "expr": "(tshark_sec_frames_total)",
           "refId": "A"
         }
       ],
@@ -307,7 +331,8 @@
       "fieldConfig": {
         "defaults": {
           "unit": "none",
-          "displayName": "{{filter}}"
+          "displayName": "{{filter}}",
+          "noValue": "Unavailable"
         }
       }
     },
@@ -315,7 +340,7 @@
       "id": 11,
       "type": "bargauge",
       "title": "Security Signals (Bytes)",
-      "description": "Byte volume by security\u2011related filter.",
+      "description": "Byte volume by security‑related filter. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 12,
         "y": 39,
@@ -324,7 +349,7 @@
       },
       "targets": [
         {
-          "expr": "(tshark_sec_bytes_total) or on() vector(0)",
+          "expr": "(tshark_sec_bytes_total)",
           "refId": "A"
         }
       ],
@@ -335,7 +360,8 @@
       "fieldConfig": {
         "defaults": {
           "unit": "bytes",
-          "displayName": "{{filter}}"
+          "displayName": "{{filter}}",
+          "noValue": "Unavailable"
         }
       }
     },
@@ -343,7 +369,7 @@
       "id": 12,
       "type": "timeseries",
       "title": "Security Signals Over Time",
-      "description": "Trends of security-related packet signals over time (SYN, RST, retransmissions, DNS, TLS, QUIC).",
+      "description": "Trends of security-related packet signals over time (SYN, RST, retransmissions, DNS, TLS, QUIC). Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 49,
@@ -352,13 +378,42 @@
       },
       "targets": [
         {
-          "expr": "(tshark_sec_frames_total) or on() vector(0)",
+          "expr": "(tshark_sec_frames_total)",
           "refId": "A"
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
+        }
+      }
+    },
+    {
+      "id": 13,
+      "title": "Exporter age (seconds)",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "time() - tshark_metrics_timestamp_seconds",
+          "instant": true,
+          "range": false
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 58,
+        "w": 8,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
         }
       }
     }

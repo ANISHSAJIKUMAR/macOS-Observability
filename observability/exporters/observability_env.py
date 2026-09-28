@@ -1,3 +1,4 @@
+import logging
 import os
 
 
@@ -16,6 +17,7 @@ def _parse_env_file(path: str) -> dict:
                 v = v.strip().strip('"')
                 data[k] = v
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return data
     return data
 

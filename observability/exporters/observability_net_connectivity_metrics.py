@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+import os
+import re
 import subprocess
 import time
-import re
-import os
-from observability_env import load_env, get_textfile_dir
+
+from observability_env import get_textfile_dir, load_env
+
 load_env()
 
 OUTFILE = os.path.join(get_textfile_dir(), "net_connectivity.prom")
@@ -13,7 +15,7 @@ IFACES = ["en0", "en1"]
 
 
 def run(cmd):
-    return subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    return subprocess.run(cmd, check=False, capture_output=True, text=True)
 
 
 def ping_stats(target: str):

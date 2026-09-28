@@ -1,6 +1,5 @@
 import pathlib
 
-
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
@@ -12,9 +11,7 @@ def test_exporters_have_expected_structure():
 
     for path in exporters:
         text = path.read_text(encoding="utf-8")
-        assert text.startswith("#!/usr/bin/env python3") or text.startswith(
-            "#!/usr/bin/env python"
-        )
+        assert text.startswith(("#!/usr/bin/env python3", "#!/usr/bin/env python"))
         assert "get_textfile_dir" in text, f"missing get_textfile_dir in {path.name}"
         assert ".prom" in text, f"missing .prom output in {path.name}"
 

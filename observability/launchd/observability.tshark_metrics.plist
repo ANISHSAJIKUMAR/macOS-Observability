@@ -23,8 +23,8 @@
     <key>RunAtLoad</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/opt/homebrew/var/log/tshark_metrics.log</string>
+    <string>/tmp/observability-tshark.out</string>
     <key>StandardErrorPath</key>
-    <string>/opt/homebrew/var/log/tshark_metrics.err.log</string>
+    <string>/tmp/observability-tshark.err</string>
   </dict>
 </plist>

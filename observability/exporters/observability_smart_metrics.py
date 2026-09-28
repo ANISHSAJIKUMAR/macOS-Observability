@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-import subprocess
-import time
+import logging
 import os
 import re
-from observability_env import load_env, get_textfile_dir
+import subprocess
+import time
+
+from observability_env import get_textfile_dir, load_env
+
 load_env()
 
 OUTFILE = os.path.join(get_textfile_dir(), "smart.prom")
@@ -13,6 +16,7 @@ def list_disks():
     try:
         out = subprocess.check_output(["/usr/sbin/diskutil", "list"], text=True)
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return []
     disks = []
     for line in out.splitlines():
@@ -28,6 +32,7 @@ def smartctl(device):
         out = subprocess.check_output(["/opt/homebrew/sbin/smartctl", "-a", f"/dev/{device}"], text=True, stderr=subprocess.STDOUT)
         return out
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return ""
 
 
@@ -35,6 +40,7 @@ def diskutil_smart_status(device):
     try:
         out = subprocess.check_output(["/usr/sbin/diskutil", "info", device], text=True)
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return ""
     for line in out.splitlines():
         if "SMART Status:" in line:

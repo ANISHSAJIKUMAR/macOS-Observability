@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-import subprocess
-import time
+import logging
 import os
 import plistlib
-from observability_env import load_env, get_textfile_dir
+import subprocess
+import time
+
+from observability_env import get_textfile_dir, load_env
+
 load_env()
 
 OUTFILE = os.path.join(get_textfile_dir(), "cpu_fan.prom")
@@ -13,11 +16,12 @@ def run_powermetrics_plist():
     try:
         p = subprocess.run(
             ["/usr/bin/powermetrics", "-n", "1", "--show-all", "-f", "plist"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            capture_output=True,
+            check=False,
         )
         return p.stdout or b""
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return b""
 
 
@@ -28,6 +32,7 @@ def main():
         try:
             data = plistlib.loads(raw)
         except Exception:
+            logging.getLogger(__name__).exception("Metric collection failed")
             data = {}
 
     lines = []
@@ -41,6 +46,19 @@ def main():
 
     # Thermal pressure (Nominal, Moderate, Heavy, Critical)
     thermal = data.get("thermal_pressure") if data else None
+    if not thermal:
+        # Foundation exposes thermal pressure without root-only powermetrics.
+        try:
+            result = subprocess.run(
+                ["/usr/bin/osascript", "-l", "JavaScript", "-e",
+                 'ObjC.import("Foundation"); $.NSProcessInfo.processInfo.thermalState'],
+                capture_output=True, text=True, timeout=10, check=True,
+            )
+            thermal = {0: "Nominal", 1: "Moderate", 2: "Heavy", 3: "Critical"}.get(
+                int(result.stdout.strip())
+            )
+        except (OSError, ValueError, subprocess.SubprocessError):
+            thermal = None
     if thermal:
         state = str(thermal)
         mapping = {"Nominal": 0, "Moderate": 1, "Heavy": 2, "Critical": 3}

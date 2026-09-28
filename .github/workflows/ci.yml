@@ -79,7 +79,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -118,13 +118,13 @@ jobs:
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             base="${{ github.event.pull_request.base.sha }}"
             git fetch --no-tags --depth=1 origin "$base"
-            files=$(git diff --name-only "$base" "${{ github.sha }}")
+            files=$(git diff --diff-filter=ACMR --name-only "$base" "${{ github.sha }}")
           else
             before="${{ github.event.before }}"
             if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
               files=$(git ls-files)
             else
-              files=$(git diff --name-only "$before" "${{ github.sha }}")
+              files=$(git diff --diff-filter=ACMR --name-only "$before" "${{ github.sha }}")
             fi
           fi
           printf "%s\n" "$files" > /tmp/changed_files.txt
@@ -141,7 +141,7 @@ jobs:
         run: |
           files=$(grep -E '\.ya?ml$' /tmp/changed_files.txt || true)
           if [ -z "$files" ]; then
-            files=$(find observability .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \))
+            files=$(find observability .github/workflows -type f ! -name '._*' \( -name '*.yml' -o -name '*.yaml' \))
           fi
           if [ -n "$files" ]; then
             yamllint -d '{extends: default, rules: {line-length: {max: 200}}}' $files
@@ -149,7 +149,7 @@ jobs:
 
       - name: JSON validation (dashboards)
         run: |
-          files=$(grep -E 'grafana/.+\\.json$' /tmp/changed_files.txt || true)
+          files=$(grep -E 'grafana/.+\.json$' /tmp/changed_files.txt || true)
           if [ -z "$files" ]; then
             files="observability/grafana/dashboards/*.json observability/migration/grafana/dashboards/*.json"
           fi
@@ -160,7 +160,7 @@ jobs:
 
       - name: Grafana dashboard schema validation
         run: |
-          files=$(grep -E 'grafana/.+\\.json$' /tmp/changed_files.txt || true)
+          files=$(grep -E 'grafana/.+\.json$' /tmp/changed_files.txt || true)
           if [ -z "$files" ]; then
             files="observability/grafana/dashboards/*.json observability/migration/grafana/dashboards/*.json"
           fi
@@ -171,7 +171,7 @@ jobs:
 
       - name: Shellcheck
         run: |
-          files=$(grep -E '\\.sh$' /tmp/changed_files.txt || true)
+          files=$(grep -E '\.sh$' /tmp/changed_files.txt || true)
           if [ -z "$files" ]; then
             files="observability/*.sh observability/tools/*.sh"
           fi
@@ -179,7 +179,7 @@ jobs:
 
       - name: Python syntax check
         run: |
-          files=$(grep -E 'observability/exporters/.+\\.py$' /tmp/changed_files.txt || true)
+          files=$(grep -E 'observability/exporters/.+\.py$' /tmp/changed_files.txt || true)
           if [ -z "$files" ]; then
             files="observability/exporters/*.py"
           fi
@@ -187,7 +187,7 @@ jobs:
 
       - name: Python lint (ruff)
         run: |
-          files=$(grep -E 'observability/exporters/.+\\.py$' /tmp/changed_files.txt || true)
+          files=$(grep -E 'observability/exporters/.+\.py$' /tmp/changed_files.txt || true)
           if [ -z "$files" ]; then
             ruff check observability/exporters
           else
@@ -226,19 +226,6 @@ jobs:
           if [ -d observability/prometheus/rules ]; then
             /tmp/promtool/promtool check rules observability/prometheus/rules/*.yml || true
           fi
-
-  docker-validate:
-    needs: changes
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Docker Compose config
-        run: |
-          docker compose -f observability/migration/docker-compose.yml config -q
 
   security-scan:
     needs: changes

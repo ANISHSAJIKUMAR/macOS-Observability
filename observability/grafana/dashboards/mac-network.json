@@ -1,5 +1,5 @@
 {
-  "description": "Expanded network dashboard with connectivity, interface, and Wi\u2011Fi signal metrics (live).",
+  "description": "Expanded network dashboard with connectivity, interface, and Wi‑Fi signal metrics (live).",
   "folderUid": "cfcclm6jxqvpcd",
   "id": 3,
   "panels": [
@@ -12,14 +12,15 @@
         "y": 0
       },
       "options": {
-        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, External-SSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
+        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, External-SSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi‑Fi RSSI below -70 dBm or SNR below 20 dB\n",
         "mode": "markdown"
       },
       "title": "What to Watch",
-      "type": "text"
+      "type": "text",
+      "id": 1
     },
     {
-      "description": "High\u2011level summary panel for quick health checks. Use this to see if anything needs attention at a glance.",
+      "description": "High‑level summary panel for quick health checks. Use this to see if anything needs attention at a glance.",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -31,10 +32,11 @@
         "mode": "markdown"
       },
       "title": "KPI Strip",
-      "type": "text"
+      "type": "text",
+      "id": 2
     },
     {
-      "description": "Shows how busy your computer\u2019s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks.",
+      "description": "Shows how busy your computer’s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -56,7 +58,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -79,14 +82,18 @@
       },
       "targets": [
         {
-          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100) or on() vector(0)"
+          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "CPU %",
-      "type": "stat"
+      "type": "stat",
+      "id": 3
     },
     {
-      "description": "Shows how much RAM is in use. Higher values mean less free memory for new apps. Sustained high memory usage can cause slowdowns and app switching delays.",
+      "description": "Shows how much RAM is in use. Higher values mean less free memory for new apps. Sustained high memory usage can cause slowdowns and app switching delays. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -108,7 +115,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -131,14 +139,18 @@
       },
       "targets": [
         {
-          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100) or on() vector(0)"
+          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Memory %",
-      "type": "stat"
+      "type": "stat",
+      "id": 4
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -160,7 +172,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -183,18 +196,23 @@
       },
       "targets": [
         {
-          "expr": "((node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100) or on() vector(0)"
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Disk / %",
-      "type": "stat"
+      "type": "stat",
+      "id": 5
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "Bps"
+          "unit": "Bps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -217,18 +235,23 @@
       },
       "targets": [
         {
-          "expr": "(sum(rate(node_network_receive_bytes_total[5m]))) or on() vector(0)"
+          "expr": "(sum(rate(node_network_receive_bytes_total[5m])))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Net RX",
-      "type": "stat"
+      "type": "stat",
+      "id": 6
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "Bps"
+          "unit": "Bps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -251,17 +274,22 @@
       },
       "targets": [
         {
-          "expr": "(sum(rate(node_network_transmit_bytes_total[5m]))) or on() vector(0)"
+          "expr": "(sum(rate(node_network_transmit_bytes_total[5m])))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Net TX",
-      "type": "stat"
+      "type": "stat",
+      "id": 7
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "unit": "dBm"
+          "unit": "dBm",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -284,14 +312,18 @@
       },
       "targets": [
         {
-          "expr": "(wifi_rssi_dbm) or on() vector(0)"
+          "expr": "(wifi_rssi_dbm)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
-      "title": "Wi\u2011Fi RSSI",
-      "type": "stat"
+      "title": "Wi‑Fi RSSI",
+      "type": "stat",
+      "id": 8
     },
     {
-      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter.",
+      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -313,7 +345,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -336,11 +369,15 @@
       },
       "targets": [
         {
-          "expr": "(max(net_ping_loss_percent)) or on() vector(0)"
+          "expr": "(max(net_ping_loss_percent))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Ping Loss",
-      "type": "stat"
+      "type": "stat",
+      "id": 9
     },
     {
       "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
@@ -351,11 +388,12 @@
         "y": 13
       },
       "options": {
-        "content": "## Read Me\nThis Grafana workspace monitors your macOS system with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health \u2014 CPU, memory, disk usage (including External-SSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi\u2011Fi \u2014 throughput, errors/drops, ping health, Wi\u2011Fi signal/rates\n- Mac Info: Identity & Status \u2014 system identity, key specs, running launchd services\n- All Metrics: Live Explorer \u2014 all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi\u2011Fi metrics\n",
+        "content": "## Read Me\nThis Grafana workspace monitors your macOS system with Prometheus + node_exporter.\n\nDashboards:\n- Mac System: Core Health — CPU, memory, disk usage (including External-SSD + Time Machine), disk I/O\n- Mac Network: Connectivity & Wi‑Fi — throughput, errors/drops, ping health, Wi‑Fi signal/rates\n- Mac Info: Identity & Status — system identity, key specs, running launchd services\n- All Metrics: Live Explorer — all active Prometheus metrics (live only)\n\nRetention:\n- Prometheus data retention: 14 days\n- Storage cap: 20 GB\n\nExporters and launchd:\n- node_exporter (Homebrew service)\n- Custom exporters (launchd): net_connectivity, system_info, launchd_metrics\n- Root daemon: wdutil_metrics for Wi‑Fi metrics\n",
         "mode": "markdown"
       },
       "title": "Read Me",
-      "type": "text"
+      "type": "text",
+      "id": 10
     },
     {
       "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
@@ -366,18 +404,20 @@
         "y": 19
       },
       "options": {
-        "content": "Includes:\n- Throughput RX/TX (all or selected interfaces)\n- Packets RX/TX\n- Errors RX/TX\n- Drops RX/TX\n- Multicast\n- Total bytes\n- Top interfaces by throughput\n- Average packet size\n- Connectivity (ping latency/loss)\n- Interface link state (en0/en1)\n- Wi\u2011Fi signal (RSSI/Noise/SNR), rates, CCA, MCS, NSS",
+        "content": "Includes:\n- Throughput RX/TX (all or selected interfaces)\n- Packets RX/TX\n- Errors RX/TX\n- Drops RX/TX\n- Multicast\n- Total bytes\n- Top interfaces by throughput\n- Average packet size\n- Connectivity (ping latency/loss)\n- Interface link state (en0/en1)\n- Wi‑Fi signal (RSSI/Noise/SNR), rates, CCA, MCS, NSS",
         "mode": "markdown"
       },
       "title": "What This Dashboard Includes",
-      "type": "text"
+      "type": "text",
+      "id": 11
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "MBps"
+          "unit": "MBps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -388,23 +428,27 @@
       },
       "targets": [
         {
-          "expr": "(sum(job:node_network_receive_mb_s)) or on() vector(0)",
-          "legendFormat": "RX MB/s"
+          "expr": "(sum(job:node_network_receive_mb_s))",
+          "legendFormat": "RX MB/s",
+          "refId": "A"
         },
         {
-          "expr": "(sum(job:node_network_transmit_mb_s)) or on() vector(0)",
-          "legendFormat": "TX MB/s"
+          "expr": "(sum(job:node_network_transmit_mb_s))",
+          "legendFormat": "TX MB/s",
+          "refId": "B"
         }
       ],
       "title": "Total Throughput (MB/s)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 12
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "Bps"
+          "unit": "Bps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -415,23 +459,27 @@
       },
       "targets": [
         {
-          "expr": "(rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m])) or on() vector(0)",
-          "legendFormat": "RX {{device}}"
+          "expr": "(rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m]))",
+          "legendFormat": "RX {{device}}",
+          "refId": "A"
         },
         {
-          "expr": "(rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m])) or on() vector(0)",
-          "legendFormat": "TX {{device}}"
+          "expr": "(rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m]))",
+          "legendFormat": "TX {{device}}",
+          "refId": "B"
         }
       ],
       "title": "Throughput By Interface (bytes/s)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 13
     },
     {
-      "description": "Shows how many data packets are moving each second. Many small packets can indicate chatty apps. Useful to understand network behavior beyond raw speed.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "Shows how many data packets are moving each second. Many small packets can indicate chatty apps. Useful to understand network behavior beyond raw speed.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "pps"
+          "unit": "pps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -442,23 +490,27 @@
       },
       "targets": [
         {
-          "expr": "(rate(node_network_receive_packets_total{device=~\"$iface\"}[5m])) or on() vector(0)",
-          "legendFormat": "RX {{device}}"
+          "expr": "(rate(node_network_receive_packets_total{device=~\"$iface\"}[5m]))",
+          "legendFormat": "RX {{device}}",
+          "refId": "A"
         },
         {
-          "expr": "(rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m])) or on() vector(0)",
-          "legendFormat": "TX {{device}}"
+          "expr": "(rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m]))",
+          "legendFormat": "TX {{device}}",
+          "refId": "B"
         }
       ],
       "title": "Packets (pkts/s)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 14
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "bytes"
+          "unit": "bytes",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -469,23 +521,27 @@
       },
       "targets": [
         {
-          "expr": "(rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_receive_packets_total{device=~\"$iface\"}[5m])) or on() vector(0)",
-          "legendFormat": "RX {{device}}"
+          "expr": "(rate(node_network_receive_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_receive_packets_total{device=~\"$iface\"}[5m]))",
+          "legendFormat": "RX {{device}}",
+          "refId": "A"
         },
         {
-          "expr": "(rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m])) or on() vector(0)",
-          "legendFormat": "TX {{device}}"
+          "expr": "(rate(node_network_transmit_bytes_total{device=~\"$iface\"}[5m]) / rate(node_network_transmit_packets_total{device=~\"$iface\"}[5m]))",
+          "legendFormat": "TX {{device}}",
+          "refId": "B"
         }
       ],
       "title": "Average Packet Size (bytes)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 15
     },
     {
-      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi\u2011Fi or router issues.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi‑Fi or router issues.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "eps"
+          "unit": "eps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -496,23 +552,27 @@
       },
       "targets": [
         {
-          "expr": "(rate(node_network_receive_errs_total{device=~\"$iface\"}[5m])) or on() vector(0)",
-          "legendFormat": "RX errs {{device}}"
+          "expr": "(rate(node_network_receive_errs_total{device=~\"$iface\"}[5m]))",
+          "legendFormat": "RX errs {{device}}",
+          "refId": "A"
         },
         {
-          "expr": "(rate(node_network_transmit_errs_total{device=~\"$iface\"}[5m])) or on() vector(0)",
-          "legendFormat": "TX errs {{device}}"
+          "expr": "(rate(node_network_transmit_errs_total{device=~\"$iface\"}[5m]))",
+          "legendFormat": "TX errs {{device}}",
+          "refId": "B"
         }
       ],
       "title": "Errors (err/s)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 16
     },
     {
-      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi\u2011Fi or router issues.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "Shows network problems (errors or dropped packets). If this rises, you may see lag, buffering, or disconnects. Good for diagnosing Wi‑Fi or router issues.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "dps"
+          "unit": "dps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -523,23 +583,27 @@
       },
       "targets": [
         {
-          "expr": "(rate(node_network_receive_drop_total{device=~\"$iface\"}[5m])) or on() vector(0)",
-          "legendFormat": "RX drop {{device}}"
+          "expr": "(rate(node_network_receive_drop_total{device=~\"$iface\"}[5m]))",
+          "legendFormat": "RX drop {{device}}",
+          "refId": "A"
         },
         {
-          "expr": "(rate(node_network_transmit_drop_total{device=~\"$iface\"}[5m])) or on() vector(0)",
-          "legendFormat": "TX drop {{device}}"
+          "expr": "(rate(node_network_transmit_drop_total{device=~\"$iface\"}[5m]))",
+          "legendFormat": "TX drop {{device}}",
+          "refId": "B"
         }
       ],
       "title": "Drops (drop/s)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 17
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "pps"
+          "unit": "pps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -550,19 +614,22 @@
       },
       "targets": [
         {
-          "expr": "(rate(node_network_receive_multicast_total{device=~\"$iface\"}[5m])) or on() vector(0)",
-          "legendFormat": "multicast {{device}}"
+          "expr": "(rate(node_network_receive_multicast_total{device=~\"$iface\"}[5m]))",
+          "legendFormat": "multicast {{device}}",
+          "refId": "A"
         }
       ],
       "title": "Multicast (pkts/s)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 18
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "bytes"
+          "unit": "bytes",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -573,23 +640,27 @@
       },
       "targets": [
         {
-          "expr": "(node_network_receive_bytes_total{device=~\"$iface\"}) or on() vector(0)",
-          "legendFormat": "RX {{device}}"
+          "expr": "(node_network_receive_bytes_total{device=~\"$iface\"})",
+          "legendFormat": "RX {{device}}",
+          "refId": "A"
         },
         {
-          "expr": "(node_network_transmit_bytes_total{device=~\"$iface\"}) or on() vector(0)",
-          "legendFormat": "TX {{device}}"
+          "expr": "(node_network_transmit_bytes_total{device=~\"$iface\"})",
+          "legendFormat": "TX {{device}}",
+          "refId": "B"
         }
       ],
       "title": "Interface Bytes (total)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 19
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "Bps"
+          "unit": "Bps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -600,23 +671,27 @@
       },
       "targets": [
         {
-          "expr": "(topk(5, rate(node_network_receive_bytes_total[5m]))) or on() vector(0)",
-          "legendFormat": "RX {{device}}"
+          "expr": "(topk(5, rate(node_network_receive_bytes_total[5m])))",
+          "legendFormat": "RX {{device}}",
+          "refId": "A"
         },
         {
-          "expr": "(topk(5, rate(node_network_transmit_bytes_total[5m]))) or on() vector(0)",
-          "legendFormat": "TX {{device}}"
+          "expr": "(topk(5, rate(node_network_transmit_bytes_total[5m])))",
+          "legendFormat": "TX {{device}}",
+          "refId": "B"
         }
       ],
       "title": "Top Interfaces by Throughput (bytes/s)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 20
     },
     {
-      "description": "Shows how fast your internet responds. Higher latency feels like lag. Useful for detecting slow or congested connections.",
+      "description": "Shows how fast your internet responds. Higher latency feels like lag. Useful for detecting slow or congested connections. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "ms"
+          "unit": "ms",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -627,20 +702,23 @@
       },
       "targets": [
         {
-          "expr": "(net_ping_latency_ms) or on() vector(0)",
-          "legendFormat": "{{target}}"
+          "expr": "(net_ping_latency_ms)",
+          "legendFormat": "{{target}}",
+          "refId": "A"
         }
       ],
       "title": "Ping Latency (ms)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 21
     },
     {
-      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter.",
+      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
           "min": 0,
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -651,15 +729,17 @@
       },
       "targets": [
         {
-          "expr": "(net_ping_loss_percent) or on() vector(0)",
-          "legendFormat": "{{target}}"
+          "expr": "(net_ping_loss_percent)",
+          "legendFormat": "{{target}}",
+          "refId": "A"
         }
       ],
       "title": "Ping Loss (%)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 22
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -675,7 +755,8 @@
               "type": "value"
             }
           ],
-          "unit": "short"
+          "unit": "short",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -686,22 +767,30 @@
       },
       "targets": [
         {
-          "expr": "(net_iface_up{iface=\"en0\"}) or on() vector(0)",
-          "legendFormat": "en0"
+          "expr": "(net_iface_up{iface=\"en0\"})",
+          "legendFormat": "en0",
+          "refId": "A",
+          "instant": true,
+          "range": false
         },
         {
-          "expr": "(net_iface_up{iface=\"en1\"}) or on() vector(0)",
-          "legendFormat": "en1"
+          "expr": "(net_iface_up{iface=\"en1\"})",
+          "legendFormat": "en1",
+          "refId": "B",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Interface Link Up",
-      "type": "stat"
+      "type": "stat",
+      "id": 23
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "unit": "dBm"
+          "unit": "dBm",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -712,18 +801,21 @@
       },
       "targets": [
         {
-          "expr": "(wifi_rssi_dbm) or on() vector(0)",
-          "legendFormat": "{{ssid}}"
+          "expr": "(wifi_rssi_dbm)",
+          "legendFormat": "{{ssid}}",
+          "refId": "A"
         }
       ],
-      "title": "Wi\u2011Fi Signal (RSSI dBm)",
-      "type": "timeseries"
+      "title": "Wi‑Fi Signal (RSSI dBm)",
+      "type": "timeseries",
+      "id": 24
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "unit": "dB"
+          "unit": "dB",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -734,22 +826,26 @@
       },
       "targets": [
         {
-          "expr": "(wifi_noise_dbm) or on() vector(0)",
-          "legendFormat": "noise {{ssid}}"
+          "expr": "(wifi_noise_dbm)",
+          "legendFormat": "noise {{ssid}}",
+          "refId": "A"
         },
         {
-          "expr": "(wifi_snr_db) or on() vector(0)",
-          "legendFormat": "snr {{ssid}}"
+          "expr": "(wifi_snr_db)",
+          "legendFormat": "snr {{ssid}}",
+          "refId": "B"
         }
       ],
-      "title": "Wi\u2011Fi Noise/SNR",
-      "type": "timeseries"
+      "title": "Wi‑Fi Noise/SNR",
+      "type": "timeseries",
+      "id": 25
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "unit": "Mbps"
+          "unit": "Mbps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -760,18 +856,21 @@
       },
       "targets": [
         {
-          "expr": "(wifi_tx_rate_mbps) or on() vector(0)",
-          "legendFormat": "tx {{ssid}}"
+          "expr": "(wifi_tx_rate_mbps)",
+          "legendFormat": "tx {{ssid}}",
+          "refId": "A"
         }
       ],
-      "title": "Wi\u2011Fi Rates (Mbps)",
-      "type": "timeseries"
+      "title": "Wi‑Fi Rates (Mbps)",
+      "type": "timeseries",
+      "id": 26
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "min": 0
+          "min": 0,
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -782,23 +881,27 @@
       },
       "targets": [
         {
-          "expr": "(wifi_cca_percent) or on() vector(0)",
-          "legendFormat": "CCA {{ssid}}"
+          "expr": "(wifi_cca_percent)",
+          "legendFormat": "CCA {{ssid}}",
+          "refId": "A"
         },
         {
-          "expr": "(wifi_mcs) or on() vector(0)",
-          "legendFormat": "MCS {{ssid}}"
+          "expr": "(wifi_mcs)",
+          "legendFormat": "MCS {{ssid}}",
+          "refId": "B"
         },
         {
-          "expr": "(wifi_nss) or on() vector(0)",
-          "legendFormat": "NSS {{ssid}}"
+          "expr": "(wifi_nss)",
+          "legendFormat": "NSS {{ssid}}",
+          "refId": "C"
         }
       ],
-      "title": "Wi\u2011Fi Quality (CCA%, MCS, NSS)",
-      "type": "timeseries"
+      "title": "Wi‑Fi Quality (CCA%, MCS, NSS)",
+      "type": "timeseries",
+      "id": 27
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -819,7 +922,8 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "s",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -830,17 +934,21 @@
       },
       "targets": [
         {
-          "expr": "(time() - max(timestamp(node_cpu_seconds_total))) or on() vector(0)"
+          "expr": "(time() - max(timestamp(node_cpu_seconds_total)))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Data Freshness (sec)",
-      "type": "stat"
+      "type": "stat",
+      "id": 28
     },
     {
-      "id": 1,
+      "id": 29,
       "type": "stat",
-      "title": "Wi\u2011Fi Metrics Source",
-      "description": "Shows which system command is providing Wi\u2011Fi metrics (wdutil or system_profiler). Helpful for debugging metric availability.",
+      "title": "Wi‑Fi Metrics Source",
+      "description": "Shows which system command is providing Wi‑Fi metrics (wdutil or system_profiler). Helpful for debugging metric availability. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 93,
@@ -861,13 +969,17 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(wifi_metrics_source) or on() vector(0)",
-          "legendFormat": "{{source}}"
+          "expr": "(wifi_metrics_source)",
+          "legendFormat": "{{source}}",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     }
@@ -922,7 +1034,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Mac Network: Connectivity & Wi\u2011Fi",
+  "title": "Mac Network: Connectivity & Wi‑Fi",
   "uid": "mac-network",
   "version": 17
 }

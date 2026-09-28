@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
+import json
+import logging
+import os
+import re
 import subprocess
 import time
-import re
-import os
-import json
-from observability_env import load_env, get_textfile_dir
+
+from observability_env import get_textfile_dir, load_env
+
 load_env()
 
 OUTFILE = os.path.join(get_textfile_dir(), "wifi.prom")
@@ -12,8 +15,9 @@ OUTFILE = os.path.join(get_textfile_dir(), "wifi.prom")
 
 def run(cmd):
     try:
-        p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        p = subprocess.run(cmd, check=False, capture_output=True, text=True)
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return ""
     if p.returncode != 0:
         return ""
@@ -35,14 +39,16 @@ def run_system_profiler_wifi():
         raw = subprocess.check_output(["/usr/sbin/system_profiler", "SPAirPortDataType", "-json"], text=True)
         data = json.loads(raw)
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return {}
     try:
         iface = data["SPAirPortDataType"][0]["spairport_airport_interfaces"][0]
         current = iface.get("spairport_current_network_information", {})
         signal_noise = current.get("spairport_signal_noise", "")
         rate = current.get("spairport_network_rate", "")
-        return {"signal_noise": signal_noise, "rate": rate}
+        return {"signal_noise": signal_noise, "rate": rate, "mcs": current.get("spairport_network_mcs")}
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return {}
 
 
@@ -52,19 +58,19 @@ def to_float(val):
     try:
         return float(val)
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         m = re.search(r"[-+]?[0-9]*\.?[0-9]+", str(val))
         if m:
             try:
                 return float(m.group(0))
             except Exception:
+                logging.getLogger(__name__).exception("Metric collection failed")
                 return None
     return None
 
 
 def main():
     out = run(["/usr/bin/wdutil", "info"])
-    if not out:
-        return
     data = parse_kv(out)
 
     ssid = data.get("SSID", "")
@@ -92,6 +98,8 @@ def main():
                 rssi = to_float(parts[0])
                 noise = to_float(parts[1])
                 source = "system_profiler"
+        if mcs is None:
+            mcs = to_float(sp.get("mcs"))
         rate = sp.get("rate")
         if rate:
             tx_rate = to_float(rate)

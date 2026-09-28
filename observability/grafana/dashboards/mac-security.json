@@ -2,7 +2,7 @@
   "id": null,
   "uid": "mac-security",
   "title": "Mac Security: Activity & Risk Signals",
-  "description": "Security\u2011focused view for macOS\u2019s Mac. This dashboard surfaces log signals that can indicate suspicious activity (failed logins, privilege changes, unexpected network events) and summarizes user activity and system changes. Use it as a triage panel; drill into logs for details.",
+  "description": "Security‑focused view for macOS’s Mac. This dashboard surfaces log signals that can indicate suspicious activity (failed logins, privilege changes, unexpected network events) and summarizes user activity and system changes. Use it as a triage panel; drill into logs for details.",
   "timezone": "browser",
   "schemaVersion": 39,
   "version": 1,
@@ -23,7 +23,7 @@
         "type": "query",
         "datasource": {
           "type": "loki",
-          "uid": "efccujve04lxca"
+          "uid": "observatory-loki"
         },
         "query": "label_values(job)",
         "includeAll": true,
@@ -39,7 +39,7 @@
         "type": "query",
         "datasource": {
           "type": "loki",
-          "uid": "efccujve04lxca"
+          "uid": "observatory-loki"
         },
         "query": "label_values(log_type)",
         "includeAll": true,
@@ -74,7 +74,7 @@
       },
       "options": {
         "mode": "markdown",
-        "content": "## Security Dashboard (Local Mac)\nThis view looks for **risk signals** in your logs and gives a fast way to spot unusual activity.\n\n**Start here**\n- Time range: **Last 6 hours** (or 24 hours if you suspect an incident)\n- Filters: `job=system` and `log_type=system|xpc_launchd|wifi`\n\n**Common indicators**\n- Repeated `failed` or `denied` authentication\n- New services starting unexpectedly\n- Wi\u2011Fi disconnect/reconnect spikes\n- Crash/diagnostic reports for unknown apps\n\nTip: Use the **Search** box for keywords like `failed`, `denied`, `auth`, `sudo`, `login`, `root`."
+        "content": "## Security Dashboard (Local Mac)\nThis view looks for **risk signals** in your logs and gives a fast way to spot unusual activity.\n\n**Start here**\n- Time range: **Last 6 hours** (or 24 hours if you suspect an incident)\n- Filters: `job=system` and `log_type=system|xpc_launchd|wifi`\n\n**Common indicators**\n- Repeated `failed` or `denied` authentication\n- New services starting unexpectedly\n- Wi‑Fi disconnect/reconnect spikes\n- Crash/diagnostic reports for unknown apps\n\nTip: Use the **Search** box for keywords like `failed`, `denied`, `auth`, `sudo`, `login`, `root`."
       },
       "transparent": true
     },
@@ -82,7 +82,7 @@
       "id": 2,
       "type": "stat",
       "title": "Security Signals (last 1h)",
-      "description": "Approximate count of security\u2011related log lines in the last hour. If this spikes, drill down in the logs panels.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "Approximate count of security‑related log lines in the last hour. If this spikes, drill down in the logs panels.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 6,
@@ -91,12 +91,14 @@
       },
       "datasource": {
         "type": "loki",
-        "uid": "efccujve04lxca"
+        "uid": "observatory-loki"
       },
       "targets": [
         {
           "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|sudo|auth|login|password|keychain|gatekeeper|quarantine)\"[1h])))",
-          "refId": "A"
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "options": {
@@ -129,7 +131,8 @@
                 "value": 50
               }
             ]
-          }
+          },
+          "noValue": "Unavailable"
         }
       }
     },
@@ -137,7 +140,7 @@
       "id": 3,
       "type": "stat",
       "title": "Failed Auth / Denied (last 1h)",
-      "description": "Count of log lines with failed authentication, denial, or authorization errors in the last hour.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "Count of log lines with failed authentication, denial, or authorization errors in the last hour.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 6,
         "y": 6,
@@ -146,12 +149,14 @@
       },
       "datasource": {
         "type": "loki",
-        "uid": "efccujve04lxca"
+        "uid": "observatory-loki"
       },
       "targets": [
         {
           "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(failed|denied|unauthorized|auth)\"[1h])))",
-          "refId": "A"
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "options": {
@@ -184,7 +189,8 @@
                 "value": 20
               }
             ]
-          }
+          },
+          "noValue": "Unavailable"
         }
       }
     },
@@ -192,7 +198,7 @@
       "id": 4,
       "type": "stat",
       "title": "Privilege / sudo Activity (last 1h)",
-      "description": "Potential privilege escalations or sudo usage detected in logs in the last hour.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "Potential privilege escalations or sudo usage detected in logs in the last hour.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 12,
         "y": 6,
@@ -201,12 +207,14 @@
       },
       "datasource": {
         "type": "loki",
-        "uid": "efccujve04lxca"
+        "uid": "observatory-loki"
       },
       "targets": [
         {
           "expr": "(sum(count_over_time({job=~\"$job\",log_type=~\"$log_type\"} |~ \"(?i)(sudo|root|privilege|authorization)\"[1h])))",
-          "refId": "A"
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "options": {
@@ -239,7 +247,8 @@
                 "value": 10
               }
             ]
-          }
+          },
+          "noValue": "Unavailable"
         }
       }
     },
@@ -247,7 +256,7 @@
       "id": 5,
       "type": "stat",
       "title": "Crash / Diagnostic Reports (last 1h)",
-      "description": "Counts diagnostic or crash reports created in the last hour. Unexpected crashes can indicate instability or security issues.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "Counts diagnostic or crash reports created in the last hour. Unexpected crashes can indicate instability or security issues.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 18,
         "y": 6,
@@ -256,12 +265,14 @@
       },
       "datasource": {
         "type": "loki",
-        "uid": "efccujve04lxca"
+        "uid": "observatory-loki"
       },
       "targets": [
         {
           "expr": "(sum(count_over_time({log_type=~\"diagnostic_reports.*\"}[1h]))) or on() vector(0)",
-          "refId": "A"
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "options": {
@@ -294,18 +305,19 @@
                 "value": 10
               }
             ]
-          }
+          },
+          "noValue": "Unavailable"
         }
       }
     },
     {
       "id": 6,
       "type": "logs",
-      "title": "Security\u2011Related Logs (Filtered)",
-      "description": "Primary security log view. Shows only log lines containing security keywords.",
+      "title": "Security‑Related Logs (Filtered)",
+      "description": "Primary security log view. Shows only log lines containing security keywords. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "loki",
-        "uid": "efccujve04lxca"
+        "uid": "observatory-loki"
       },
       "gridPos": {
         "x": 0,
@@ -329,16 +341,21 @@
         "sortOrder": "Descending",
         "showCommonLabels": false,
         "logLevelField": "level"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 7,
       "type": "logs",
       "title": "User Activity Signals",
-      "description": "Shows log lines that may indicate user activity such as logins, session starts, or app launches.\n\nAuto\u2011fallback to 0 if metric is missing or has no recent samples.",
+      "description": "Shows log lines that may indicate user activity such as logins, session starts, or app launches.\n\nAuto‑fallback to 0 if metric is missing or has no recent samples. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "loki",
-        "uid": "efccujve04lxca"
+        "uid": "observatory-loki"
       },
       "gridPos": {
         "x": 0,
@@ -362,16 +379,21 @@
         "prettifyLogMessage": true,
         "logLevelField": "level",
         "dedupStrategy": "signature"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 8,
       "type": "stat",
-      "title": "Network / Wi\u2011Fi Security Signals",
-      "description": "Focus on Wi\u2011Fi and network logs for disconnects, auth failures, or unusual changes.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour.",
+      "title": "Network / Wi‑Fi Security Signals",
+      "description": "Focus on Wi‑Fi and network logs for disconnects, auth failures, or unusual changes.\n\nThis panel shows a 1-hour count. 0 means no matching logs in the last hour. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "loki",
-        "uid": "efccujve04lxca"
+        "uid": "observatory-loki"
       },
       "gridPos": {
         "x": 12,
@@ -381,8 +403,10 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({log_type=~\\\"wifi\\\"} |~ \\\"(?i)(disconnect|auth|denied|failed|ssid|bssid|security)\\\"[1h])) or on() vector(0)",
-          "refId": "A"
+          "expr": "sum(count_over_time({log_type=~\"wifi\"} |~ \"(?i)(disconnect|auth|denied|failed|ssid|bssid|security)\"[1h])) or on() vector(0)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "options": {
@@ -407,7 +431,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "noValue": "Unavailable"
         }
       }
     },
@@ -415,10 +440,10 @@
       "id": 9,
       "type": "logs",
       "title": "Raw Security Logs (system/xpc/wifi)",
-      "description": "Unfiltered view of system, launchd, and Wi\u2011Fi logs. Use this when keyword filters miss something.",
+      "description": "Unfiltered view of system, launchd, and Wi‑Fi logs. Use this when keyword filters miss something. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "loki",
-        "uid": "efccujve04lxca"
+        "uid": "observatory-loki"
       },
       "gridPos": {
         "x": 0,
@@ -432,7 +457,7 @@
           "refId": "A",
           "datasource": {
             "type": "loki",
-            "uid": "efccujve04lxca"
+            "uid": "observatory-loki"
           }
         }
       ],
@@ -446,13 +471,18 @@
         "prettifyLogMessage": true,
         "logLevelField": "level",
         "dedupStrategy": "signature"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 10,
       "type": "bargauge",
       "title": "Live Packet Security Signals (tshark)",
-      "description": "Live capture indicators: SYN storms, resets, retransmissions, DNS/ARP/ICMP. Useful for spotting scans or unstable links.",
+      "description": "Live capture indicators: SYN storms, resets, retransmissions, DNS/ARP/ICMP. Useful for spotting scans or unstable links. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 49,
@@ -461,7 +491,7 @@
       },
       "targets": [
         {
-          "expr": "(tshark_sec_frames_total) or on() vector(0)",
+          "expr": "(tshark_sec_frames_total)",
           "refId": "A"
         }
       ],
@@ -472,7 +502,8 @@
       "fieldConfig": {
         "defaults": {
           "unit": "none",
-          "displayName": "{{filter}}"
+          "displayName": "{{filter}}",
+          "noValue": "Unavailable"
         }
       }
     },
@@ -496,7 +527,7 @@
       "id": 12,
       "type": "bargauge",
       "title": "Security Filters (Frames)",
-      "description": "Frames observed for each security\u2011relevant filter in the last sample window.",
+      "description": "Frames observed for each security‑relevant filter in the last sample window. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 64,
@@ -505,7 +536,7 @@
       },
       "targets": [
         {
-          "expr": "(tshark_sec_frames_total) or on() vector(0)",
+          "expr": "(tshark_sec_frames_total)",
           "refId": "A"
         }
       ],
@@ -516,7 +547,8 @@
       "fieldConfig": {
         "defaults": {
           "unit": "none",
-          "displayName": "{{filter}}"
+          "displayName": "{{filter}}",
+          "noValue": "Unavailable"
         }
       }
     },
@@ -524,7 +556,7 @@
       "id": 13,
       "type": "bargauge",
       "title": "Security Filters (Bytes)",
-      "description": "Bytes observed for each security\u2011relevant filter in the last sample window.",
+      "description": "Bytes observed for each security‑relevant filter in the last sample window. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 12,
         "y": 64,
@@ -533,7 +565,7 @@
       },
       "targets": [
         {
-          "expr": "(tshark_sec_bytes_total) or on() vector(0)",
+          "expr": "(tshark_sec_bytes_total)",
           "refId": "A"
         }
       ],
@@ -544,7 +576,8 @@
       "fieldConfig": {
         "defaults": {
           "unit": "bytes",
-          "displayName": "{{filter}}"
+          "displayName": "{{filter}}",
+          "noValue": "Unavailable"
         }
       }
     },
@@ -552,7 +585,7 @@
       "id": 14,
       "type": "timeseries",
       "title": "SYN Only (possible scans)",
-      "description": "SYN packets without ACK can indicate port scans or connection spikes.",
+      "description": "SYN packets without ACK can indicate port scans or connection spikes. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 74,
@@ -561,13 +594,14 @@
       },
       "targets": [
         {
-          "expr": "(tshark_sec_frames_total{filter=\"tcp.flags.syn==1 && tcp.flags.ack==0\"}) or on() vector(0)",
+          "expr": "(tshark_sec_frames_total{filter=\"tcp.flags.syn==1 && tcp.flags.ack==0\"})",
           "refId": "A"
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
         }
       }
     },
@@ -575,7 +609,7 @@
       "id": 15,
       "type": "timeseries",
       "title": "TCP Resets",
-      "description": "High reset rates can indicate unstable connections or blocked traffic.",
+      "description": "High reset rates can indicate unstable connections or blocked traffic. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 12,
         "y": 74,
@@ -584,13 +618,14 @@
       },
       "targets": [
         {
-          "expr": "(tshark_sec_frames_total{filter=\"tcp.flags.reset==1\"}) or on() vector(0)",
+          "expr": "(tshark_sec_frames_total{filter=\"tcp.flags.reset==1\"})",
           "refId": "A"
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
         }
       }
     },
@@ -598,7 +633,7 @@
       "id": 16,
       "type": "timeseries",
       "title": "TCP Retransmissions",
-      "description": "Retransmissions can indicate packet loss or congestion.",
+      "description": "Retransmissions can indicate packet loss or congestion. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 82,
@@ -607,13 +642,14 @@
       },
       "targets": [
         {
-          "expr": "(tshark_sec_frames_total{filter=\"tcp.analysis.retransmission\"}) or on() vector(0)",
+          "expr": "(tshark_sec_frames_total{filter=\"tcp.analysis.retransmission\"})",
           "refId": "A"
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
         }
       }
     },
@@ -621,7 +657,7 @@
       "id": 17,
       "type": "timeseries",
       "title": "DNS Activity",
-      "description": "DNS spikes can indicate browsing bursts or suspicious lookup behavior.",
+      "description": "DNS spikes can indicate browsing bursts or suspicious lookup behavior. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 12,
         "y": 82,
@@ -630,13 +666,14 @@
       },
       "targets": [
         {
-          "expr": "(tshark_sec_frames_total{filter=\"dns\"}) or on() vector(0)",
+          "expr": "(tshark_sec_frames_total{filter=\"dns\"})",
           "refId": "A"
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
         }
       }
     },
@@ -644,7 +681,7 @@
       "id": 18,
       "type": "bargauge",
       "title": "Live Packet Security Signals (Bytes)",
-      "description": "Byte volume by security filters from live capture (tshark). Helps identify heavy or anomalous traffic types.",
+      "description": "Byte volume by security filters from live capture (tshark). Helps identify heavy or anomalous traffic types. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 90,
@@ -653,7 +690,7 @@
       },
       "targets": [
         {
-          "expr": "(tshark_sec_bytes_total) or on() vector(0)",
+          "expr": "(tshark_sec_bytes_total)",
           "refId": "A"
         }
       ],
@@ -664,7 +701,8 @@
       "fieldConfig": {
         "defaults": {
           "unit": "bytes",
-          "displayName": "{{filter}}"
+          "displayName": "{{filter}}",
+          "noValue": "Unavailable"
         }
       }
     },
@@ -672,7 +710,7 @@
       "id": 19,
       "type": "table",
       "title": "Top Conversations (Bytes)",
-      "description": "Top IP conversations by bytes from tshark capture. Useful for spotting unusual endpoints.",
+      "description": "Top IP conversations by bytes from tshark capture. Useful for spotting unusual endpoints. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 100,
@@ -681,8 +719,10 @@
       },
       "targets": [
         {
-          "expr": "topk(10, tshark_conv_bytes_total) or on() vector(0)",
-          "refId": "A"
+          "expr": "topk(10, tshark_conv_bytes_total)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "options": {
@@ -691,7 +731,8 @@
       "fieldConfig": {
         "defaults": {
           "unit": "bytes",
-          "displayName": "{{src}} \u2192 {{dst}}"
+          "displayName": "{{src}} → {{dst}}",
+          "noValue": "Unavailable"
         }
       }
     }

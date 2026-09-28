@@ -2,7 +2,7 @@
   "id": 10,
   "panels": [
     {
-      "description": "Prometheus service health.",
+      "description": "Prometheus service health. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -31,7 +31,8 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "short",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -42,17 +43,22 @@
       },
       "targets": [
         {
-          "expr": "(up{job=\"prometheus\"}) or on() vector(0)"
+          "expr": "(up{job=\"prometheus\"})",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Prometheus Up",
-      "type": "stat"
+      "type": "stat",
+      "id": 1
     },
     {
-      "description": "How many active time series are in memory (head).",
+      "description": "How many active time series are in memory (head). Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "unit": "short"
+          "unit": "short",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -63,17 +69,22 @@
       },
       "targets": [
         {
-          "expr": "(prometheus_tsdb_head_series) or on() vector(0)"
+          "expr": "(prometheus_tsdb_head_series)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "TSDB Head Series",
-      "type": "stat"
+      "type": "stat",
+      "id": 2
     },
     {
-      "description": "Write\u2011ahead log size. Large WAL can indicate heavy ingestion.",
+      "description": "Write‑ahead log size. Large WAL can indicate heavy ingestion. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "unit": "bytes"
+          "unit": "bytes",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -84,17 +95,22 @@
       },
       "targets": [
         {
-          "expr": "(prometheus_tsdb_wal_storage_size_bytes) or on() vector(0)"
+          "expr": "(prometheus_tsdb_wal_storage_size_bytes)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "WAL Size",
-      "type": "stat"
+      "type": "stat",
+      "id": 3
     },
     {
-      "description": "Total on\u2011disk blocks size.",
+      "description": "Total on‑disk blocks size. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "unit": "bytes"
+          "unit": "bytes",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -105,17 +121,22 @@
       },
       "targets": [
         {
-          "expr": "(prometheus_tsdb_storage_blocks_bytes) or on() vector(0)"
+          "expr": "(prometheus_tsdb_storage_blocks_bytes)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "TSDB Blocks Size",
-      "type": "stat"
+      "type": "stat",
+      "id": 4
     },
     {
-      "description": "Configured storage cap for Prometheus.",
+      "description": "Configured storage cap for Prometheus. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "unit": "bytes"
+          "unit": "bytes",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -126,18 +147,23 @@
       },
       "targets": [
         {
-          "expr": "(prometheus_tsdb_retention_limit_bytes) or on() vector(0)"
+          "expr": "(prometheus_tsdb_retention_limit_bytes)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Retention Limit",
-      "type": "stat"
+      "type": "stat",
+      "id": 5
     },
     {
-      "description": "How long each scrape takes. Spikes mean slow targets.",
+      "description": "How long each scrape takes. Spikes mean slow targets. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "s"
+          "unit": "s",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -148,19 +174,22 @@
       },
       "targets": [
         {
-          "expr": "(scrape_duration_seconds) or on() vector(0)",
-          "legendFormat": "{{job}}"
+          "expr": "(scrape_duration_seconds)",
+          "legendFormat": "{{job}}",
+          "refId": "A"
         }
       ],
       "title": "Scrape Duration (s)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 6
     },
     {
-      "description": "Number of samples collected per scrape. Sudden jumps can indicate more metrics.",
+      "description": "Number of samples collected per scrape. Sudden jumps can indicate more metrics. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "short"
+          "unit": "short",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -171,19 +200,22 @@
       },
       "targets": [
         {
-          "expr": "(scrape_samples_scraped) or on() vector(0)",
-          "legendFormat": "{{job}}"
+          "expr": "(scrape_samples_scraped)",
+          "legendFormat": "{{job}}",
+          "refId": "A"
         }
       ],
       "title": "Scrape Samples",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 7
     },
     {
-      "description": "Time spent compacting TSDB blocks.",
+      "description": "Time spent compacting TSDB blocks. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "s"
+          "unit": "s",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -194,19 +226,22 @@
       },
       "targets": [
         {
-          "expr": "(rate(prometheus_tsdb_compaction_duration_seconds_sum[5m])) or on() vector(0)",
-          "legendFormat": "compaction"
+          "expr": "(rate(prometheus_tsdb_compaction_duration_seconds_sum[5m]))",
+          "legendFormat": "compaction",
+          "refId": "A"
         }
       ],
       "title": "Compaction Duration (s)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 8
     },
     {
-      "description": "Disk sync duration for WAL writes. High values indicate slow storage.",
+      "description": "Disk sync duration for WAL writes. High values indicate slow storage. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "s"
+          "unit": "s",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -217,15 +252,17 @@
       },
       "targets": [
         {
-          "expr": "(prometheus_tsdb_wal_fsync_duration_seconds) or on() vector(0)",
-          "legendFormat": "fsync"
+          "expr": "(prometheus_tsdb_wal_fsync_duration_seconds)",
+          "legendFormat": "fsync",
+          "refId": "A"
         }
       ],
       "title": "WAL Fsync Duration (s)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 9
     },
     {
-      "description": "Checksum of Prometheus config files for quick change detection.",
+      "description": "Checksum of Prometheus config files for quick change detection. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "h": 7,
         "w": 24,
@@ -234,8 +271,10 @@
       },
       "targets": [
         {
-          "expr": "(prom_config_checksum) or on() vector(0)",
-          "instant": true
+          "expr": "(prom_config_checksum)",
+          "instant": true,
+          "refId": "A",
+          "range": false
         }
       ],
       "title": "Config Checksum",
@@ -256,7 +295,13 @@
           }
         }
       ],
-      "type": "table"
+      "type": "table",
+      "id": 10,
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
+      }
     }
   ],
   "refresh": "30s",
@@ -271,7 +316,7 @@
     "to": "now"
   },
   "timezone": "browser",
-  "title": "Prometheus: Self\u2011Monitoring",
+  "title": "Prometheus: Self‑Monitoring",
   "uid": "prometheus-self",
   "version": 1
 }

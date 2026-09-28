@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
+import glob
+import logging
 import os
 import re
 import subprocess
 import time
-import glob
-from observability_env import load_env, get_textfile_dir
+
+from observability_env import get_textfile_dir, load_env
+
 load_env()
 
 OUTFILE = os.path.join(get_textfile_dir(), "vmware_fusion.prom")
@@ -14,8 +17,9 @@ DEFAULT_VMRUN = "/Applications/VMware Fusion.app/Contents/Library/vmrun"
 
 def run(cmd):
     try:
-        p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        p = subprocess.run(cmd, check=False, capture_output=True, text=True)
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return ""
     if p.returncode != 0:
         return ""
@@ -45,6 +49,7 @@ def parse_vmx(path):
                 v = v.strip().strip('"')
                 info[k] = v
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return info
     return info
 
@@ -95,6 +100,7 @@ def find_vmx_from_processes():
             cpu = float(parts[1])
             rss_kb = float(parts[2])
         except Exception:
+            logging.getLogger(__name__).exception("Metric collection failed")
             continue
         rss_mb = rss_kb / 1024.0
         usage[vmx] = (cpu, rss_mb)
@@ -114,7 +120,7 @@ def vmdk_info(vmx_path, vmx_info):
             try:
                 sizes.append(os.path.getsize(p))
             except Exception:
-                pass
+                logging.getLogger(__name__).exception("Metric collection failed")
     return sum(sizes)
 
 
@@ -128,16 +134,15 @@ def count_snapshots(vmx_path):
 
 def main():
     vmrun = find_vmrun()
-    if not vmrun:
-        return
 
-    running = set(list_running_vms(vmrun))
+    running = set(list_running_vms(vmrun)) if vmrun else set()
     usage = find_vmx_from_processes()
 
     # Find all VMX files in default Fusion locations
     vmx_files = []
     home = os.path.expanduser("~")
     candidates = [
+        os.path.join(home, "Virtual Machines.localized"),
         os.path.join(home, "Documents", "Virtual Machines.localized"),
         os.path.join(home, "Documents", "Virtual Machines"),
     ]
@@ -150,7 +155,12 @@ def main():
         if vmx not in vmx_files:
             vmx_files.append(vmx)
 
-    lines = []
+    lines = [
+        "# TYPE vmware_fusion_available gauge",
+        f"vmware_fusion_available {int(bool(vmrun))}",
+        "# TYPE vmware_fusion_vm_count gauge",
+        f"vmware_fusion_vm_count {len(set(vmx_files))}",
+    ]
     lines.append("# HELP vmware_fusion_vm_running VM running state (1=running, 0=stopped)")
     lines.append("# TYPE vmware_fusion_vm_running gauge")
     lines.append("# HELP vmware_fusion_vm_cpu_percent VM CPU usage percent (from vmware-vmx process)")
@@ -199,12 +209,12 @@ def main():
             try:
                 lines.append(f"vmware_fusion_vm_config_vcpus{labels} {float(vcpus)}")
             except Exception:
-                pass
+                logging.getLogger(__name__).exception("Metric collection failed")
         if mem:
             try:
                 lines.append(f"vmware_fusion_vm_config_mem_mb{labels} {float(mem)}")
             except Exception:
-                pass
+                logging.getLogger(__name__).exception("Metric collection failed")
         lines.append(f"vmware_fusion_vm_vmdk_bytes{labels} {vmdk_bytes}")
         lines.append(f"vmware_fusion_vm_snapshot_count{labels} {snaps}")
         lines.append(f"vmware_fusion_vm_guest_tools{labels} {tools_ok}")

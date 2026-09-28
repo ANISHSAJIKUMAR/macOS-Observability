@@ -371,6 +371,7 @@ brew services list
 
 ## 📚 Documentation
 
+- **[Dashboard verification](docs/DASHBOARD_VERIFICATION.md)** - Current checks and collection requirements
 - **[SETUP.md](SETUP.md)** - Complete setup guide with troubleshooting
 - **[METRICS_CATALOG.md](METRICS_CATALOG.md)** - All 100+ metrics with examples
 - **[PROMETHEUS_AUTO_RESTART.md](observability/PROMETHEUS_AUTO_RESTART.md)** - Auto-restart feature
@@ -545,7 +546,7 @@ If this project helped you, please consider:
 
 ## 👤 Author
 
-**Created by**: ANISHSAJIKUMAR
+**Anish S Kumar** — creator and maintainer
 
 - GitHub: [@ANISHSAJIKUMAR](https://github.com/ANISHSAJIKUMAR)
 - LinkedIn: [Connect with me](https://linkedin.com/in/anishskumar)

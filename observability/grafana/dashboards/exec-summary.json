@@ -2,7 +2,7 @@
   "id": 8,
   "panels": [
     {
-      "description": "Prometheus service health (1=up).",
+      "description": "Prometheus service health (1=up). Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -31,7 +31,8 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "short",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -42,14 +43,18 @@
       },
       "targets": [
         {
-          "expr": "(up{job=\"prometheus\"}) or on() vector(0)"
+          "expr": "(up{job=\"prometheus\"})",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Prometheus Up",
-      "type": "stat"
+      "type": "stat",
+      "id": 1
     },
     {
-      "description": "node_exporter service health (1=up).",
+      "description": "node_exporter service health (1=up). Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -78,7 +83,8 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "short",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -89,14 +95,18 @@
       },
       "targets": [
         {
-          "expr": "(up{job=\"node_exporter\"}) or on() vector(0)"
+          "expr": "(up{job=\"node_exporter\"})",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "node_exporter Up",
-      "type": "stat"
+      "type": "stat",
+      "id": 2
     },
     {
-      "description": "Grafana API health (1=up).",
+      "description": "Grafana API health (1=up). Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -125,7 +135,8 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "short",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -136,11 +147,15 @@
       },
       "targets": [
         {
-          "expr": "(grafana_up) or on() vector(0)"
+          "expr": "(grafana_up)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Grafana Up",
-      "type": "stat"
+      "type": "stat",
+      "id": 3
     },
     {
       "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
@@ -151,14 +166,15 @@
         "y": 4
       },
       "options": {
-        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, External-SSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi\u2011Fi RSSI below -70 dBm or SNR below 20 dB\n",
+        "content": "## What to Watch\n- CPU or Memory > 85% sustained\n- Disk usage > 85% (/, External-SSD, Time Machine)\n- Ping loss > 2% or latency spikes\n- Wi‑Fi RSSI below -70 dBm or SNR below 20 dB\n",
         "mode": "markdown"
       },
       "title": "What to Watch",
-      "type": "text"
+      "type": "text",
+      "id": 4
     },
     {
-      "description": "High\u2011level summary panel for quick health checks. Use this to see if anything needs attention at a glance.",
+      "description": "High‑level summary panel for quick health checks. Use this to see if anything needs attention at a glance.",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -170,10 +186,11 @@
         "mode": "markdown"
       },
       "title": "KPI Strip",
-      "type": "text"
+      "type": "text",
+      "id": 5
     },
     {
-      "description": "Shows how busy your computer\u2019s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks.",
+      "description": "Shows how busy your computer’s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -195,7 +212,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -218,14 +236,18 @@
       },
       "targets": [
         {
-          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100) or on() vector(0)"
+          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "CPU %",
-      "type": "stat"
+      "type": "stat",
+      "id": 6
     },
     {
-      "description": "Shows how much RAM is in use. Higher values mean less free memory for new apps. Sustained high memory usage can cause slowdowns and app switching delays.",
+      "description": "Shows how much RAM is in use. Higher values mean less free memory for new apps. Sustained high memory usage can cause slowdowns and app switching delays. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -247,7 +269,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -270,14 +293,18 @@
       },
       "targets": [
         {
-          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100) or on() vector(0)"
+          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Memory %",
-      "type": "stat"
+      "type": "stat",
+      "id": 7
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -299,7 +326,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -322,18 +350,23 @@
       },
       "targets": [
         {
-          "expr": "((node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100) or on() vector(0)"
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Disk / %",
-      "type": "stat"
+      "type": "stat",
+      "id": 8
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "Bps"
+          "unit": "Bps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -356,18 +389,23 @@
       },
       "targets": [
         {
-          "expr": "(sum(rate(node_network_receive_bytes_total[5m]))) or on() vector(0)"
+          "expr": "(sum(rate(node_network_receive_bytes_total[5m])))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Net RX",
-      "type": "stat"
+      "type": "stat",
+      "id": 9
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "Bps"
+          "unit": "Bps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -390,17 +428,22 @@
       },
       "targets": [
         {
-          "expr": "(sum(rate(node_network_transmit_bytes_total[5m]))) or on() vector(0)"
+          "expr": "(sum(rate(node_network_transmit_bytes_total[5m])))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Net TX",
-      "type": "stat"
+      "type": "stat",
+      "id": 10
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "unit": "dBm"
+          "unit": "dBm",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -423,14 +466,18 @@
       },
       "targets": [
         {
-          "expr": "(wifi_rssi_dbm) or on() vector(0)"
+          "expr": "(wifi_rssi_dbm)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
-      "title": "Wi\u2011Fi RSSI",
-      "type": "stat"
+      "title": "Wi‑Fi RSSI",
+      "type": "stat",
+      "id": 11
     },
     {
-      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter.",
+      "description": "Shows internet reliability. Packet loss means some data never arrived. If loss > 2%, video calls and gaming can stutter. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
@@ -452,7 +499,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -475,11 +523,15 @@
       },
       "targets": [
         {
-          "expr": "(max(net_ping_loss_percent)) or on() vector(0)"
+          "expr": "(max(net_ping_loss_percent))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Ping Loss",
-      "type": "stat"
+      "type": "stat",
+      "id": 12
     },
     {
       "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
@@ -490,19 +542,21 @@
         "y": 17
       },
       "options": {
-        "content": "This executive summary provides a high\u2011level health view of your macOS system: system load, memory, storage, network, and Wi\u2011Fi signal quality. Data retention is 14 days (20 GB cap).",
+        "content": "This executive summary provides a high‑level health view of your macOS system: system load, memory, storage, network, and Wi‑Fi signal quality. Data retention is 14 days (20 GB cap).",
         "mode": "markdown"
       },
       "title": "Read Me",
-      "type": "text"
+      "type": "text",
+      "id": 13
     },
     {
-      "description": "Shows how busy your computer\u2019s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks.",
+      "description": "Shows how busy your computer’s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
           "min": 0,
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -513,20 +567,25 @@
       },
       "targets": [
         {
-          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "CPU Usage",
-      "type": "stat"
+      "type": "stat",
+      "id": 14
     },
     {
-      "description": "Shows how much RAM is in use. Higher values mean less free memory for new apps. Sustained high memory usage can cause slowdowns and app switching delays.",
+      "description": "Shows how much RAM is in use. Higher values mean less free memory for new apps. Sustained high memory usage can cause slowdowns and app switching delays. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
           "min": 0,
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -537,20 +596,25 @@
       },
       "targets": [
         {
-          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Memory Used",
-      "type": "stat"
+      "type": "stat",
+      "id": 15
     },
     {
-      "description": "Shows how full a disk is. When storage is near full (>85%), the Mac may slow down and updates can fail. Helps decide when to delete files or move data.",
+      "description": "Shows how full a disk is. When storage is near full (>85%), the Mac may slow down and updates can fail. Helps decide when to delete files or move data. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
           "min": 0,
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -561,18 +625,23 @@
       },
       "targets": [
         {
-          "expr": "((node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}) / node_filesystem_size_bytes{mountpoint=\"/\"} * 100)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Disk Used (/)",
-      "type": "stat"
+      "type": "stat",
+      "id": 16
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "unit": "dBm"
+          "unit": "dBm",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -583,20 +652,25 @@
       },
       "targets": [
         {
-          "expr": "(wifi_rssi_dbm) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "(wifi_rssi_dbm)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
-      "title": "Wi\u2011Fi Signal (RSSI)",
-      "type": "stat"
+      "title": "Wi‑Fi Signal (RSSI)",
+      "type": "stat",
+      "id": 17
     },
     {
-      "description": "Shows how busy your computer\u2019s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks.",
+      "description": "Shows how busy your computer’s brain (CPU) is. Higher values mean more work. If it stays high (>85%) for several minutes, apps may lag. Good for spotting heavy background tasks. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
           "min": 0,
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -607,23 +681,27 @@
       },
       "targets": [
         {
-          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100) or on() vector(0)",
-          "legendFormat": "CPU %"
+          "expr": "((1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) by (instance)) * 100)",
+          "legendFormat": "CPU %",
+          "refId": "A"
         },
         {
-          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100) or on() vector(0)",
-          "legendFormat": "Memory %"
+          "expr": "((node_memory_total_bytes - node_memory_free_bytes - node_memory_inactive_bytes - node_memory_purgeable_bytes) / node_memory_total_bytes * 100)",
+          "legendFormat": "Memory %",
+          "refId": "B"
         }
       ],
       "title": "CPU & Memory Trends",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 18
     },
     {
-      "description": "Shows total internet traffic in and out. Spikes indicate downloads/uploads. Helpful to see if network use is causing slow browsing.",
+      "description": "Shows total internet traffic in and out. Spikes indicate downloads/uploads. Helpful to see if network use is causing slow browsing. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "Bps"
+          "unit": "Bps",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -634,23 +712,27 @@
       },
       "targets": [
         {
-          "expr": "(sum(rate(node_network_receive_bytes_total[5m]))) or on() vector(0)",
-          "legendFormat": "RX"
+          "expr": "(sum(rate(node_network_receive_bytes_total[5m])))",
+          "legendFormat": "RX",
+          "refId": "A"
         },
         {
-          "expr": "(sum(rate(node_network_transmit_bytes_total[5m]))) or on() vector(0)",
-          "legendFormat": "TX"
+          "expr": "(sum(rate(node_network_transmit_bytes_total[5m])))",
+          "legendFormat": "TX",
+          "refId": "B"
         }
       ],
       "title": "Network Throughput (bytes/s)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 19
     },
     {
-      "description": "Shows how fast your internet responds. Higher latency feels like lag. Useful for detecting slow or congested connections.",
+      "description": "Shows how fast your internet responds. Higher latency feels like lag. Useful for detecting slow or congested connections. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "ms"
+          "unit": "ms",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -661,18 +743,21 @@
       },
       "targets": [
         {
-          "expr": "(net_ping_latency_ms) or on() vector(0)",
-          "legendFormat": "{{target}}"
+          "expr": "(net_ping_latency_ms)",
+          "legendFormat": "{{target}}",
+          "refId": "A"
         }
       ],
       "title": "Ping Latency (ms)",
-      "type": "timeseries"
+      "type": "timeseries",
+      "id": 20
     },
     {
-      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters.",
+      "description": "This panel explains what is happening in simple terms, what to watch for, and why it matters. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
-          "min": 0
+          "min": 0,
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -683,23 +768,27 @@
       },
       "targets": [
         {
-          "expr": "(wifi_snr_db) or on() vector(0)",
-          "legendFormat": "SNR"
+          "expr": "(wifi_snr_db)",
+          "legendFormat": "SNR",
+          "refId": "A"
         },
         {
-          "expr": "(wifi_cca_percent) or on() vector(0)",
-          "legendFormat": "CCA %"
+          "expr": "(wifi_cca_percent)",
+          "legendFormat": "CCA %",
+          "refId": "B"
         }
       ],
-      "title": "Wi\u2011Fi Quality (SNR / CCA)",
-      "type": "timeseries"
+      "title": "Wi‑Fi Quality (SNR / CCA)",
+      "type": "timeseries",
+      "id": 21
     },
     {
-      "description": "Lists which disks or volumes are taking the most space. Use this to find where storage is going (e.g., external drives, Time Machine).",
+      "description": "Lists which disks or volumes are taking the most space. Use this to find where storage is going (e.g., external drives, Time Machine). Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
-          "unit": "bytes"
+          "unit": "bytes",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -710,8 +799,10 @@
       },
       "targets": [
         {
-          "expr": "(topk(5, node_filesystem_size_bytes{fstype!~\"autofs\"} - node_filesystem_avail_bytes{fstype!~\"autofs\"})) or on() vector(0)",
-          "instant": true
+          "expr": "(topk(5, node_filesystem_size_bytes{fstype!~\"autofs\"} - node_filesystem_avail_bytes{fstype!~\"autofs\"}))",
+          "instant": true,
+          "refId": "A",
+          "range": false
         }
       ],
       "title": "Disk Usage (Top Mounts)",
@@ -733,10 +824,11 @@
           }
         }
       ],
-      "type": "table"
+      "type": "table",
+      "id": 22
     },
     {
-      "description": "Shows key identity facts like OS version, hardware model, CPU, memory, IP address, and Wi\u2011Fi name. Helpful for quick system overview without digging into system settings.",
+      "description": "Shows key identity facts like OS version, hardware model, CPU, memory, IP address, and Wi‑Fi name. Helpful for quick system overview without digging into system settings. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "h": 6,
         "w": 24,
@@ -745,8 +837,10 @@
       },
       "targets": [
         {
-          "expr": "(system_kv) or on() vector(0)",
-          "instant": true
+          "expr": "(mac_system_kv)",
+          "instant": true,
+          "refId": "A",
+          "range": false
         }
       ],
       "title": "System Identity",
@@ -767,10 +861,16 @@
           }
         }
       ],
-      "type": "table"
+      "type": "table",
+      "id": 23,
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
+      }
     },
     {
-      "description": "Single, easy\u2011to\u2011read value. Useful for quick checks and thresholds.",
+      "description": "Single, easy‑to‑read value. Useful for quick checks and thresholds. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "min": 0,
@@ -791,7 +891,8 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "s",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -802,19 +903,24 @@
       },
       "targets": [
         {
-          "expr": "(time() - max(timestamp(node_cpu_seconds_total))) or on() vector(0)"
+          "expr": "(time() - max(timestamp(node_cpu_seconds_total)))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Data Freshness (sec)",
-      "type": "stat"
+      "type": "stat",
+      "id": 24
     },
     {
-      "description": "Battery charge level at a glance.",
+      "description": "Battery charge level at a glance. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "max": 100,
           "min": 0,
-          "unit": "percent"
+          "unit": "percent",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -825,14 +931,18 @@
       },
       "targets": [
         {
-          "expr": "(battery_charge_percent) or on() vector(0)"
+          "expr": "(battery_charge_percent)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Battery Charge %",
-      "type": "stat"
+      "type": "stat",
+      "id": 25
     },
     {
-      "description": "Thermal state. Higher values indicate heat stress.",
+      "description": "Thermal state. Higher values indicate heat stress. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -856,7 +966,8 @@
           ],
           "max": 3,
           "min": 0,
-          "unit": "short"
+          "unit": "short",
+          "noValue": "Unavailable"
         }
       },
       "gridPos": {
@@ -867,17 +978,21 @@
       },
       "targets": [
         {
-          "expr": "(cpu_thermal_pressure_level) or on() vector(0)"
+          "expr": "(cpu_thermal_pressure_level)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "title": "Thermal Pressure",
-      "type": "stat"
+      "type": "stat",
+      "id": 26
     },
     {
-      "id": 1,
+      "id": 27,
       "type": "stat",
       "title": "Battery Charge (%)",
-      "description": "Shows current battery percentage. Below ~20% plan to plug in soon. Below 10% save work to avoid shutdown.",
+      "description": "Shows current battery percentage. Below ~20% plan to plug in soon. Below 10% save work to avoid shutdown. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 58,
@@ -915,21 +1030,25 @@
                 "value": 15
               }
             ]
-          }
+          },
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(battery_charge_percent) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "(battery_charge_percent)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 2,
+      "id": 28,
       "type": "stat",
       "title": "Battery Health Max Capacity (%)",
-      "description": "Health of the battery compared to when it was new. 100% = new, lower means reduced capacity. If it drops below ~80%, consider battery service.",
+      "description": "Health of the battery compared to when it was new. 100% = new, lower means reduced capacity. If it drops below ~80%, consider battery service. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 6,
         "y": 58,
@@ -967,21 +1086,25 @@
                 "value": 70
               }
             ]
-          }
+          },
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(battery_health_max_capacity_percent) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "(battery_health_max_capacity_percent)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 3,
+      "id": 29,
       "type": "stat",
       "title": "Battery Cycle Count",
-      "description": "Number of full charge cycles. Higher counts mean the battery is older. Apple batteries are typically rated around 1000 cycles.",
+      "description": "Number of full charge cycles. Higher counts mean the battery is older. Apple batteries are typically rated around 1000 cycles. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 12,
         "y": 58,
@@ -1002,21 +1125,25 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(battery_cycle_count) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "(battery_cycle_count)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 4,
+      "id": 30,
       "type": "stat",
       "title": "Charger Connected",
-      "description": "Whether a charger is connected. Useful to confirm power source during long workloads.",
+      "description": "Whether a charger is connected. Useful to confirm power source during long workloads. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 18,
         "y": 58,
@@ -1050,21 +1177,25 @@
                 }
               }
             }
-          ]
+          ],
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(battery_charger_connected) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "(battery_charger_connected)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 5,
+      "id": 31,
       "type": "stat",
       "title": "Power Source (AC/Battery)",
-      "description": "Shows if the Mac is currently running on AC power or battery.",
+      "description": "Shows if the Mac is currently running on AC power or battery. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 65,
@@ -1085,21 +1216,25 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(battery_power_source) or on() vector(0)",
-          "legendFormat": "{{source}}"
+          "expr": "(battery_power_source)",
+          "legendFormat": "{{source}}",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 6,
+      "id": 32,
       "type": "stat",
       "title": "Battery Condition",
-      "description": "Battery health label from macOS (e.g., Good). If it shows Service Recommended, plan a replacement.",
+      "description": "Battery health label from macOS (e.g., Good). If it shows Service Recommended, plan a replacement. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 6,
         "y": 65,
@@ -1120,21 +1255,25 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(battery_condition) or on() vector(0)",
-          "legendFormat": "{{state}}"
+          "expr": "(battery_condition)",
+          "legendFormat": "{{state}}",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 7,
+      "id": 33,
       "type": "stat",
       "title": "Thermal Pressure Level",
-      "description": "How hard the system is working thermally. Nominal is normal, Moderate/Heavy/Critical indicate heat throttling risk.",
+      "description": "How hard the system is working thermally. Nominal is normal, Moderate/Heavy/Critical indicate heat throttling risk. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 12,
         "y": 65,
@@ -1191,21 +1330,25 @@
                 }
               }
             }
-          ]
+          ],
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(cpu_thermal_pressure_level) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "(cpu_thermal_pressure_level)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 8,
+      "id": 34,
       "type": "stat",
       "title": "Thermal Pressure State",
-      "description": "Human-readable thermal state from macOS. Helps explain CPU slowdowns during sustained load.",
+      "description": "Human-readable thermal state from macOS. Helps explain CPU slowdowns during sustained load. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 18,
         "y": 65,
@@ -1226,21 +1369,25 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(cpu_thermal_pressure_state) or on() vector(0)",
-          "legendFormat": "{{state}}"
+          "expr": "(cpu_thermal_pressure_state)",
+          "legendFormat": "{{state}}",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 9,
+      "id": 35,
       "type": "stat",
       "title": "CPU Temperature Available",
-      "description": "Whether CPU temperature is readable on this Mac. Some Apple Silicon models do not expose this metric.",
+      "description": "Whether CPU temperature is readable on this Mac. Some Apple Silicon models do not expose this metric. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 72,
@@ -1274,21 +1421,25 @@
                 }
               }
             }
-          ]
+          ],
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(cpu_temperature_available) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "(cpu_temperature_available)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 10,
+      "id": 36,
       "type": "stat",
       "title": "Fan Speed Available",
-      "description": "Whether fan speed is readable on this Mac. Some models do not expose this metric.",
+      "description": "Whether fan speed is readable on this Mac. Some models do not expose this metric. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 6,
         "y": 72,
@@ -1322,21 +1473,25 @@
                 }
               }
             }
-          ]
+          ],
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(fan_speed_available) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "(fan_speed_available)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 11,
+      "id": 37,
       "type": "stat",
       "title": "SMART Status (Label)",
-      "description": "SMART drive health label from diskutil (e.g., Verified). Indicates if storage is reporting normal health.",
+      "description": "SMART drive health label from diskutil (e.g., Verified). Indicates if storage is reporting normal health. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 12,
         "y": 72,
@@ -1357,21 +1512,25 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "none"
+          "unit": "none",
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(smart_status_label) or on() vector(0)",
-          "legendFormat": "{{status}}"
+          "expr": "(smart_status_label)",
+          "legendFormat": "{{status}}",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 12,
+      "id": 38,
       "type": "stat",
       "title": "SMART Health OK",
-      "description": "Overall SMART health reported by the disk when available. 1 means OK.",
+      "description": "Overall SMART health reported by the disk when available. 1 means OK. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 18,
         "y": 72,
@@ -1405,21 +1564,25 @@
                 }
               }
             }
-          ]
+          ],
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(smart_device_ok) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "(smart_device_ok)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     },
     {
-      "id": 13,
+      "id": 39,
       "type": "stat",
       "title": "SMART Supported",
-      "description": "Shows if SMART monitoring is supported on the disk. Some Apple SSDs report via diskutil instead.",
+      "description": "Shows if SMART monitoring is supported on the disk. Some Apple SSDs report via diskutil instead. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "gridPos": {
         "x": 0,
         "y": 79,
@@ -1453,13 +1616,17 @@
                 }
               }
             }
-          ]
+          ],
+          "noValue": "Unavailable"
         }
       },
       "targets": [
         {
-          "expr": "(smart_device_supported) or on() vector(0)",
-          "legendFormat": ""
+          "expr": "(smart_device_supported)",
+          "legendFormat": "",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ]
     }

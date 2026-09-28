@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
-import subprocess
-import time
+import logging
+import os
 import platform
 import socket
-import os
-from observability_env import load_env, get_textfile_dir
+import subprocess
+import time
+
+from observability_env import get_textfile_dir, load_env
+
 load_env()
 
 OUTFILE = os.path.join(get_textfile_dir(), "mac_system_info.prom")
 
 
 def run(cmd):
-    p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    p = subprocess.run(cmd, check=False, capture_output=True, text=True)
     if p.returncode != 0:
         return ""
     return p.stdout.strip()
@@ -59,6 +62,7 @@ def format_bytes_to_gb(val):
     try:
         b = float(val)
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return val
     gb = b / (1024 ** 3)
     return f"{gb:.1f} GB"

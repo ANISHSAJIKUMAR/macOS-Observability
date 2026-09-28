@@ -20,14 +20,17 @@
       "id": 1,
       "type": "stat",
       "title": "Running VMs",
-      "description": "How many VMware Fusion VMs are currently powered on.",
+      "description": "How many VMware Fusion VMs are currently powered on. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(sum(vmware_fusion_vm_running)) or on() vector(0)"
+          "expr": "(sum(vmware_fusion_vm_running))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "gridPos": {
@@ -35,20 +38,28 @@
         "y": 0,
         "w": 6,
         "h": 6
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 2,
       "type": "stat",
       "title": "Total Configured vCPU",
-      "description": "Sum of vCPU assigned across all VMs (from .vmx).",
+      "description": "Sum of vCPU assigned across all VMs (from .vmx). Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(sum(vmware_fusion_vm_config_vcpus)) or on() vector(0)"
+          "expr": "(sum(vmware_fusion_vm_config_vcpus))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "gridPos": {
@@ -56,20 +67,28 @@
         "y": 0,
         "w": 6,
         "h": 6
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 3,
       "type": "stat",
       "title": "Total Configured Memory (GB)",
-      "description": "Sum of VM memory allocations (from .vmx).",
+      "description": "Sum of VM memory allocations (from .vmx). Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(sum(vmware_fusion_vm_config_mem_mb) / 1024) or on() vector(0)"
+          "expr": "(sum(vmware_fusion_vm_config_mem_mb) / 1024)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "gridPos": {
@@ -77,20 +96,28 @@
         "y": 0,
         "w": 6,
         "h": 6
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 4,
       "type": "stat",
       "title": "VMs with Guest Tools",
-      "description": "Count of running VMs with VMware Tools detected (guest IP available).",
+      "description": "Count of running VMs with VMware Tools detected (guest IP available). Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(sum(vmware_fusion_vm_guest_tools)) or on() vector(0)"
+          "expr": "(sum(vmware_fusion_vm_guest_tools))",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "gridPos": {
@@ -98,20 +125,26 @@
         "y": 0,
         "w": 6,
         "h": 6
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 5,
       "type": "timeseries",
       "title": "CPU Usage by VM (%)",
-      "description": "CPU usage per VM from the vmware-vmx process. Use this to spot noisy guests.",
+      "description": "CPU usage per VM from the vmware-vmx process. Use this to spot noisy guests. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(vmware_fusion_vm_cpu_percent) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
+          "expr": "(vmware_fusion_vm_cpu_percent)",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -119,20 +152,26 @@
         "y": 6,
         "w": 12,
         "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 6,
       "type": "timeseries",
       "title": "Memory RSS by VM (MB)",
-      "description": "Resident memory used by each VM process (vmware-vmx).",
+      "description": "Resident memory used by each VM process (vmware-vmx). Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(vmware_fusion_vm_mem_mb) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
+          "expr": "(vmware_fusion_vm_mem_mb)",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -140,20 +179,26 @@
         "y": 6,
         "w": 12,
         "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 7,
       "type": "bargauge",
       "title": "Configured vCPU per VM",
-      "description": "vCPU count from each VM's .vmx config.",
+      "description": "vCPU count from each VM's .vmx config. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(vmware_fusion_vm_config_vcpus) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
+          "expr": "(vmware_fusion_vm_config_vcpus)",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -161,20 +206,26 @@
         "y": 14,
         "w": 8,
         "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 8,
       "type": "bargauge",
       "title": "Configured Memory per VM (GB)",
-      "description": "Configured memory allocation for each VM.",
+      "description": "Configured memory allocation for each VM. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(vmware_fusion_vm_config_mem_mb / 1024) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
+          "expr": "(vmware_fusion_vm_config_mem_mb / 1024)",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -182,20 +233,26 @@
         "y": 14,
         "w": 8,
         "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 9,
       "type": "bargauge",
       "title": "VMDK Size per VM (GB)",
-      "description": "Total size of disk files referenced in .vmx. Useful for capacity planning.",
+      "description": "Total size of disk files referenced in .vmx. Useful for capacity planning. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(vmware_fusion_vm_vmdk_bytes / 1024 / 1024 / 1024) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
+          "expr": "(vmware_fusion_vm_vmdk_bytes / 1024 / 1024 / 1024)",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -203,20 +260,26 @@
         "y": 14,
         "w": 8,
         "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 10,
       "type": "bargauge",
       "title": "Snapshot Count per VM",
-      "description": "Number of snapshots (vmsn/vmss) per VM. Too many snapshots can slow VMs.",
+      "description": "Number of snapshots (vmsn/vmss) per VM. Too many snapshots can slow VMs. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(vmware_fusion_vm_snapshot_count) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
+          "expr": "(vmware_fusion_vm_snapshot_count)",
+          "refId": "A"
         }
       ],
       "gridPos": {
@@ -224,20 +287,28 @@
         "y": 22,
         "w": 8,
         "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 11,
       "type": "stat",
       "title": "Guest Tools Availability",
-      "description": "Shows if VMware Tools (guest IP) is detected. 1=OK, 0=missing.",
+      "description": "Shows if VMware Tools (guest IP) is detected. 1=OK, 0=missing. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(vmware_fusion_vm_guest_tools) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
+          "expr": "(vmware_fusion_vm_guest_tools)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "gridPos": {
@@ -245,20 +316,28 @@
         "y": 22,
         "w": 8,
         "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
       "id": 12,
       "type": "stat",
       "title": "VM Running State",
-      "description": "Shows 1 if VM is running, 0 if stopped.",
+      "description": "Shows 1 if VM is running, 0 if stopped. Missing series are unavailable, not zero. Optional hardware, unmounted disks, stopped VMs and inactive collectors may have no samples.",
       "datasource": {
         "type": "prometheus",
-        "uid": "ffcch6jnmfvnka"
+        "uid": "PBFA97CFB590B2093"
       },
       "targets": [
         {
-          "expr": "(vmware_fusion_vm_running) or label_replace(vector(0), \"vm\", \"none\", \"\", \"\")"
+          "expr": "(vmware_fusion_vm_running)",
+          "refId": "A",
+          "instant": true,
+          "range": false
         }
       ],
       "gridPos": {
@@ -266,6 +345,11 @@
         "y": 22,
         "w": 8,
         "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     },
     {
@@ -282,6 +366,90 @@
         "y": 30,
         "w": 24,
         "h": 6
+      }
+    },
+    {
+      "id": 14,
+      "title": "Exporter age (seconds)",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "time() - vmware_fusion_metrics_timestamp_seconds",
+          "instant": true,
+          "range": false
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 36,
+        "w": 8,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "title": "Fusion installed",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "vmware_fusion_available",
+          "instant": true,
+          "range": false
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 40,
+        "w": 8,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
+      }
+    },
+    {
+      "id": 16,
+      "title": "Discovered VMs",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "vmware_fusion_vm_count",
+          "instant": true,
+          "range": false
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 44,
+        "w": 8,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unavailable"
+        }
       }
     }
   ]

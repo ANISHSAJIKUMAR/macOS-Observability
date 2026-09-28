@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 import json
+import logging
+import os
 import subprocess
 import time
-import os
-from observability_env import load_env, get_textfile_dir
+
+from observability_env import get_textfile_dir, load_env
+
 load_env()
 
 OUTFILE = os.path.join(get_textfile_dir(), "battery.prom")
@@ -14,6 +17,7 @@ def run_json(cmd):
         out = subprocess.check_output(cmd, text=True)
         return json.loads(out)
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return {}
 
 
@@ -21,6 +25,7 @@ def run(cmd):
     try:
         return subprocess.check_output(cmd, text=True).strip()
     except Exception:
+        logging.getLogger(__name__).exception("Metric collection failed")
         return ""
 
 
@@ -88,6 +93,7 @@ def main():
         try:
             return float(str(v).replace('%',''))
         except Exception:
+            logging.getLogger(__name__).exception("Metric collection failed")
             return None
 
     percent_f = to_float(percent)

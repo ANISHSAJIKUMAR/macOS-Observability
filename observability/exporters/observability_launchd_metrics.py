@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
+import logging
+import os
 import subprocess
 import time
-import os
-from observability_env import load_env, get_textfile_dir
+
+from observability_env import get_textfile_dir, load_env
+
 load_env()
 
 OUTFILE = os.path.join(get_textfile_dir(), "launchd.prom")
 
 
 def run(cmd):
-    p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    p = subprocess.run(cmd, check=False, capture_output=True, text=True)
     if p.returncode != 0:
         return ""
     return p.stdout
@@ -32,10 +35,12 @@ def main():
         try:
             pid = int(pid_str) if pid_str != "-" else 0
         except Exception:
+            logging.getLogger(__name__).exception("Metric collection failed")
             pid = 0
         try:
             status = int(status_str)
         except Exception:
+            logging.getLogger(__name__).exception("Metric collection failed")
             status = 0
         jobs.append((label, pid, status))
 
