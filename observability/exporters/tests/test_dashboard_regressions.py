@@ -60,3 +60,15 @@ def test_dashboard_ids_sources_and_missing_data():
                 source = target.get('datasource') or panel.get('datasource')
                 if isinstance(source, dict):
                     assert source['uid'] in ('PBFA97CFB590B2093', 'observatory-loki')
+
+
+def test_environment_infers_checkout_path(monkeypatch, tmp_path):
+    config = tmp_path / '.env'
+    config.write_text('TEXTFILE_DIR="${OBS_BASE}/node_exporter/textfile"\n')
+    monkeypatch.setenv('OBS_ENV_FILE', str(config))
+    monkeypatch.delenv('OBS_BASE', raising=False)
+    monkeypatch.delenv('TEXTFILE_DIR', raising=False)
+    module = load('observability_env')
+    module.load_env()
+    assert pathlib.Path(module.get_obs_base()) == ROOT.parent
+    assert pathlib.Path(module.get_textfile_dir()) == ROOT.parent / 'node_exporter/textfile'

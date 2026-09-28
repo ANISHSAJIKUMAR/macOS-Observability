@@ -32,6 +32,8 @@ def load_env():
     for k, v in data.items():
         os.environ.setdefault(k, v)
 
+    os.environ.setdefault("OBS_BASE", get_obs_base())
+
     # Second pass: expand variables like ${OBS_BASE}
     for k, v in data.items():
         expanded = os.path.expandvars(os.environ.get(k, v))
